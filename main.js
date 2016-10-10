@@ -1,1 +1,2 @@
-import Container from './container.jsx';
+import Container from './components/container.jsx';
+import 'react-infinite-calendar/styles.css';
