@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 class Container extends React.Component {
   render() {
-    return (<h1>Language Tables Scheduler</h1>)
+    return <h1>Language Tables Signup</h1>
   }
 }
 
