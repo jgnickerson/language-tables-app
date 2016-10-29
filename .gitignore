@@ -3,7 +3,9 @@ node_modules/
 ######################
 _Store
 .DS_Store?
+.DS_Store
 ._*
+bundle.js
 .Spotlight-V100
 .Trashes
 ehthumbs.db
