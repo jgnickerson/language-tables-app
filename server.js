@@ -32,6 +32,19 @@ var mockDates = {
   ]
 }
 
+var mockAttendants = {
+    ["00592352"]: {
+        name:"amir",
+        email:"aamangeldi@middlebury.edu",
+        attendance: [{date:'10/28', language: SPANISH}]
+    },
+    ["00555555"]: {
+        name:"gordon",
+        email:"jgnickerson@middlebury.edu",
+        attendance: [{date:'10/28', language: FRENCH}]
+    }
+}
+
 //parse request.body as json
 app.use(bodyParser.json());
 
@@ -50,8 +63,37 @@ app.get('/language', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
+  //assuming there is a seat at the given date and language table
+  //since calendar won't allow picking dates with seats = 0
+  // ********
+  // TO DO: check if sth went wrong at each step and res.sendStatus(400) there.
+  // ********
+
+  //if the attendant is already registered
+  if (mockAttendants[req.body.id] != null) {
+      mockAttendants[req.body.id].attendance.push({date:req.body.date, language:req.body.language});
+  }
+  //if the attendant is not registered
+  else {
+      mockAttendants[req.body.id] = {
+              name:req.body.name,
+              email:req.body.email,
+              attendance: [{date:req.body.date, language:req.body.language}]
+          };
+  }
+
+  //now decrement the seats at the language table for that date
+  var data = mockDates[req.body.language];
+  var i;
+
+  for (i = 0; i < data.length; i++) {
+      if (data[i] && data[i].date == req.body.date) {
+          data[i].seats--;
+      }
+  }
+  console.log(mockAttendants);
+  console.log(mockDates);
+  res.sendStatus(200);
 });
 
 
