@@ -1,0 +1,107 @@
+.App {
+  text-align: center;
+}
+
+select.form-control {
+  width : 70%;
+}
+
+html, body {
+  font-family: "Open Sans", Helvetica, arial;
+  font-size: 16px;
+  line-height: 1.36;
+  max-width: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.container {
+  margin: 20px auto;
+  max-width: 400px;
+  width: 100%;
+}
+.btn {
+  border-radius: 3px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 12px;
+  text-align: center;
+
+  &.-default {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: $grey;
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+
+  &.-primary {
+    background-color: $blue;
+    border: 1px solid $blue;
+
+    &:hover {
+      background-color: darken($blue, 5%);
+    }
+  }
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
+.form-fields {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    margin-bottom: 20px;
+  }
+}
+
+.form-footer {
+  border-top: 1px solid #ddd;
+  margin-top: 10px;
+  padding-top: 20px;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+input {
+  font-size: 16px;
+  padding: 8px;
+  width: 100%;
+}
+
+select {
+  font-size: 16px;
+  padding: 8px;
+}

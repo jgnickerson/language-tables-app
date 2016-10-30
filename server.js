@@ -50,11 +50,7 @@ app.use(bodyParser.json());
 
 app.set('port', (process.env.PORT || 3000));
 
-app.use(express.static('client'));
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use(express.static('client/build'));
 
 // '/language?id=0';
 app.get('/language', (req, res) => {
