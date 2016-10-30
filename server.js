@@ -1,5 +1,8 @@
 "use strict";
 const bodyParser = require('body-parser');
+const mail = require('./mail.js');
+
+mail.send();
 
 const express = require('express');
 const app = express();
