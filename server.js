@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 //set the port
 app.set('port', (process.env.PORT || 3000));
 
-app.use(express.static('client'));
+app.use(express.static('client/build'));
 
 //connect to the database and store the reference
 var MongoClient = require('mongodb').MongoClient;
@@ -31,16 +31,11 @@ MongoClient.connect('mongodb://localhost:27017/lt', (err, database) => {
     });
 });
 
-// don't need this, delete when ready
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-// '/language' or '/language?id=x' routes
-app.get('/language', (req, res) => {
+// '/languages' or '/languages?id=x' routes
+app.get('/languages', (req, res) => {
   // if no id, output all the languages and their number in an array
   // *** is undefined the way to check "if x == NULL" in JS?
-  if (req.query.id == undefined) {
+  if (req.query.id === undefined) {
     db.collection('dates').find({}, { language: 1, language_string: 1 }).toArray(function(err, result) {
       if (err) {
         throw err;

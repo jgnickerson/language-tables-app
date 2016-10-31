@@ -1,28 +1,32 @@
 import React from 'react';
 import Select from 'react-select';
+import $ from 'jquery';
 
-var options   = [
-  {
-    label: 'French',
-    value: 'french'
-  },
-
-  {
-    label: 'Spanish',
-    value: 'spanish'
-  },
-
-  {
-    label: 'German',
-    value: 'german'
-  },
-
-  {
-    label: 'Chinese',
-    value: 'chinese'
-  }];
-
+//0th selection item greyed out because its value is 0
 var LanguageSelect = React.createClass({
+  getInitialState: function() {
+    return { languages: [] }
+  },
+
+  componentWillMount: function() {
+    $.ajax({
+        url: 'http://localhost:3000/languages',
+        datatype: 'json',
+        success: (response) => {
+          let options = response.map(function(item) {
+            return {
+              label: item.language_string,
+              value: item.language
+            }
+          });
+          this.setState({ languages: options });
+        },
+        error: function(error) {
+          console.log(error);
+        }
+    });
+  },
+
   render: function() {
     return (
       <div>
@@ -30,7 +34,7 @@ var LanguageSelect = React.createClass({
         <Select
           name="language-select"
           value={this.props.language}
-          options={options}
+          options={this.state.languages}
           onChange={this.props.onChange}
         />
       </div>

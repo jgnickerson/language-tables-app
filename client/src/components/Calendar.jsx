@@ -1,4 +1,5 @@
 import React from 'react'
+import $ from 'jquery'
 import BigCalendar from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import moment from 'moment'
@@ -17,6 +18,21 @@ var events = [
 ]
 
 var Calendar = React.createClass({
+  getInitialState: function() {
+    return({ events: [] })
+  },
+
+  componentWillMount: function() {
+    $.ajax({
+      url: 'http://localhost:3000/languages?id=' + this.props.language,
+      type: 'GET',
+      datatype: 'json',
+      success: function(response) {
+        this.setState({ events: response });
+      }
+    })
+  },
+
   render : function() {
     return (
       <div>

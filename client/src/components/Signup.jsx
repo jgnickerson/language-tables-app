@@ -70,8 +70,11 @@ var Signup = React.createClass({
     let calendar, information, confirmation;
 
     //If a language has been selected, show the calendar
-    if (this.state.language) {
-      calendar = <Calendar onChange={this.handleDateChange} />
+    if (this.state.language !== null) {
+      calendar = <Calendar
+                    language={this.state.language}
+                    onChange={this.handleDateChange}
+                  />
     }
 
     if (this.state.date) {
