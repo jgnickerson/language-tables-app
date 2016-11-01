@@ -1,22 +1,11 @@
 import React from 'react'
+import _ from 'lodash'
 import $ from 'jquery'
-import BigCalendar from 'react-big-calendar'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
 import moment from 'moment'
-import InfiniteCalendar from 'react-infinite-calendar'
-import 'react-infinite-calendar/styles.css'
+import RCalendar from 'rc-calendar'
+import styles from 'rc-calendar/assets/index.css'
 
-BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
-
-var events = [
-  {
-    'title': 'All Day Event',
-    'allDay': true,
-    'start': new Date(2015, 3, 0),
-    'end': new Date(2015, 3, 0)
-  }
-]
-
+//change the date availability to be a prop that gets passed down from signup
 var Calendar = React.createClass({
   getInitialState: function() {
     return({ events: [] })
@@ -28,8 +17,8 @@ var Calendar = React.createClass({
       type: 'GET',
       datatype: 'json',
       success: function(response) {
-        this.setState({ events: response });
-      }
+        this.setState({ events: this.formatDates(response) });
+      }.bind(this)
     })
   },
 
@@ -37,29 +26,39 @@ var Calendar = React.createClass({
     return (
       <div>
         <h2>Date</h2>
-        <InfiniteCalendar
-          width={400}
-          height={400}
-          selectedDate={this.today}
-          onSelect={(data) => {this.props.onChange(data)}}
-          disabledDays={[0,6]}
-          minDate={this.minDate}
-          ref={"dateCalendar"}
-          keyboardSupport={true}
+        <RCalendar
+          showToday={false}
+          showDateInput={false  }
+          onSelect={this.checkDate}
         />
       </div>
     );
+  },
+
+  //need to have the server return the correct date format
+  formatDates: function(events) {
+    return events.map(function(dateObj) {
+      return {
+        date: moment(dateObj.date + "/2016", "MM-DD-YYYY"),
+        seats: dateObj.seats
+      }
+    })
+  },
+
+  checkDate: function(date) {
+    let availability = _.find(this.state.events, function(event) {
+      return moment(date, "MM-DD-YYYY").isSame(event.date, 'day');
+    });
+
+    let message = "There is no availability on " + date.format("MM-DD");
+    if (availability) {
+       message = "There are " + availability.seats + " seats available on " + availability.date.format("MM-DD");
+    }
+    window.alert(message);
+    if (availability) {
+      this.props.onChange(availability.date);
+    }
   }
 });
 
 module.exports = Calendar;
-
-
-
-// <BigCalendar
-//   {...this.props}
-//   defaultDate={new Date()}
-//   timeslots={0}
-//   events={events}
-//   toolbar={false}
-// />

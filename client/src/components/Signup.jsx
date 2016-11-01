@@ -3,6 +3,7 @@ import LanguageSelect from './LanguageSelect';
 import Calendar from './Calendar';
 import AccountFields from './AccountFields';
 import Confirmation from './Confirmation';
+import moment from 'moment'
 
 var Signup = React.createClass({
   getInitialState: function() {
@@ -20,8 +21,9 @@ var Signup = React.createClass({
     this.setState({ language: language });
   },
 
+  //if an invalid date is chosen after a valid one, must clear the date field so they can't continue
   handleDateChange : function(date) {
-    this.setState({ date: date.toDate() });
+    this.setState({ date: date });
   },
 
   setName : function(nm) {
@@ -36,9 +38,9 @@ var Signup = React.createClass({
     });
   },
 
-  setEmail : function(em) {
+  setEmail : function(email) {
     this.setState({
-      email : em
+      email : email
     });
   },
 
@@ -78,15 +80,18 @@ var Signup = React.createClass({
     }
 
     if (this.state.date) {
-      information = <AccountFields
-                        name={this.state.name}
-                        setName={this.setName}
-                        email={this.state.email}
-                        setEmail={this.setEmail}
-                        id={this.state.id}
-                        setID={this.setID}
-                        saveValue={this.setSubmit}
-                    />
+      information = <div>
+                      <h2>{moment(this.state.date).format("MM-DD-YYYY")}</h2>
+                      <AccountFields
+                          name={this.state.name}
+                          setName={this.setName}
+                          email={this.state.email}
+                          setEmail={this.setEmail}
+                          id={this.state.id}
+                          setID={this.setID}
+                          saveValue={this.setSubmit}
+                      />
+                    </div>
     }
 
     if (this.state.submit) {
