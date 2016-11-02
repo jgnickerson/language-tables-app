@@ -19,7 +19,7 @@ var Confirmation = React.createClass({
         </ul>
         <ul className="form-fields">
           <li className="form-footer">
-            <button className="btn -primary pull-right" onClick={data => {this.props.submitValues(data)}}>Submit Reservation</button>
+            <button className="btn -primary pull-right" onClick={this.props.submitValues}>Submit Reservation</button>
           </li>
         </ul>
       </div>

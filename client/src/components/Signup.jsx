@@ -4,6 +4,7 @@ import Calendar from './Calendar';
 import AccountFields from './AccountFields';
 import Confirmation from './Confirmation';
 import moment from 'moment'
+import $ from 'jquery'
 
 var Signup = React.createClass({
   getInitialState: function() {
@@ -57,15 +58,31 @@ var Signup = React.createClass({
       name : this.state.name,
       id : this.state.id,
       email : this.state.email,
-      date : this.state.date,
+      date : this.state.date.toDate(),
       language : this.state.language
     }
 
     return reservation;
   },
 
-  handleSubmission : function(data) {
+  handleSubmission : function() {
+    let res = this.formatData();
+    console.log(res);
     console.log("Submitting data ... in theory");
+    $.ajax({
+      url:'http://localhost:3000/signup',
+      type: 'POST',
+      datatype: 'json',
+      data: JSON.stringify(res),
+      contentType: "application/json",
+      success: function(response) {
+        console.log("success!");
+        console.log(response);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    })
   },
 
   render : function() {

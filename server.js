@@ -69,6 +69,7 @@ app.post('/signup', (req, res) => {
     if (err) {
       throw err;
     }
+    console.log(req);
 
     //if the attendant is already registered
     if (result[0] != undefined) {
@@ -78,7 +79,6 @@ app.post('/signup', (req, res) => {
         {$push: {attendance: {date:req.body.date, language:req.body.language}}}
       );
     }
-
     //if the attendant is not registered
     else {
       //create a new attendant with the new record of attendance

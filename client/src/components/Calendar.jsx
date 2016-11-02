@@ -39,7 +39,7 @@ var Calendar = React.createClass({
   formatDates: function(events) {
     return events.map(function(dateObj) {
       return {
-        date: moment(dateObj.date + "/2016", "MM-DD-YYYY"),
+        date: moment(dateObj.date),
         seats: dateObj.seats
       }
     })
