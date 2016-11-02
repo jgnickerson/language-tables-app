@@ -1,4 +1,5 @@
 var nodemailer = require('nodemailer');
+var moment = require('moment');
 //import .env file to process.env
 require('dotenv').config();
 
@@ -15,16 +16,25 @@ var smtpConfig = {
 var transporter = nodemailer.createTransport(smtpConfig);
 
 // setup e-mail data with unicode symbols
-var mailOptions = {
-    from: '"Fred Foo 👥" <foo@blurdybloop.com>', // sender address
-    to: 'gordonnickerson94@gmail.com', // list of receivers
-    subject: 'Hello ✔', // Subject line
-    text: 'Hello world 🐴', // plaintext body
-    html: '<b>Hello world 🐴</b>' // html body
-};
+// var mailOptions = {
+//     from: '"Language Tables" <LanguageTables@middlebury.com>', // sender address
+//     to: 'gordonnickerson94@gmail.com', // list of receivers
+//     subject: 'Language Tables Signup', // Subject line
+//     text: 'You are signed up! *RESERVATION INFORMATION HERE*', // plaintext body
+//     html: '<b>You are signed up! *RESERVATION INFORMATION HERE*</b>' // html body
+// };
 
 // send mail with defined transport object
-var send = function() {
+var send = function(reservationObj) {
+  var language = ["Spanish", "French", "Chinese"];
+  var text = "You are signed up for " + language[reservationObj.language] + " Language Tables on " + moment(reservationObj.date).format('MM-DD-YYYY') + "!";
+  var mailOptions = {
+    from: '"Language Tables" <LanguageTables@middlebury.com>', // sender address
+    to: reservationObj.email, // list of receivers
+    subject: 'Language Tables Signup', // Subject line
+    text: text, // plaintext body
+    html: '<b>' + text + '</b>' // html body
+  }
   return transporter.sendMail(mailOptions, function(error, info){
     if(error){
       return console.log(error);

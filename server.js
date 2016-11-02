@@ -2,8 +2,6 @@
 const bodyParser = require('body-parser');
 const mail = require('./mail.js');
 
-mail.send();
-
 const express = require('express');
 const app = express();
 
@@ -103,6 +101,7 @@ app.post('/signup', (req, res) => {
 
   });
 
+  mail.send(req.body);
   //send a success status to the client
   res.sendStatus(200);
 });

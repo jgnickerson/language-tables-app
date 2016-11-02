@@ -17,6 +17,7 @@ var Calendar = React.createClass({
       type: 'GET',
       datatype: 'json',
       success: function(response) {
+        console.log(response);
         this.setState({ events: this.formatDates(response) });
       }.bind(this)
     })
