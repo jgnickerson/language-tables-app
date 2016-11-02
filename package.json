@@ -9,7 +9,9 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "mongodb": "^2.2.11"
+    "mongodb": "^2.2.11",
+    "dotenv": "^2.0.0",
+    "nodemailer": "^2.6.4"
   },
   "devDependencies": {
     "babel-cli": "6.16.0",
