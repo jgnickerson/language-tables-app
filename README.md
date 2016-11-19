@@ -1,7 +1,14 @@
-**to start the database, run the following command in a separate terminal window
-from the top directory (../language-tables-app):**
+**First, install node packages**
 
-  mongod --dbpath db
+  npm install
+
+**to start the server, initialize mongodb with fresh test data, and webpack the front end**
+
+  gulp start-fresh
+
+**to start the server, start mongodb with existing, and webpack the front end**
+
+  gulp start
 
 **to check how values update in the database, run the following commands in a
 separate terminal window from the top directory (../language-tables-app):**
@@ -14,10 +21,3 @@ separate terminal window from the top directory (../language-tables-app):**
   db.attendants.find().pretty()
   *to check values in 'dates' collection, run:*
   db.dates.find().pretty()
-
-
-
-
-**to run the server only, run the following command from the top directory:**
-
-  ./node_modules/.bin/babel-node server.js

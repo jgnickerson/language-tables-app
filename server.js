@@ -22,14 +22,15 @@ app.use(express.static('client/build'));
 var MongoClient = require('mongodb').MongoClient;
 var db;
 
+//TODO extract db location out to an environment variable
 MongoClient.connect('mongodb://localhost:27017/lt', (err, database) => {
-    if (err) {
-        throw err;
-    }
-    db = database;
-    app.listen(app.get('port'), () => {
-      console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
-    });
+  if (err) {
+    throw err;
+  }
+  db = database;
+  app.listen(app.get('port'), () => {
+    console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
+  });
 });
 
 // '/languages' or '/languages?id=x' routes
@@ -98,7 +99,6 @@ app.post('/signup', (req, res) => {
       {language:req.body.language, "visits.date":req.body.date},
       {$inc: {"visits.$.seats":-1}}
     );
-
   });
 
   mail.send(req.body);

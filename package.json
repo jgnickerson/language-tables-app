@@ -17,6 +17,8 @@
   "devDependencies": {
     "babel-cli": "6.16.0",
     "babel-core": "6.16.0",
-    "babel-preset-es2015": "6.16.0"
+    "babel-preset-es2015": "6.16.0",
+    "gulp": "^3.9.1",
+    "gulp-mongodb-data": "^2.1.0"
   }
 }
