@@ -1,6 +1,7 @@
 "use strict";
 const bodyParser = require('body-parser');
 const mail = require('./mail.js');
+const constants = require('./constants.js');
 
 const express = require('express');
 const app = express();
@@ -38,21 +39,21 @@ app.get('/languages', (req, res) => {
   // if no id, output all the languages and their number in an array
   // *** is undefined the way to check "if x == NULL" in JS?
   if (req.query.id === undefined) {
-    db.collection('dates').find({}, { language: 1, language_string: 1 }).toArray(function(err, result) {
-      if (err) {
-        throw err;
-      }
-      res.send(result);
+    let languages = Object.entries(constants.languages);
+    languages = languages.map((lang) => {
+      return {language: lang[1], language_string: lang[0]}
     });
 
+    res.send(languages);
   // if id is specified, return an object with dates and seats
   } else {
-    var temp = Number.parseInt(req.query.id);
-    db.collection('dates').find({language:temp}).toArray(function(err, result) {
-      if (err) {
-        throw err;
-      }
-      res.send(result[0].visits);
+    var language_id = Number.parseInt(req.query.id);
+    db.collection('dates').find({'vacancy.language': language_id},{'date': 1, 'vacancy.$': 1})
+      .toArray(function(err, result) {
+        if (err) {
+          throw err;
+        }
+        res.send(result);
     });
   }
 });

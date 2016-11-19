@@ -31,7 +31,7 @@ gulp.task('clean-db', ['start-mongo'], function(cb) {
 
 //adds all the test collections to a freshly cleaned db
 gulp.task('init-db', ['clean-db', 'start-mongo'], function() {
-  gulp.src('./dates.json')
+  gulp.src('./test_data/*.json')
     .pipe(mongoData({ mongoUrl: 'mongodb://localhost:27017/lt' }));
 });
 
