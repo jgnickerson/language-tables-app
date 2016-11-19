@@ -11,3 +11,4 @@ bundle.js
 ehthumbs.db
 Thumbs.db
 .env
+db/
