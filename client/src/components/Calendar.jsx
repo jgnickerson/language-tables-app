@@ -17,8 +17,11 @@ var Calendar = React.createClass({
       type: 'GET',
       datatype: 'json',
       success: function(response) {
-        console.log(response);
-        this.setState({ events: this.formatDates(response) });
+        this.setState({
+          events: _.forEach(response, (event) => {
+            event.date = moment(event.date)
+          })
+        });
       }.bind(this)
     })
   },
@@ -29,21 +32,11 @@ var Calendar = React.createClass({
         <h2>Date</h2>
         <RCalendar
           showToday={false}
-          showDateInput={false  }
+          showDateInput={false}
           onSelect={this.checkDate}
         />
       </div>
     );
-  },
-
-  //need to have the server return the correct date format
-  formatDates: function(events) {
-    return events.map(function(dateObj) {
-      return {
-        date: moment(dateObj.date),
-        seats: dateObj.seats
-      }
-    })
   },
 
   checkDate: function(date) {
@@ -56,6 +49,7 @@ var Calendar = React.createClass({
        message = "There are " + availability.seats + " seats available on " + availability.date.format("MM-DD");
     }
     window.alert(message);
+
     if (availability) {
       this.props.onChange(availability.date);
     }
