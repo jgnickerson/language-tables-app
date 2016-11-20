@@ -47,13 +47,20 @@ app.get('/languages', (req, res) => {
     res.send(languages);
   // if id is specified, return an object with dates and seats
   } else {
-    var language_id = Number.parseInt(req.query.id);
+    let language_id = Number.parseInt(req.query.id);
     db.collection('dates').find({'vacancy.language': language_id},{'date': 1, 'vacancy.$': 1})
-      .toArray(function(err, result) {
+      .toArray(function(err, results) {
         if (err) {
           throw err;
         }
-        res.send(result);
+        results = results.map((element) => {
+          return {
+            date: element.date,
+            seats: element.vacancy[0].seats
+          }
+        });
+
+        res.send(results);
     });
   }
 });
