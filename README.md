@@ -7,6 +7,9 @@
 
   npm install
 
+**Ensure you have a .env file**
+
+  get it from a homie
 
 **to start the server, initialize mongodb with fresh test data, and webpack the front end**
 
