@@ -1,6 +1,12 @@
-**First, install node packages**
+**If this is your first time running**
+
+  npm install -g gulp
+  mkdir ./db
+
+**delete ./node_modules & ./client/node_modules & install node packages in ./ and ./client**
 
   npm install
+
 
 **to start the server, initialize mongodb with fresh test data, and webpack the front end**
 
