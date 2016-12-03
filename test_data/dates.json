@@ -1,5 +1,5 @@
 [
-  {"date": "2016-11-21T05:00:00.000Z",
+  {"date": "2016-12-01T05:00:00.000Z",
    "vacancy": [
      {"language": 0, "seats": 5},
      {"language": 1, "seats": 5},
@@ -7,7 +7,15 @@
      {"language": 3, "seats": 5}
     ]
   },
-  {"date": "2016-11-22T05:00:00.000Z",
+  {"date": "2016-12-02T05:00:00.000Z",
+   "vacancy": [
+     {"language": 0, "seats": 0},
+     {"language": 1, "seats": 0},
+     {"language": 2, "seats": 0},
+     {"language": 3, "seats": 0}
+    ]
+  },
+  {"date": "2016-12-03T05:00:00.000Z",
    "vacancy": [
      {"language": 0, "seats": 5},
      {"language": 1, "seats": 5},
@@ -15,7 +23,7 @@
      {"language": 3, "seats": 5}
     ]
   },
-  {"date": "2016-11-23T05:00:00.000Z",
+  {"date": "2016-12-04T05:00:00.000Z",
    "vacancy": [
      {"language": 0, "seats": 5},
      {"language": 1, "seats": 5},
@@ -23,15 +31,7 @@
      {"language": 3, "seats": 5}
     ]
   },
-  {"date": "2016-11-24T05:00:00.000Z",
-   "vacancy": [
-     {"language": 0, "seats": 5},
-     {"language": 1, "seats": 5},
-     {"language": 2, "seats": 5},
-     {"language": 3, "seats": 5}
-    ]
-  },
-  {"date": "2016-11-25T05:00:00.000Z",
+  {"date": "2016-12-05T05:00:00.000Z",
    "vacancy": [
      {"language": 0, "seats": 5},
      {"language": 1, "seats": 5},
