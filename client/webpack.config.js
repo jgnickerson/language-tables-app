@@ -20,6 +20,11 @@ module.exports = {
       {
         test: /\.css?$/,
         loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        loader: 'babel?presets[]=es2015,presets[]=react!svg-react'
       }
     ]
   }

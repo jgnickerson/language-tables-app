@@ -2,19 +2,21 @@ import React from 'react';
 import LanguageSelect from './LanguageSelect';
 import Calendar from './Calendar';
 import AccountFields from './AccountFields';
-import Confirmation from './Confirmation';
-import moment from 'moment'
-import $ from 'jquery'
+import Success from './Success';
+import moment from 'moment';
+import $ from 'jquery';
+import Header from '../svg/header.svg';
 
 var Signup = React.createClass({
   getInitialState: function() {
     return {
-      name      : null,
-      id        : null,
-      email     : null,
-      language  : null,
-      date      : null,
-      submit    : null
+      name           : '',
+      id             : '',
+      email          : '',
+      language       : null,
+      date           : '',
+      seatsAvailable : null,
+      submitSuccess  : null,
     };
   },
 
@@ -23,34 +25,31 @@ var Signup = React.createClass({
   },
 
   //if an invalid date is chosen after a valid one, must clear the date field so they can't continue
-  handleDateChange : function(date) {
-    this.setState({ date: date });
+  handleDateChange : function(date, seatsAvailable) {
+    this.setState({ date: date, seatsAvailable: seatsAvailable });
   },
 
-  setName : function(nm) {
+  setName : function(event) {
     this.setState({
-      name : nm
+      name : event.target.value
     });
   },
 
-  setID : function(id) {
+  setID : function(event) {
     this.setState({
-      id : id
+      id : event.target.value
     });
   },
 
-  setEmail : function(email) {
+  setEmail : function(event) {
     this.setState({
-      email : email
+      email : event.target.value
     });
   },
 
-  setSubmit : function() {
-    // Send changes to confirmation
-    console.log(this.state);
-    this.setState({
-      submit : 1
-    });
+  handleSubmit : function(event) {
+    event.preventDefault();
+    this.postSubmission();
   },
 
   formatData : function() {
@@ -65,40 +64,52 @@ var Signup = React.createClass({
     return reservation;
   },
 
-  handleSubmission : function() {
-    let res = this.formatData();
-    console.log(res);
-    console.log("Submitting data ... in theory");
+  postSubmission : function() {
+    let submission = this.formatData();
     $.ajax({
       url:'http://localhost:3000/signup',
       type: 'POST',
       datatype: 'json',
-      data: JSON.stringify(res),
+      data: JSON.stringify(submission),
       contentType: "application/json",
       success: function(response) {
-        console.log("success!");
-        console.log(response);
-      },
+        console.log("Success: ", response);
+        this.setState({ submitSuccess: true });
+      }.bind(this),
       error: function(error) {
         console.log(error);
-      }
+        this.setState({ submitSuccess: false });
+      }.bind(this)
     })
   },
 
   render : function() {
     let calendar, information, confirmation;
+    let header = <Header className='normal' />;
+    let language = (<LanguageSelect
+                      language={this.state.language}
+                      onChange={this.handleLanguageChange}
+                    />);
 
     //If a language has been selected, show the calendar
     if (this.state.language !== null) {
       calendar = <Calendar
                     language={this.state.language}
+                    date={this.state.date}
                     onChange={this.handleDateChange}
                   />
     }
 
+
     if (this.state.date) {
+      let message, date = this.state.date.format("MMMM Do");
+      if (this.state.seatsAvailable) {
+        message = "You are signing up for " + date;
+      } else {
+        message = "You are signing up for the waitlist on " + date;
+      }
       information = <div>
-                      <h2>{moment(this.state.date).format("MM-DD-YYYY")}</h2>
+                      <h2>{message}</h2>
                       <AccountFields
                           name={this.state.name}
                           setName={this.setName}
@@ -106,25 +117,31 @@ var Signup = React.createClass({
                           setEmail={this.setEmail}
                           id={this.state.id}
                           setID={this.setID}
-                          saveValue={this.setSubmit}
+                          handleSubmit={this.handleSubmit}
                       />
                     </div>
     }
 
-    if (this.state.submit) {
-      confirmation = <Confirmation fieldValues={this.formatData()}
-                                    submitValues={this.handleSubmission}/>
+    if (this.state.submitSuccess !== null) {
+      language = null;
+      calendar = null;
+      information = null;
+      confirmation = <Success
+                        success={this.state.submitSuccess}
+                        date={this.state.date}
+                        email={this.state.email}
+                      />
     }
 
     return (
       <div>
-        <LanguageSelect
-          language={this.state.language}
-          onChange={this.handleLanguageChange}
-        />
+        {header}
+        {language}
         {calendar}
+        <br/>
         {information}
         {confirmation}
+        <br/>
       </div>
     );
   }

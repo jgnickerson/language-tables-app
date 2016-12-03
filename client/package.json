@@ -11,10 +11,12 @@
     "lodash": "^4.16.6",
     "moment": "2.15.2",
     "rc-calendar": "^7.4.0",
+    "rc-select": "^6.6.7",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-dropdown": "1.1.0",
-    "react-select": "^0.9.1"
+    "react-select": "^0.9.1",
+    "svg-react-loader": "^0.3.7"
   },
   "devDependencies": {
     "babel-core": "6.16.0",
