@@ -25,7 +25,7 @@ body {
 
 .container {
   margin: 20px auto;
-  max-width: 400px;
+  max-width: 450px;
   width: 100%;
 }
 .btn {
@@ -76,7 +76,7 @@ body {
 }
 
 .form-footer {
-  border-top: 1px solid #ddd;
+  border-top: 2px solid #ddd;
   margin-top: 10px;
   padding-top: 20px;
 }
@@ -106,8 +106,13 @@ select {
   padding: 8px;
 }
 
+h2 {
+  text-align: center;
+}
+
 .rc-calendar-full {
-  width: 85%;
+  width: 76%;
+  margin-left: 50px;
   padding-left: 3px;
   padding-bottom: 2px;
   padding-right: 3px;
@@ -155,9 +160,3 @@ select {
   background: #FFEBEE;
   color:#BDBDBD;
 }
-
-
-/*.date-cell:hover {
-  background: #ebfaff;
-  cursor: pointer;
-}*/

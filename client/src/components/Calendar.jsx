@@ -32,28 +32,49 @@ var Calendar = React.createClass({
     })
   },
 
-  // <RCalendar
-  //   showToday={false}
-  //   showDateInput={false}
-  //   onSelect={this.checkDate}
-  // />
+  checkAvailability: function(date) {
+    let availability = _.find(this.state.events, function(event) {
+      return moment(date, "MM-DD-YYYY").isSame(event.date, 'day');
+    });
+
+    return availability;
+  },
+
+  onDateChange: function(date) {
+    let availability = this.checkAvailability(date);
+    date = moment(date).startOf("day").add(5, "h");
+
+
+    if (availability && availability.seats === 0) {
+      this.props.onChange(date, false);
+    } else if (availability) {
+      this.props.onChange(date, true);
+    } else {
+      //reset chosen date to null if user tries to pick
+      //a date with no language tables ("unavailable");
+      this.props.onChange(null, null);
+    }
+  },
+
   content: function(date) {
     let content;
-    let availability = this.checkDate(date);
+    let availability = this.checkAvailability(date);
 
-    console.log(availability && availability.seats === 0);
+    //waitlist
     if (availability && availability.seats === 0) {
       content = (
         <div className={"date-cell waitlist"}>
         {date.format("D")}
         </div>
       );
+    //open seats
     } else if (availability) {
       content = (
         <div className={'date-cell available'}>
         {date.format("D")}
         </div>
       );
+    //no language tables on this day
     } else {
       content = (
         <div className={'date-cell unavailable'}>
@@ -70,33 +91,13 @@ var Calendar = React.createClass({
       <div>
         <h2>Date</h2>
         <FullCalendar
-          style={{ margin:10 }}
           Select={Select}
           fullscreen={false}
-          //onSelect={this.checkDate}
+          onSelect={this.onDateChange}
           dateCellRender={this.content}
         />
       </div>
     );
-  },
-
-  checkDate: function(date) {
-    let availability = _.find(this.state.events, function(event) {
-      return moment(date, "MM-DD-YYYY").isSame(event.date, 'day');
-    });
-
-    return availability;
-
-    // let message = "There is no availability on " + date.format("MM-DD");
-    // if (availability) {
-    //    message = "There are " + availability.seats + " seats available on " + availability.date.format("MM-DD");
-    // }
-    // window.alert(message);
-
-    // if (availability) {
-    //   this.props.onChange(availability.date);
-    // }
-
   }
 });
 

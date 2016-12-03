@@ -9,12 +9,13 @@ import $ from 'jquery'
 var Signup = React.createClass({
   getInitialState: function() {
     return {
-      name      : null,
-      id        : null,
-      email     : null,
-      language  : null,
-      date      : null,
-      submit    : null
+      name           : null,
+      id             : null,
+      email          : null,
+      language       : null,
+      date           : null,
+      seatsAvailable : null,
+      submit         : null
     };
   },
 
@@ -23,8 +24,8 @@ var Signup = React.createClass({
   },
 
   //if an invalid date is chosen after a valid one, must clear the date field so they can't continue
-  handleDateChange : function(date) {
-    this.setState({ date: date });
+  handleDateChange : function(date, seatsAvailable) {
+    this.setState({ date: date, seatsAvailable: seatsAvailable });
   },
 
   setName : function(nm) {
@@ -96,9 +97,16 @@ var Signup = React.createClass({
                   />
     }
 
+
     if (this.state.date) {
+      let message, date = this.state.date.format("MMMM Do");
+      if (this.state.seatsAvailable) {
+        message = "You are signing up for " + date;
+      } else {
+        message = "You are signing up for the waitlist on " + date;
+      }
       information = <div>
-                      <h2>{moment(this.state.date).format("MM-DD-YYYY")}</h2>
+                      <h2>{message}</h2>
                       <AccountFields
                           name={this.state.name}
                           setName={this.setName}
@@ -123,6 +131,7 @@ var Signup = React.createClass({
           onChange={this.handleLanguageChange}
         />
         {calendar}
+        <br/>
         {information}
         {confirmation}
       </div>

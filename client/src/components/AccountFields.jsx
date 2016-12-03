@@ -10,7 +10,6 @@ var AccountFields = React.createClass({
   render : function() {
     return (
       <div>
-        <h2>Student Info</h2>
         <ul className="form-fields">
           <li>
             <label>Name</label>
@@ -25,7 +24,7 @@ var AccountFields = React.createClass({
             <input type="text" ref="email" onChange={event => {this.props.setEmail(event.target.value)}} defaultValue={this.props.email} />
           </li>
           <li className="form-footer">
-            <button className="btn -primary pull-right" onClick={() => this.props.saveValue()}>Save &amp; Continue</button>
+            <button className="btn -primary pull-right" onClick={() => this.props.saveValue()}>Submit</button>
           </li>
         </ul>
       </div>
