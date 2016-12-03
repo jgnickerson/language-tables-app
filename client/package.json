@@ -15,7 +15,8 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-dropdown": "1.1.0",
-    "react-select": "^0.9.1"
+    "react-select": "^0.9.1",
+    "svg-react-loader": "^0.3.7"
   },
   "devDependencies": {
     "babel-core": "6.16.0",

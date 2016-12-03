@@ -3,8 +3,9 @@ import LanguageSelect from './LanguageSelect';
 import Calendar from './Calendar';
 import AccountFields from './AccountFields';
 import Success from './Success';
-import moment from 'moment'
-import $ from 'jquery'
+import moment from 'moment';
+import $ from 'jquery';
+import Header from '../svg/header.svg';
 
 var Signup = React.createClass({
   getInitialState: function() {
@@ -84,6 +85,7 @@ var Signup = React.createClass({
 
   render : function() {
     let calendar, information, confirmation;
+    let header = <Header className='normal' />;
     let language = (<LanguageSelect
                       language={this.state.language}
                       onChange={this.handleLanguageChange}
@@ -93,6 +95,7 @@ var Signup = React.createClass({
     if (this.state.language !== null) {
       calendar = <Calendar
                     language={this.state.language}
+                    date={this.state.date}
                     onChange={this.handleDateChange}
                   />
     }
@@ -132,11 +135,13 @@ var Signup = React.createClass({
 
     return (
       <div>
+        {header}
         {language}
         {calendar}
         <br/>
         {information}
         {confirmation}
+        <br/>
       </div>
     );
   }

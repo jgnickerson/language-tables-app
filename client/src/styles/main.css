@@ -6,6 +6,7 @@ html, body {
   font-family: "Open Sans", Helvetica, arial;
   font-size: 16px;
   color: #616161;
+  /*color: #004789;*/
   line-height: 1.36;
   max-width: 100%;
   min-height: 100%;
@@ -32,7 +33,6 @@ input {
   border-top: 0px;
   border-right: 0px;
   border-left: 0px;
-  -webkit-transition: bottom 0.5s ease-in;
 }
 
 input:focus {
@@ -61,8 +61,8 @@ input:focus {
 }
 
 .btn:focus {
-  border: #616161 3px solid;
-  border-radius: 3px;
+  border: #BDBDBD 3px solid;
+  border-radius:3px;
 }
 
 .pull-right {
@@ -138,6 +138,9 @@ h2 {
 
 }
 .date-cell.available:active {
+  background: #43A047;
+}
+.date-cell.available.selected {
   background: #4CAF50;
 }
 
@@ -149,6 +152,9 @@ h2 {
   background: #FFF176;
 }
 .date-cell.waitlist:active {
+  background: #FDD835;
+}
+.date-cell.waitlist.selected {
   background: #FFEB3B;
 }
 

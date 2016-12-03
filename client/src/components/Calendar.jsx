@@ -59,18 +59,22 @@ var Calendar = React.createClass({
   content: function(date) {
     let content;
     let availability = this.checkAvailability(date);
+    let selected = '';
+    if (this.props.date) {
+      selected = this.props.date.isSame(date, 'day') ? 'selected' : '';
+    }
 
     //waitlist
     if (availability && availability.seats === 0) {
       content = (
-        <div className={"date-cell waitlist"}>
+        <div className={'date-cell waitlist ' + selected}>
         {date.format("D")}
         </div>
       );
     //open seats
     } else if (availability) {
       content = (
-        <div className={'date-cell available'}>
+        <div className={'date-cell available ' + selected}>
         {date.format("D")}
         </div>
       );
