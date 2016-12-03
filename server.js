@@ -5,6 +5,7 @@ const constants = require('./constants.js');
 
 const express = require('express');
 const moment = require('moment');
+var CronJob = require('cron').CronJob;
 
 const app = express();
 
@@ -40,8 +41,6 @@ MongoClient.connect('mongodb://localhost:27017/lt', (err, database) => {
 
 // '/languages' or '/languages?id=x' routes
 app.get('/languages', (req, res) => {
-  algorithm.run(db, moment);
-
   // if no id, output all the languages and their number in an array
   // *** is undefined the way to check "if x == NULL" in JS?
   if (req.query.id === undefined) {
@@ -148,3 +147,20 @@ app.post('/signup', (req, res) => {
   //send a success status to the client
   res.sendStatus(200);
 });
+
+// TODO change the job to 00 00 11 * * 1-5
+var job = new CronJob({
+  cronTime: '00 43 16 * * 1-7',
+  onTick: function() {
+    /*
+     * Runs every weekday (Monday through Friday)
+     * at 11:00:00 AM. It does not run on Saturday
+     * or Sunday.
+     */
+     algorithm.run(db, moment);
+     console.log("the algorithm ran");
+  },
+  start: false,
+  timeZone: 'America/New_York'
+});
+job.start();

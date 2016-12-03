@@ -27,10 +27,12 @@ module.exports = {
     console.log("ITS WORKING?");
 
     // Global Variables
-    var spareTablesOf6 = 0;
-    var spareTablesOf8 = 0;
-    var seatLimit = 120;
-    var waitlistQ = [];
+    var spareTablesOf6 = 0,
+      spareTablesOf8 = 0,
+      seatLimit = 120,
+      waitlistQ = [],
+      waitlistToGuests = [];
+
 
     // Get today's date from MomentJS
     var today = moment();
@@ -93,8 +95,11 @@ module.exports = {
             // Remove 8 people from waitlist
             for (var i = 0; i < 8; i ++) {
               if (waitlistQ[0].waitlist.length !== 0) {
-                waitlistQ[0].guests.push(waitlistQ[0].waitlist.shift());
+                var temp = waitlistQ[0].waitlist.shift();
+                waitlistQ[0].guests.push(temp);
                 waitlistQ[0].seatsReserved ++;
+
+                waitlistToGuests.push(temp);
               }
             }
 
@@ -115,8 +120,11 @@ module.exports = {
             // Remove 6 people from waitlist
             for (var i = 0; i < 6; i ++) {
               if (waitlistQ[0].waitlist.length !== 0) {
-                waitlistQ[0].guests.push(waitlistQ[0].waitlist.shift());
+                var temp = waitlistQ[0].waitlist.shift();
+                waitlistQ[0].guests.push(temp);
                 waitlistQ[0].seatsReserved ++;
+
+                waitlistToGuests.push(temp);
               }
             }
 
@@ -137,6 +145,7 @@ module.exports = {
         }
         console.log();
         console.log(languages);
+        console.log("new guests: "+ waitlistToGuests);
 
         db.collection('dates').update(
           {date: "2016-12-05T05:00:00.000Z"},
@@ -144,5 +153,6 @@ module.exports = {
         );
 
     });
+    return wailistToGuests;
   }
 };
