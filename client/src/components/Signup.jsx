@@ -2,20 +2,20 @@ import React from 'react';
 import LanguageSelect from './LanguageSelect';
 import Calendar from './Calendar';
 import AccountFields from './AccountFields';
-import Confirmation from './Confirmation';
+import Success from './Success';
 import moment from 'moment'
 import $ from 'jquery'
 
 var Signup = React.createClass({
   getInitialState: function() {
     return {
-      name           : null,
-      id             : null,
-      email          : null,
+      name           : '',
+      id             : '',
+      email          : '',
       language       : null,
-      date           : null,
+      date           : '',
       seatsAvailable : null,
-      submit         : null
+      submitSuccess  : null,
     };
   },
 
@@ -29,7 +29,6 @@ var Signup = React.createClass({
   },
 
   setName : function(event) {
-
     this.setState({
       name : event.target.value
     });
@@ -66,7 +65,6 @@ var Signup = React.createClass({
 
   postSubmission : function() {
     let submission = this.formatData();
-    console.log(submission);
     $.ajax({
       url:'http://localhost:3000/signup',
       type: 'POST',
@@ -74,17 +72,22 @@ var Signup = React.createClass({
       data: JSON.stringify(submission),
       contentType: "application/json",
       success: function(response) {
-        console.log("success!");
-        console.log(response);
-      },
+        console.log("Success: ", response);
+        this.setState({ submitSuccess: true });
+      }.bind(this),
       error: function(error) {
         console.log(error);
-      }
+        this.setState({ submitSuccess: false });
+      }.bind(this)
     })
   },
 
   render : function() {
     let calendar, information, confirmation;
+    let language = (<LanguageSelect
+                      language={this.state.language}
+                      onChange={this.handleLanguageChange}
+                    />);
 
     //If a language has been selected, show the calendar
     if (this.state.language !== null) {
@@ -116,17 +119,20 @@ var Signup = React.createClass({
                     </div>
     }
 
-    if (this.state.submit) {
-      confirmation = <Confirmation fieldValues={this.formatData()}
-                                    submitValues={this.handleSubmission}/>
+    if (this.state.submitSuccess !== null) {
+      language = null;
+      calendar = null;
+      information = null;
+      confirmation = <Success
+                        success={this.state.submitSuccess}
+                        date={this.state.date}
+                        email={this.state.email}
+                      />
     }
 
     return (
       <div>
-        <LanguageSelect
-          language={this.state.language}
-          onChange={this.handleLanguageChange}
-        />
+        {language}
         {calendar}
         <br/>
         {information}

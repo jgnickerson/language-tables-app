@@ -42,7 +42,7 @@ var Calendar = React.createClass({
 
   onDateChange: function(date) {
     let availability = this.checkAvailability(date);
-    date = moment(date).startOf("day").add(5, "h");
+    date = moment(date).startOf("day");
 
 
     if (availability && availability.seats === 0) {
