@@ -28,30 +28,28 @@ var Signup = React.createClass({
     this.setState({ date: date, seatsAvailable: seatsAvailable });
   },
 
-  setName : function(nm) {
+  setName : function(event) {
+
     this.setState({
-      name : nm
+      name : event.target.value
     });
   },
 
-  setID : function(id) {
+  setID : function(event) {
     this.setState({
-      id : id
+      id : event.target.value
     });
   },
 
-  setEmail : function(email) {
+  setEmail : function(event) {
     this.setState({
-      email : email
+      email : event.target.value
     });
   },
 
-  setSubmit : function() {
-    // Send changes to confirmation
-    console.log(this.state);
-    this.setState({
-      submit : 1
-    });
+  handleSubmit : function(event) {
+    event.preventDefault();
+    this.postSubmission();
   },
 
   formatData : function() {
@@ -66,15 +64,14 @@ var Signup = React.createClass({
     return reservation;
   },
 
-  handleSubmission : function() {
-    let res = this.formatData();
-    console.log(res);
-    console.log("Submitting data ... in theory");
+  postSubmission : function() {
+    let submission = this.formatData();
+    console.log(submission);
     $.ajax({
       url:'http://localhost:3000/signup',
       type: 'POST',
       datatype: 'json',
-      data: JSON.stringify(res),
+      data: JSON.stringify(submission),
       contentType: "application/json",
       success: function(response) {
         console.log("success!");
@@ -114,7 +111,7 @@ var Signup = React.createClass({
                           setEmail={this.setEmail}
                           id={this.state.id}
                           setID={this.setID}
-                          saveValue={this.setSubmit}
+                          handleSubmit={this.handleSubmit}
                       />
                     </div>
     }

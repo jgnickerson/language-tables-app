@@ -10,23 +10,19 @@ var AccountFields = React.createClass({
   render : function() {
     return (
       <div>
-        <ul className="form-fields">
-          <li>
-            <label>Name</label>
-            <input type="text" ref="name" onChange={event => {this.props.setName(event.target.value)}} defaultValue={this.props.name} />
-          </li>
-          <li>
-            <label>Midd ID</label>
-            <input type="text" ref="middid" onChange={event => {this.props.setID(event.target.value)}} defaultValue={this.props.id} />
-          </li>
-          <li>
-            <label>Email</label>
-            <input type="text" ref="email" onChange={event => {this.props.setEmail(event.target.value)}} defaultValue={this.props.email} />
-          </li>
-          <li className="form-footer">
-            <button className="btn -primary pull-right" onClick={() => this.props.saveValue()}>Submit</button>
-          </li>
-        </ul>
+        <form onSubmit={this.props.handleSubmit}>
+            <label>Name: </label>
+            <input type="text" onChange={this.props.setName} value={this.props.name} />
+
+            <label>Midd ID: </label>
+            <input type="text" onChange={this.props.setID} value={this.props.id} />
+
+
+            <label>Email: </label>
+            <input type="text" onChange={this.props.setEmail} value={this.props.email} />
+            <br />
+            <input className="btn" type="submit" value="Submit" />
+        </form>
       </div>
     );
   }
