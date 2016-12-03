@@ -4,12 +4,16 @@ const mail = require('./mail.js');
 const constants = require('./constants.js');
 
 const express = require('express');
+const moment = require('moment');
+
 const app = express();
 
 // group these constants in a new file
 const SPANISH = 0;
 const FRENCH = 1;
 const CHINESE = 2;
+
+var algorithm = require('./algorithm');
 
 //parse request.body as json
 app.use(bodyParser.json());
@@ -36,6 +40,8 @@ MongoClient.connect('mongodb://localhost:27017/lt', (err, database) => {
 
 // '/languages' or '/languages?id=x' routes
 app.get('/languages', (req, res) => {
+  algorithm.run(db, moment);
+
   // if no id, output all the languages and their number in an array
   // *** is undefined the way to check "if x == NULL" in JS?
   if (req.query.id === undefined) {
@@ -56,7 +62,7 @@ app.get('/languages', (req, res) => {
         results = results.map((element) => {
           return {
             date: element.date,
-            seats: element.vacancy[0].seats
+            seats: element.vacancy[0].seatsReserved - element.vacancy[0].seatsAvailable
           }
         });
 
@@ -73,40 +79,69 @@ app.post('/signup', (req, res) => {
   /***************
     TO DO: res.sendStatus(400) if have errors?
   ***************/
+  let guestlistFull = false;
 
-  //find a record of the attendant
-  db.collection('attendants').find({student_id:req.body.id}).toArray(function(err, result) {
+  db.collection('dates').find({date:req.body.date}).toArray(function(err, result) {
     if (err) {
       throw err;
     }
-    console.log(req);
+    let language = result[0].vacancy[req.body.language]
 
-    //if the attendant is already registered
-    if (result[0] != undefined) {
-      //add a new record of attendance
-      db.collection('attendants').update(
-        {student_id: req.body.id},
-        {$push: {attendance: {date:req.body.date, language:req.body.language}}}
-      );
+    if (language.seatsAvailable - language.seatsReserved === 0) {
+      guestlistFull = true;
     }
-    //if the attendant is not registered
-    else {
+  });
+
+  //find a record of the attendant
+  db.collection('attendants').find({id:req.body.id}).toArray(function(err, result) {
+    if (err) {
+      throw err;
+    }
+    console.log(guestlistFull);
+    console.log(req.body);
+
+    // if attendant does not exist in database
+    if (result[0] == undefined) {
       //create a new attendant with the new record of attendance
       db.collection('attendants').insert({
-        student_id: req.body.id,
+        id: req.body.id,
         name: req.body.name,
-        email: req.body.email,
-        attendance: [
-          {date:req.body.date, language:req.body.language}
-        ]
+        email: req.body.email
       });
     }
 
-    //decrement the number of seats at the given language at the given date
-    db.collection('dates').update(
-      {language:req.body.language, "visits.date":req.body.date},
-      {$inc: {"visits.$.seats":-1}}
-    );
+    if (guestlistFull) {
+      //add a new record of waitlists for the student
+      db.collection('attendants').update(
+        {id: req.body.id},
+        {$push: {waitlists: {date:req.body.date, language:req.body.language}}}
+      );
+
+      //add the student id to the date's waitlist
+      db.collection('dates').update(
+        {date: req.body.date, "vacancy.language": req.body.language},
+        {$addToSet: {"vacancy.$.waitlist": req.body.id}}
+      );
+
+    } else {
+      //add a new record of attendance for the student
+      db.collection('attendants').update(
+        {id: req.body.id},
+        {$push: {attendance: {date:req.body.date, language:req.body.language}}}
+      );
+
+      //increment the number of reserved seats at the given language at the given date
+      db.collection('dates').update(
+        {date: req.body.date, "vacancy.language": req.body.language},
+        {$inc: {"vacancy.$.seatsReserved": 1}}
+      );
+
+      //add the student id to the date's guestlist
+      db.collection('dates').update(
+        {date: req.body.date, "vacancy.language": req.body.language},
+        {$addToSet: {"vacancy.$.guestlist": req.body.id}}
+      );
+    }
   });
 
   mail.send(req.body);

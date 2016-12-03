@@ -1,0 +1,42 @@
+[
+  {"weekday": "Monday",
+   "baseline": [
+     {"language": 0, "tablesOf6": 0, "tablesOf8": 2},
+     {"language": 1, "tablesOf6": 3, "tablesOf8": 0},
+     {"language": 2, "tablesOf6": 1, "tablesOf8": 1},
+     {"language": 3, "tablesOf6": 0, "tablesOf8": 1}
+    ]
+  },
+  {"weekday": "Tuesday",
+   "baseline": [
+     {"language": 0, "tablesOf6": 0, "tablesOf8": 2},
+     {"language": 1, "tablesOf6": 3, "tablesOf8": 0},
+     {"language": 2, "tablesOf6": 2, "tablesOf8": 0},
+     {"language": 3, "tablesOf6": 1, "tablesOf8": 1}
+    ]
+  },
+  {"weekday": "Wednesday",
+   "baseline": [
+     {"language": 0, "tablesOf6": 0, "tablesOf8": 2},
+     {"language": 1, "tablesOf6": 3, "tablesOf8": 0},
+     {"language": 2, "tablesOf6": 0, "tablesOf8": 2},
+     {"language": 3, "tablesOf6": 2, "tablesOf8": 0}
+    ]
+  },
+  {"weekday": "Thursday",
+   "baseline": [
+     {"language": 0, "tablesOf6": 0, "tablesOf8": 2},
+     {"language": 1, "tablesOf6": 4, "tablesOf8": 0},
+     {"language": 2, "tablesOf6": 2, "tablesOf8": 0},
+     {"language": 3, "tablesOf6": 1, "tablesOf8": 1}
+    ]
+  },
+  {"weekday": "Friday",
+   "baseline": [
+     {"language": 0, "tablesOf6": 1, "tablesOf8": 1},
+     {"language": 1, "tablesOf6": 4, "tablesOf8": 0},
+     {"language": 2, "tablesOf6": 2, "tablesOf8": 0},
+     {"language": 3, "tablesOf6": 0, "tablesOf8": 2}
+    ]
+  }
+]
