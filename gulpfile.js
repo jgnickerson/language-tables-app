@@ -44,9 +44,14 @@ gulp.task('webpack', function(){
 
 //starts the server
 gulp.task('start-server', function(cb) {
-  child.exec('./node_modules/.bin/babel-node server.js', function(err, stdout, stderr) {
-    console.log('server: ', stdout);
-    console.log('server: ', stderr);
-    cb(err);
-  });
+  const args = ['server.js'];
+  const options = {stdio: 'inherit'};
+  child.spawn('./node_modules/.bin/babel-node', args, options);
+  cb();
+
+  // child.exec('./node_modules/.bin/babel-node server.js', function(err, stdout, stderr) {
+  //   console.log('server: ', stdout);
+  //   console.log('server: ', stderr);
+  //   cb(err);
+  // });
 });
