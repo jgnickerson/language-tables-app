@@ -22,7 +22,6 @@ const App = React.createClass({
 
   render: function() {
     let Child;
-    console.log(this.state.route);
     switch (this.state.route) {
         case 'admin': Child = Admin; break;
         default: Child = Signup;
