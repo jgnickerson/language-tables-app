@@ -9,11 +9,6 @@ var CronJob = require('cron').CronJob;
 
 const app = express();
 
-// group these constants in a new file
-const SPANISH = 0;
-const FRENCH = 1;
-const CHINESE = 2;
-
 var algorithm = require('./algorithm');
 
 //parse request.body as json
@@ -76,14 +71,16 @@ app.post('/signup', (req, res) => {
   //since calendar won't allow picking dates with seats = 0
 
   /***************
-    TO DO: res.sendStatus(400) if have errors?
+    TODO: res.sendStatus(400) if have errors?
   ***************/
   let guestlistFull = false;
+
 
   db.collection('dates').find({date:req.body.date}).toArray(function(err, result) {
     if (err) {
       throw err;
     }
+
     let language = result[0].vacancy[req.body.language]
 
     if (language.seatsAvailable - language.seatsReserved === 0) {
@@ -146,6 +143,34 @@ app.post('/signup', (req, res) => {
   mail.send(req.body);
   //send a success status to the client
   res.sendStatus(200);
+});
+
+app.get('/attendance', (req, res) => {
+  var attendants;
+  var date = moment().startOf('day').utc().format();
+  db.collection('dates').find({ date: date }).toArray()
+  .then((result) => {
+    db.collection('attendants').find({ id: { $in: result[0].vacancy[0].guestlist } }).toArray()
+    .then((result) => {
+      attendants = result.map((item) => {
+        return {
+          id: item.id,
+          name: item.name,
+        }
+      });
+      res.json({ date: date, attendants: attendants });
+    })
+    .catch((error) => {
+      res.sendStatus(404);
+    });
+  })
+  .catch((error) => {
+    res.sendStatus(404);
+  });
+});
+
+app.post('attendance', (req, res) => {
+
 });
 
 // TODO change the job to 00 00 11 * * 1-5

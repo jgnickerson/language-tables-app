@@ -10,7 +10,6 @@ var mockAttendants = [
 ]
 
 var Admin = React.createClass({
-  //expecting to get the date, and a list of attendants back from the server
   getInitialState: function() {
     return ({
       date: "",
