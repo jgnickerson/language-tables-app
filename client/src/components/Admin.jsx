@@ -7,32 +7,41 @@ var Admin = React.createClass({
   getInitialState: function() {
     return ({
       date: "",
-      checkboxItems: []
+      checkboxItems: [],
+      languages: []
     })
   },
 
   componentWillMount: function() {
-    let request = new XMLHttpRequest();
-    request.open('GET', '/attendance/', true);
-    request.onload = function() {
-      if (request.status >= 200 && request.status < 400) {
-        let response = JSON.parse(request.responseText);
+    //get checkbox items
+    let request1 = new XMLHttpRequest();
+    request1.open('GET', '/attendance/', true);
+    request1.onload = () => {
+      if (request1.status >= 200 && request1.status < 400) {
+        let response = JSON.parse(request1.responseText);
         console.log(response);
-
         let checkboxItems = this.formatCheckboxItems(response.attendants);
         this.setState({
           date: response.date,
           checkboxItems: checkboxItems
         });
-      } else {
-        //there was an error lol
       }
-    }.bind(this);
-    request.onerror = function() {
-      //oopsies, error lol
     };
 
-    request.send();
+    //get languages obj
+    let request2 = new XMLHttpRequest();
+    request2.open('GET', '/languages', true);
+    request2.onload = () => {
+      if (request2.status >= 200 && request2.status < 400) {
+        let response = JSON.parse(request2.responseText);
+        this.setState({
+          languages: response
+        });
+      }
+    };
+
+    request1.send();
+    request2.send();
   },
 
   formatCheckboxItems: function (attendants) {
@@ -40,6 +49,7 @@ var Admin = React.createClass({
       return {
         label: attendant.name + " - " + attendant.id,
         key: attendant.id,
+        language: attendant.language,
         isChecked: false
       }
     })
@@ -77,14 +87,33 @@ var Admin = React.createClass({
     request.send(JSON.stringify(attendanceObj));
   },
 
+  createCheckboxLists: function() {
+    let lists = [];
+    this.state.languages.forEach((lang) => {
+      let langAttendants = _.filter(this.state.checkboxItems, (person) => {
+        console.log(lang, person);
+        return person.language === lang.language;
+      })
+
+      let list = (
+        <div key={lang.language_string}>
+          <h3>{lang.language_string}</h3>
+
+          <CheckboxList items={langAttendants} onChange={this.handleCheck} />
+          <br/>
+        </div>
+      )
+      lists.push(list);
+    });
+
+    return lists;
+  },
+
   render : function() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <CheckboxList
-            items={this.state.checkboxItems}
-            onChange={this.handleCheck}
-          />
+          {this.createCheckboxLists()}
           <input
             className="btn"
             type="submit"

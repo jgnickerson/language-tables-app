@@ -178,7 +178,7 @@ app.get('/attendance', (req, res) => {
     });
 
     Promise.all(promises).then(() => {
-      res.json(attendants);
+      res.json({date: date, attendants: attendants});
     })
   })
   .catch((error) => {
