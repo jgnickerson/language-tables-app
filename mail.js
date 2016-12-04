@@ -43,4 +43,29 @@ var send = function(reservationObj) {
   });
 }
 
-module.exports.send = send;
+// send mail to newly added guests
+var sendNewGuests = function(email, language) {
+  var languages = ["Spanish", "French", "Chinese", "German"];
+  var text = "You just got a spot at " + languages[language] + " Language Tables for tomorrow! Congrats.";
+  //console.log(email);
+  //console.log(language);
+
+  var mailOptions = {
+    from: '"Language Tables" <LanguageTables@middlebury.com>', // sender address
+    to: email, // list of receivers
+    subject: 'You got a spot at Language Tables', // Subject line
+    text: text, // plaintext body
+    html: '<b>' + text + '</b>' // html body
+  }
+  return transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      return console.log(error);
+    }
+    console.log('Message sent: ' + info.response);
+  });
+}
+
+module.exports = {
+  send: send,
+  sendNewGuests: sendNewGuests
+};

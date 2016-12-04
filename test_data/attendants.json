@@ -16,7 +16,7 @@
   {
     "id": "00666666",
     "name": "Amir Amangelid",
-    "email": "aamangelid@middlebury.edu",
+    "email": "aamangeldi@middlebury.edu",
     "attendance": [
       {"date": "2016-11-21T05:00:00.000Z", "language": 1},
       {"date": "2016-11-22T05:00:00.000Z", "language": 1},
@@ -25,6 +25,20 @@
     ],
     "waitlists": [
       {"date": "2016-11-20T05:00:00.000Z", "language": 1}
+    ]
+  },
+  {
+    "id": "00777777",
+    "name": "Pete Huffman",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-11-21T05:00:00.000Z", "language": 2},
+      {"date": "2016-11-22T05:00:00.000Z", "language": 2},
+      {"date": "2016-11-23T05:00:00.000Z", "language": 2},
+      {"date": "2016-11-24T05:00:00.000Z", "language": 2}
+    ],
+    "waitlists": [
+      {"date": "2016-11-20T05:00:00.000Z", "language": 2}
     ]
   }
 ]

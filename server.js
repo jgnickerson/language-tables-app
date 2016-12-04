@@ -149,16 +149,24 @@ app.post('/signup', (req, res) => {
 });
 
 // TODO change the job to 00 00 11 * * 1-5
+var timeToRun = moment().add(15, 'seconds');
+
+var hour = timeToRun.hour();
+var minute = timeToRun.minutes();
+var second = timeToRun.seconds();
+console.log(hour);
+console.log(minute);
+console.log(second);
+
+
 var job = new CronJob({
-  cronTime: '00 43 16 * * 1-7',
+  cronTime: second+" "+minute+" "+hour+" * * 1-7",
   onTick: function() {
     /*
      * Runs every weekday (Monday through Friday)
-     * at 11:00:00 AM. It does not run on Saturday
-     * or Sunday.
+     * at 11:00:00 AM.
      */
      algorithm.run(db, moment);
-     console.log("the algorithm ran");
   },
   start: false,
   timeZone: 'America/New_York'

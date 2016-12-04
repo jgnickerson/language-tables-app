@@ -5,6 +5,9 @@
 /*
   HELPER FUNCTIONS
 */
+
+const mail = require('./mail.js');
+
 function compare(a,b) {
   if (a.waitlist.length > b.waitlist.length)
     return -1;
@@ -36,12 +39,12 @@ module.exports = {
 
     // Get today's date from MomentJS
     var today = moment();
-    var tomorrow = today.add(2, 'days').startOf('day').toISOString();
-    console.log("tomorrow: " + tomorrow + "\n");
+    var tomorrow = today.add(2, 'days').startOf('day');
+    console.log("tomorrow: " + tomorrow.toISOString() + "\n");
 
     // Get today's object from database and run the algorithm
     var languages;
-    db.collection('dates').find({date: tomorrow})
+    db.collection('dates').find({date: tomorrow.toISOString()})
       .toArray(function(err, result) {
         if (err) {
           throw err;
@@ -52,7 +55,7 @@ module.exports = {
         console.log(languages + "\n");
 
         // For each language in the object
-        languages.forEach(function(language, i) {
+        languages.forEach(function(language, languageIndex) {
           var numTablesOf8 = language.tablesOf8;
           var numTablesOf6 = language.tablesOf6;
 
@@ -99,7 +102,7 @@ module.exports = {
                 waitlistQ[0].guests.push(temp);
                 waitlistQ[0].seatsReserved ++;
 
-                waitlistToGuests.push(temp);
+                waitlistToGuests.push({guestId: temp, language: languageIndex});
               }
             }
 
@@ -124,7 +127,7 @@ module.exports = {
                 waitlistQ[0].guests.push(temp);
                 waitlistQ[0].seatsReserved ++;
 
-                waitlistToGuests.push(temp);
+                waitlistToGuests.push({guestId: temp, language: languageIndex});
               }
             }
 
@@ -145,6 +148,8 @@ module.exports = {
         }
         console.log();
         console.log(languages);
+        //TODO: delete these lines, they are just for testing waitlistToGuests functionality
+        //waitlistToGuests.push({guestId: "00666666", language: 0});
         console.log("new guests: "+ waitlistToGuests);
 
         db.collection('dates').update(
@@ -152,7 +157,14 @@ module.exports = {
           {$set: {vacancy: languages}}
         );
 
+        waitlistToGuests.forEach(function(newGuest, newGuestIndex) {
+          db.collection('attendants').find({id: newGuest.guestId}, {email: 1}).toArray(function(err, result) {
+            if (err) {
+              throw err;
+            }
+            mail.sendNewGuests(result[0].email, newGuest.language);
+          });
+        });
     });
-    return wailistToGuests;
   }
 };
