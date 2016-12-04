@@ -2,6 +2,7 @@
 const bodyParser = require('body-parser');
 const mail = require('./mail.js');
 const constants = require('./constants.js');
+const _ = require('lodash');
 
 const express = require('express');
 const moment = require('moment');
@@ -147,21 +148,38 @@ app.post('/signup', (req, res) => {
 
 app.get('/attendance', (req, res) => {
   var date = moment().startOf('day').utc().format();
+  var attendants = [];
+  var promises = [];
+
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
-    db.collection('attendants').find({ id: { $in: result[0].vacancy[0].guestlist } }).toArray()
-    .then((result) => {
-      var attendants = result.map((item) => {
-        return {
-          id: item.id,
-          name: item.name,
-        }
-      });
-      res.json({ date: date, attendants: attendants });
-    })
-    .catch((error) => {
-      res.sendStatus(404);
+    result[0].vacancy.forEach((day) => {
+      promises.push(new Promise((resolve, reject) => {
+        db.collection('attendants').find({ id: { $in: day.guestlist } }).toArray()
+        .then((result) => {
+          if (result.length > 0) {
+            var langAttendants = result.map((item) => {
+              return {
+                id: item.id,
+                name: item.name,
+                language: _.find(item.attendance, (day) => { return moment(day.date).isSame(date, 'day') }).language
+              }
+            })
+
+            attendants.push(langAttendants[0]);
+          }
+          resolve();
+        })
+        .catch((error) => {
+          res.sendStatus(404);
+          reject();
+        });
+      }));
     });
+
+    Promise.all(promises).then(() => {
+      res.json(attendants);
+    })
   })
   .catch((error) => {
     res.sendStatus(404);
@@ -169,7 +187,6 @@ app.get('/attendance', (req, res) => {
 });
 
 app.post('/attendance', (req, res) => {
-  console.log(req.body);
   var date = req.body.date;
   var ids = req.body.attendants;
 
