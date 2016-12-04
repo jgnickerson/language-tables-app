@@ -2,10 +2,10 @@
   {"date": "2016-12-05T05:00:00.000Z",
    "weekday": "Monday",
    "vacancy": [
-     {"language": 0, "seatsReserved": 1, "seatsAvailable": 16, "tablesOf6": 0, "tablesOf8": 2, "waitlist": [], "guestlist":["666666"]},
-     {"language": 1, "seatsReserved": 0, "seatsAvailable": 18, "tablesOf6": 3, "tablesOf8": 0, "waitlist": [], "guestlist":[]},
-     {"language": 2, "seatsReserved": 0, "seatsAvailable": 14, "tablesOf6": 1, "tablesOf8": 1, "waitlist": [], "guestlist":[]},
-     {"language": 3, "seatsReserved": 0, "seatsAvailable": 8, "tablesOf6": 0, "tablesOf8": 1, "waitlist": [], "guestlist":[]}
+     {"language": 0, "seatsReserved": 3, "seatsAvailable": 16, "tablesOf6": 0, "tablesOf8": 2, "waitlist": [], "guestlist":["00123123", "00666666", "00777777"]},
+     {"language": 1, "seatsReserved": 3, "seatsAvailable": 18, "tablesOf6": 3, "tablesOf8": 0, "waitlist": [], "guestlist":["00666666", "00123123", "00777777"]},
+     {"language": 2, "seatsReserved": 3, "seatsAvailable": 14, "tablesOf6": 1, "tablesOf8": 1, "waitlist": [], "guestlist":["00666666", "00777777", "00123123"]},
+     {"language": 3, "seatsReserved": 3, "seatsAvailable": 8, "tablesOf6": 0, "tablesOf8": 1, "waitlist": [], "guestlist":["00777777", "00123123", "00666666"]}
     ]
   },
   {"date": "2016-12-06T05:00:00.000Z",

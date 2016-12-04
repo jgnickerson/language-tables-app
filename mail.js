@@ -47,8 +47,6 @@ var send = function(reservationObj) {
 var sendNewGuests = function(email, language) {
   var languages = ["Spanish", "French", "Chinese", "German"];
   var text = "You just got a spot at " + languages[language] + " Language Tables for tomorrow! Congrats.";
-  //console.log(email);
-  //console.log(language);
 
   var mailOptions = {
     from: '"Language Tables" <LanguageTables@middlebury.com>', // sender address
@@ -65,7 +63,32 @@ var sendNewGuests = function(email, language) {
   });
 }
 
+// send mail to faculty
+var sendProfTA = function(faculty, guestlist, date, emails) {
+  var languages = ["Spanish", "French", "Chinese", "German"];
+  var text = languages[faculty.language] + " Language Tables Attendance for " + date + ": <br/> <br/>";
+
+  guestlist.forEach(function(guest, guestIndex) {
+    text = text + guest + "<br/>";
+  });
+
+  var mailOptions = {
+    from: '"Language Tables" <LanguageTables@middlebury.com>', // sender address
+    to: emails, // list of receivers
+    subject: 'Language Tables Attendance', // Subject line
+    text: text, // plaintext body
+    html: '<b>' + text + '</b>' // html body
+  }
+  return transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      return console.log(error);
+    }
+    console.log('Message sent: ' + info.response);
+  });
+}
+
 module.exports = {
   send: send,
-  sendNewGuests: sendNewGuests
+  sendNewGuests: sendNewGuests,
+  sendProfTA: sendProfTA
 };

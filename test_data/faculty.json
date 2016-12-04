@@ -1,0 +1,30 @@
+[
+  {
+    "language": 0,
+    "faculty": [
+      {"title": "ta", "name": "Ignacia Coll Villa", "email": "aamangeldi@middlebury.edu"},
+      {"title": "chair", "name": "Fernando Rocha", "email": "aamangeldi@middlebury.edu"}
+    ]
+  },
+  {
+    "language": 1,
+    "faculty": [
+      {"title": "ta", "name": "Lucile Coneau", "email": "aamangeldi@middlebury.edu"},
+      {"title": "chair", "name": "Charles Nunley", "email": "aamangeldi@middlebury.edu"}
+    ]
+  },
+  {
+    "language": 2,
+    "faculty": [
+      {"title": "ta", "name": "Don't Know", "email": "aamangeldi@middlebury.edu"},
+      {"title": "chair", "name": "Thomas Moran", "email": "aamangeldi@middlebury.edu"}
+    ]
+  },
+  {
+    "language": 3,
+    "faculty": [
+      {"title": "ta", "name": "Florian Hamburger", "email": "aamangeldi@middlebury.edu"},
+      {"title": "chair", "name": "Roman Graf", "email": "aamangeldi@middlebury.edu"}
+    ]
+  }
+]

@@ -148,27 +148,86 @@ app.post('/signup', (req, res) => {
   res.sendStatus(200);
 });
 
-// TODO change the job to 00 00 11 * * 1-5
-var timeToRun = moment().add(15, 'seconds');
+// TODO change cronTime to 00 00 20 * * 1-5
+var timeToRun = moment().add(10, 'seconds');
 
 var hour = timeToRun.hour();
 var minute = timeToRun.minutes();
 var second = timeToRun.seconds();
-console.log(hour);
-console.log(minute);
-console.log(second);
+console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
+console.log("The emails to TA's and professors will be sent at: "+hour+":"+minute+":"+(second+5)+"\n");
 
 
-var job = new CronJob({
-  cronTime: second+" "+minute+" "+hour+" * * 1-7",
+var tableAllocationJob = new CronJob({
+  cronTime: second+" "+minute+" "+hour+" * * 0-6",
   onTick: function() {
     /*
      * Runs every weekday (Monday through Friday)
-     * at 11:00:00 AM.
+     * at 20:00:00 AM.
      */
      algorithm.run(db, moment);
   },
   start: false,
   timeZone: 'America/New_York'
 });
-job.start();
+tableAllocationJob.start();
+
+
+//TODO: change cronTime to 00 00 15 * * 1-5
+var sendEmailToFacultyJob = new CronJob({
+  cronTime: (second+5)+" "+minute+" "+hour+" * * 0-6",
+  onTick: function() {
+    /*
+     * Runs every weekday (Monday through Friday)
+     * at 15:00:00 PM.
+     */
+     //TODO: uncomment for actual implementation - we need to look at the current day
+     //for now look for info for the next day
+     //var today = moment().startOf('day');
+     var today = moment();
+     today = today.add(1, 'days').startOf('day');
+
+     //get the faculty collection
+     db.collection('faculty').find().toArray((err, result) => {
+       if (err) {
+         throw err;
+       }
+
+       //for each language department
+       result.forEach(function(object, objectIndex) {
+         db.collection('dates').find({date: today.toISOString()}).toArray((err, result) => {
+           if (err) {
+             throw err;
+           }
+
+           var guestList = result[0].vacancy[object.language].guestlist;
+           var guestNamesList = [];
+           var emails = [];
+
+           //get emails of TA's and Professors for this language
+           object.faculty.forEach((facultyMember, facultyMemberIndex) => {
+             emails.push(facultyMember.email);
+           });
+
+           //get the names of the attendants by their id
+           guestList.forEach((guestId, guestIndex) => {
+             db.collection('attendants').find({id: guestId}, {name: 1}).toArray((err, result) => {
+               if (err) {
+                 throw err;
+               }
+               guestNamesList.push(result[0].name);
+
+               //send the email
+               if (guestNamesList.length === guestList.length) {
+                 mail.sendProfTA(object, guestNamesList, today.month()+"/"+ today.day(), emails);
+               }
+             });
+           });
+         });
+       });
+     });
+  },
+  start: false,
+  timeZone: 'America/New_York'
+});
+sendEmailToFacultyJob.start();
