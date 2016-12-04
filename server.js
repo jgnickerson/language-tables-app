@@ -169,8 +169,9 @@ app.get('/attendance', (req, res) => {
 });
 
 app.post('/attendance', (req, res) => {
-  var date = "2016-12-04T05:00:00Z"//req.body.date;
-  var ids = ["00555555", "00666666"]//req.body.attendants;
+  console.log(req.body);
+  var date = req.body.date;
+  var ids = req.body.attendants;
 
   db.collection('dates').update(
     { date: date },

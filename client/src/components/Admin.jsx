@@ -71,7 +71,10 @@ var Admin = React.createClass({
   },
 
   postAttendance: function(attendanceObj) {
-    console.log(attendanceObj);
+    var request = new XMLHttpRequest();
+    request.open('POST', '/attendance', true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send(JSON.stringify(attendanceObj));
   },
 
   render : function() {
