@@ -146,13 +146,12 @@ app.post('/signup', (req, res) => {
 });
 
 app.get('/attendance', (req, res) => {
-  var attendants;
   var date = moment().startOf('day').utc().format();
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
     db.collection('attendants').find({ id: { $in: result[0].vacancy[0].guestlist } }).toArray()
     .then((result) => {
-      attendants = result.map((item) => {
+      var attendants = result.map((item) => {
         return {
           id: item.id,
           name: item.name,
@@ -169,8 +168,16 @@ app.get('/attendance', (req, res) => {
   });
 });
 
-app.post('attendance', (req, res) => {
+app.post('/attendance', (req, res) => {
+  var date = "2016-12-04T05:00:00Z"//req.body.date;
+  var ids = ["00555555", "00666666"]//req.body.attendants;
 
+  db.collection('dates').update(
+    { date: date },
+    { $set: { "vacancy.0.guestlist" : ids }}
+  );
+
+  res.sendStatus(200);
 });
 
 // TODO change the job to 00 00 11 * * 1-5
