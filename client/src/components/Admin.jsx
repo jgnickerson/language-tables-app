@@ -3,33 +3,36 @@ import CheckboxList from './CheckboxList';
 import moment from 'moment';
 import _ from 'lodash';
 
-var mockAttendants = [
-  {id: "00123123", name: "Gordon Nickerson", "email": "jnickerson@middlebury.edu"},
-  {id: "00434434", name: "Amir Amangeldi", "email": "aamangeldi@middlebury.edu"},
-  {id: "00987987", name: "Pete Huffman", "email": "phuffman@middlebury.edu"}
-]
-
 var Admin = React.createClass({
   getInitialState: function() {
     return ({
       date: "",
-      attendants: []
+      checkboxItems: []
     })
   },
 
   componentWillMount: function() {
-    let date = moment().startOf('day');
-    //let request = new XMLHttpRequest();
-    //request.open('GET', '/admin/', true);
-    //request.onload = function() {}
-    //request.onerror = function() {}
+    let request = new XMLHttpRequest();
+    request.open('GET', '/attendance/', true);
+    request.onload = function() {
+      if (request.status >= 200 && request.status < 400) {
+        let response = JSON.parse(request.responseText);
+        console.log(response);
 
-    let checkboxItems = this.formatCheckboxItems(mockAttendants);
+        let checkboxItems = this.formatCheckboxItems(response.attendants);
+        this.setState({
+          date: response.date,
+          checkboxItems: checkboxItems
+        });
+      } else {
+        //there was an error lol
+      }
+    }.bind(this);
+    request.onerror = function() {
+      //oopsies, error lol
+    };
 
-    this.setState({
-      date: date,
-      checkboxItems: checkboxItems
-    });
+    request.send();
   },
 
   formatCheckboxItems: function (attendants) {
