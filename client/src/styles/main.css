@@ -23,7 +23,7 @@ body {
   width: 100%;
 }
 
-input {
+input[type="text"] {
   font-size: 16px;
   padding: 8px;
   width: 100%;
@@ -35,7 +35,7 @@ input {
   border-left: 0px;
 }
 
-input:focus {
+input[type="text"]:focus {
   outline: none;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;

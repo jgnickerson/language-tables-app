@@ -57,7 +57,7 @@ var Signup = React.createClass({
       name : this.state.name,
       id : this.state.id,
       email : this.state.email,
-      date : this.state.date.toDate(),
+      date : this.state.date.utc().format(),
       language : this.state.language
     }
 

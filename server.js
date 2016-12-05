@@ -76,7 +76,6 @@ app.post('/signup', (req, res) => {
   ***************/
   let guestlistFull = false;
 
-
   db.collection('dates').find({date:req.body.date}).toArray(function(err, result) {
     if (err) {
       throw err;
@@ -94,8 +93,6 @@ app.post('/signup', (req, res) => {
     if (err) {
       throw err;
     }
-    console.log(guestlistFull);
-    console.log(req.body);
 
     // if attendant does not exist in database
     if (result[0] == undefined) {
@@ -148,8 +145,6 @@ app.post('/signup', (req, res) => {
 
 // '/cancel' or '/cancel?reservation=x' routes
 app.get('/cancel', (req, res) => {
-  console.log("testing...\n");
-  console.log(req.query.reservation);
 
   //uncomment below for actual implementation
   var encodedString = req.query.reservation;
@@ -160,9 +155,6 @@ app.get('/cancel', (req, res) => {
   var language = Number.parseInt(decodedString.substring(0, 1));
   var id = decodedString.substring(1, 9);
   var date = decodedString.substring(9, decodedString.length);
-  console.log("language: "+language);
-  console.log("id: "+id);
-  console.log("date: "+date);
 
   // remove the reservation from attendants collection
   db.collection('attendants').update(
@@ -315,7 +307,7 @@ var tableAllocationJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
-tableAllocationJob.start();
+//tableAllocationJob.start();
 
 
 //TODO: change cronTime to 00 00 15 * * 1-5
@@ -372,4 +364,4 @@ var sendEmailToFacultyJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
-sendEmailToFacultyJob.start();
+//sendEmailToFacultyJob.start();
