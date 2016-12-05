@@ -26,8 +26,15 @@ var transporter = nodemailer.createTransport(smtpConfig);
 
 // send mail with defined transport object
 var send = function(reservationObj) {
-  var language = ["Spanish", "French", "Chinese"];
-  var text = "You are signed up for " + language[reservationObj.language] + " Language Tables on " + moment(reservationObj.date).format('MM-DD-YYYY') + "!";
+  var language = ["Spanish", "French", "Chinese", "German"];
+  var decodedString = reservationObj.language.toString() + reservationObj.id + reservationObj.date;
+  console.log(decodedString);
+  var encodedString = new Buffer(decodedString).toString('base64');
+  console.log(encodedString);
+  var cancelLink = 'http://localhost:3000/cancel?reservation=' + encodedString;
+
+  var text = "You are signed up for " + language[reservationObj.language] + " Language Tables on " + moment(reservationObj.date).format('MM-DD-YYYY') + ". </br>";
+  text += "<a href= '"+cancelLink+"'>Cancel your reservation</a>";
   var mailOptions = {
     from: '"Language Tables" <LanguageTables@middlebury.com>', // sender address
     to: reservationObj.email, // list of receivers

@@ -148,86 +148,169 @@ app.post('/signup', (req, res) => {
   res.sendStatus(200);
 });
 
-// TODO change cronTime to 00 00 20 * * 1-5
-var timeToRun = moment().add(10, 'seconds');
+// '/cancel' or '/cancel?reservation=x' routes
+app.get('/cancel', (req, res) => {
+  console.log("testing...\n");
+  console.log(req.query.reservation);
 
-var hour = timeToRun.hour();
-var minute = timeToRun.minutes();
-var second = timeToRun.seconds();
-console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
-console.log("The emails to TA's and professors will be sent at: "+hour+":"+minute+":"+(second+5)+"\n");
+  //uncomment below for actual implementation
+  var encodedString = req.query.reservation;
+  //var string = "1006666662016-12-05T05:00:00.000Z"
+  //var encodedString = new Buffer(string).toString('base64');
+  var decodedString = new Buffer(encodedString, 'base64').toString('ascii');
 
+  var language = Number.parseInt(decodedString.substring(0, 1));
+  var id = decodedString.substring(1, 9);
+  var date = decodedString.substring(9, decodedString.length);
+  console.log("language: "+language);
+  console.log("id: "+id);
+  console.log("date: "+date);
 
-var tableAllocationJob = new CronJob({
-  cronTime: second+" "+minute+" "+hour+" * * 0-6",
-  onTick: function() {
-    /*
-     * Runs every weekday (Monday through Friday)
-     * at 20:00:00 AM.
-     */
-     algorithm.run(db, moment);
-  },
-  start: false,
-  timeZone: 'America/New_York'
+  // remove the reservation from attendants collection
+  db.collection('attendants').update(
+    { id: id },
+    { $pull: { 'attendance': { 'date' : date, 'language' : language } }
+  });
+
+  // remove the reservation from dates collection
+  db.collection('dates').find(
+    {'date': date},
+    {'vacancy': {$elemMatch: {'language': language}}}).toArray((err, result) => {
+    if (err) {
+      throw err;
+    }
+
+    //for convenience
+    var waitlist = result[0].vacancy[0].waitlist;
+    var guestlist = result[0].vacancy[0].guestlist;
+
+    // if the attendant is on the waitlist for that language on that day
+    if (waitlist.includes(id)) {
+
+      // remove him from wailtlist
+      var index = waitlist.indexOf(id);
+      waitlist.splice(index, 1);
+
+      // update the waitlist in dates collection
+      db.collection('dates').update(
+        {'date': date, 'vacancy.language': language},
+        {$set: {'vacancy.$.waitlist': waitlist}}
+      );
+
+    //if the attendant is on the guestlist for that language on that day
+    } else if (guestlist.includes(id)) {
+
+      // remove him from the guestlist
+      var index = guestlist.indexOf(id);
+      guestlist.splice(index, 1);
+
+      // if waitlist is not empty
+      if (waitlist.length > 0) {
+
+        // remove waitlist[0]
+        var luckyPerson = waitlist.splice(0, 1);
+        // push waitlist[0] to guestlist
+        guestlist.push(luckyPerson[0]);
+
+        // update the waitlist in dates collection
+        db.collection('dates').update(
+          {'date': date, 'vacancy.language': language},
+          {$set: {'vacancy.$.waitlist': waitlist}}
+        );
+      }
+
+      // update the guestlist in dates collection
+      db.collection('dates').update(
+        {'date': date, 'vacancy.language': language},
+        {$set: {'vacancy.$.guestlist': guestlist}}
+      );
+    }
+
+  });
+
+  res.sendStatus(200);
 });
-tableAllocationJob.start();
 
-
-//TODO: change cronTime to 00 00 15 * * 1-5
-var sendEmailToFacultyJob = new CronJob({
-  cronTime: (second+5)+" "+minute+" "+hour+" * * 0-6",
-  onTick: function() {
-    /*
-     * Runs every weekday (Monday through Friday)
-     * at 15:00:00 PM.
-     */
-     //TODO: uncomment for actual implementation - we need to look at the current day
-     //for now look for info for the next day
-     //var today = moment().startOf('day');
-     var today = moment();
-     today = today.add(1, 'days').startOf('day');
-
-     //get the faculty collection
-     db.collection('faculty').find().toArray((err, result) => {
-       if (err) {
-         throw err;
-       }
-
-       //for each language department
-       result.forEach(function(object, objectIndex) {
-         db.collection('dates').find({date: today.toISOString()}).toArray((err, result) => {
-           if (err) {
-             throw err;
-           }
-
-           var guestList = result[0].vacancy[object.language].guestlist;
-           var guestNamesList = [];
-           var emails = [];
-
-           //get emails of TA's and Professors for this language
-           object.faculty.forEach((facultyMember, facultyMemberIndex) => {
-             emails.push(facultyMember.email);
-           });
-
-           //get the names of the attendants by their id
-           guestList.forEach((guestId, guestIndex) => {
-             db.collection('attendants').find({id: guestId}, {name: 1}).toArray((err, result) => {
-               if (err) {
-                 throw err;
-               }
-               guestNamesList.push(result[0].name);
-
-               //send the email
-               if (guestNamesList.length === guestList.length) {
-                 mail.sendProfTA(object, guestNamesList, today.month()+"/"+ today.day(), emails);
-               }
-             });
-           });
-         });
-       });
-     });
-  },
-  start: false,
-  timeZone: 'America/New_York'
-});
-sendEmailToFacultyJob.start();
+// // TODO change cronTime to 00 00 20 * * 1-5
+// var timeToRun = moment().add(10, 'seconds');
+//
+// var hour = timeToRun.hour();
+// var minute = timeToRun.minutes();
+// var second = timeToRun.seconds();
+// console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
+// console.log("The emails to TA's and professors will be sent at: "+hour+":"+minute+":"+(second+5)+"\n");
+//
+//
+// var tableAllocationJob = new CronJob({
+//   cronTime: second+" "+minute+" "+hour+" * * 0-6",
+//   onTick: function() {
+//     /*
+//      * Runs every weekday (Monday through Friday)
+//      * at 20:00:00 PM.
+//      */
+//      algorithm.run(db, moment);
+//   },
+//   start: false,
+//   timeZone: 'America/New_York'
+// });
+// tableAllocationJob.start();
+//
+//
+// //TODO: change cronTime to 00 00 15 * * 1-5
+// var sendEmailToFacultyJob = new CronJob({
+//   cronTime: (second+5)+" "+minute+" "+hour+" * * 0-6",
+//   onTick: function() {
+//     /*
+//      * Runs every weekday (Monday through Friday)
+//      * at 15:00:00 PM.
+//      */
+//      //TODO: uncomment for actual implementation - we need to look at the current day
+//      //for now look for info for the next day
+//      //var today = moment().startOf('day');
+//      var today = moment();
+//      today = today.add(1, 'days').startOf('day');
+//
+//      //get the faculty collection
+//      db.collection('faculty').find().toArray((err, result) => {
+//        if (err) {
+//          throw err;
+//        }
+//
+//        //for each language department
+//        result.forEach(function(object, objectIndex) {
+//          db.collection('dates').find({date: today.toISOString()}).toArray((err, result) => {
+//            if (err) {
+//              throw err;
+//            }
+//
+//            var guestList = result[0].vacancy[object.language].guestlist;
+//            var guestNamesList = [];
+//            var emails = [];
+//
+//            //get emails of TA's and Professors for this language
+//            object.faculty.forEach((facultyMember, facultyMemberIndex) => {
+//              emails.push(facultyMember.email);
+//            });
+//
+//            //get the names of the attendants by their id
+//            guestList.forEach((guestId, guestIndex) => {
+//              db.collection('attendants').find({id: guestId}, {name: 1}).toArray((err, result) => {
+//                if (err) {
+//                  throw err;
+//                }
+//                guestNamesList.push(result[0].name);
+//
+//                //send the email
+//                if (guestNamesList.length === guestList.length) {
+//                  mail.sendProfTA(object, guestNamesList, today.month()+"/"+ today.day(), emails);
+//                }
+//              });
+//            });
+//          });
+//        });
+//      });
+//   },
+//   start: false,
+//   timeZone: 'America/New_York'
+// });
+// sendEmailToFacultyJob.start();
