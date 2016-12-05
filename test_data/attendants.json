@@ -108,6 +108,42 @@
     "waitlists": []
   },
   {
+    "id": "00222232",
+    "name": "Frank Underwood",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222233",
+    "name": "Dylan Takamori",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222234",
+    "name": "Jessica Simpson",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222235",
+    "name": "Mike Wasowski",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
     "id": "00333330",
     "name": "Jerry Garcia",
     "email": "phuffman@middlebury.edu",
