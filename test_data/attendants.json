@@ -1,58 +1,515 @@
 [
   {
-    "id": "00555555",
-    "name": "Gordon Nickerson",
-    "email": "jnickerson@middlebury.edu",
-    "attendance": [
-      {"date": "2016-12-04T05:00:00Z", "language": 0},
-      {"date": "2016-12-05T05:00:00Z", "language": 0},
-      {"date": "2016-12-06T05:00:00Z", "language": 0},
-      {"date": "2016-12-07T05:00:00Z", "language": 0}
-    ],
-    "waitlists": [
-      {"date": "2016-12-08T05:00:00Z", "language": 0}
-    ]
-  },
-  {
-    "id": "00666666",
-    "name": "Amir Amangeldi",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2016-12-04T05:00:00Z", "language": 0},
-      {"date": "2016-12-05T05:00:00Z", "language": 1},
-      {"date": "2016-12-06T05:00:00Z", "language": 1},
-      {"date": "2016-12-07T05:00:00Z", "language": 1}
-    ],
-    "waitlists": [
-      {"date": "2016-12-08T05:00:00Z", "language": 1}
-    ]
-  },
-  {
-    "id": "00777777",
-    "name": "Pete Huffman",
+    "id": "00222220",
+    "name": "Johnny Appleseed",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2016-12-04T05:00:00Z", "language": 2},
-      {"date": "2016-12-05T05:00:00Z", "language": 2},
-      {"date": "2016-12-06T05:00:00Z", "language": 2},
-      {"date": "2016-12-07T05:00:00Z", "language": 2}
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
     ],
+    "waitlists": []
+  },
+  {
+    "id": "00222221",
+    "name": "Tom Sawyer",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222222",
+    "name": "Huck Finn",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222223",
+    "name": "Dick Van Dyke",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222224",
+    "name": "Mary Poppins",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222225",
+    "name": "Harry Karry",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222226",
+    "name": "Helen Mirren",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222227",
+    "name": "Tom Jones",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222228",
+    "name": "Christopher Andrews",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222229",
+    "name": "Ananya Christman",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222230",
+    "name": "Eric Clapton",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00222231",
+    "name": "Steve Winwood",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333330",
+    "name": "Jerry Garcia",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333331",
+    "name": "Bob Weir",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333332",
+    "name": "Phil Lesh",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333333",
+    "name": "Mickey Hart",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333334",
+    "name": "Bill Kreutzman",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333335",
+    "name": "Keith Godcheaux",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333336",
+    "name": "Donna Godcheaux",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333337",
+    "name": "Pigpen",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333338",
+    "name": "Mickey Mouse",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00333339",
+    "name": "Minnie Mouse",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00111110",
+    "name": "Gordon Nickerson",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [],
     "waitlists": [
-      {"date": "2016-12-08T05:00:00Z", "language": 2}
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
     ]
   },
   {
-    "id": "00888888",
-    "name": "Daniel Scharstein",
-    "email": "schar@middlebury.edu",
+    "id": "00111111",
+    "name": "Amir Amangeldi",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [],
+    "waitlists": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ]
+  },
+  {
+    "id": "00111112",
+    "name": "Peter Huffman",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [],
+    "waitlists": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ]
+  },
+  {
+    "id": "00111113",
+    "name": "Peter Johnson",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [],
+    "waitlists": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ]
+  },
+  {
+    "id": "00111114",
+    "name": "Christopher Andrews",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [],
+    "waitlists": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ]
+  },
+  {
+    "id": "00444440",
+    "name": "Connor O'Day",
+    "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2016-12-04T05:00:00Z", "language": 3},
-      {"date": "2016-12-05T05:00:00Z", "language": 3},
-      {"date": "2016-12-06T05:00:00Z", "language": 3},
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444441",
+    "name": "Tom Bean",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444442",
+    "name": "Birgitta Cheng",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444443",
+    "name": "Shannia Fu",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444444",
+    "name": "Forest Gagnon",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444445",
+    "name": "G Achi",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444446",
+    "name": "Tony Jin",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444447",
+    "name": "Connor O'Day",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444448",
+    "name": "Adam Markun",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444449",
+    "name": "Ben Raifman",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444450",
+    "name": "Ryan Rizzo",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444451",
+    "name": "Lily Taub",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444452",
+    "name": "Forrest Wallace",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444453",
+    "name": "Davin Chia",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444454",
+    "name": "Amanuel Afework",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00444455",
+    "name": "Kaysee Orozco",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00111115",
+    "name": "Ananya Christman",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [],
+    "waitlists": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ]
+  },
+  {
+    "id": "00111116",
+    "name": "Amy Briggs",
+    "email": "aamangeldi@middlebury.edu",
+    "attendance": [],
+    "waitlists": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ]
+  },
+  {
+    "id": "00555550",
+    "name": "Daniel Scharstein",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
       {"date": "2016-12-07T05:00:00Z", "language": 3}
     ],
-    "waitlists": [
-      {"date": "2016-12-08T05:00:00Z", "language": 3}
-    ]
+    "waitlists": []
+  },
+  {
+    "id": "00555551",
+    "name": "Pamela Anderson",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555552",
+    "name": "Sylvester Stallone",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555553",
+    "name": "Freddie Mercury",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555554",
+    "name": "Billy Paine",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555555",
+    "name": "Fred Flinstone",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555556",
+    "name": "Jim Halpert",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555557",
+    "name": "Pam Beasley",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555558",
+    "name": "Oscar Martinez",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555559",
+    "name": "Kevin Malone",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555560",
+    "name": "Creed Bratton",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
+  },
+  {
+    "id": "00555561",
+    "name": "Michael Scott",
+    "email": "phuffman@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": []
   }
 ]
