@@ -1,16 +1,16 @@
 [
   {
-    "id": "00123123",
+    "id": "00555555",
     "name": "Gordon Nickerson",
     "email": "jnickerson@middlebury.edu",
     "attendance": [
-      {"date": "2016-11-21T05:00:00.000Z", "language": 0},
-      {"date": "2016-11-22T05:00:00.000Z", "language": 0},
-      {"date": "2016-11-23T05:00:00.000Z", "language": 0},
-      {"date": "2016-11-24T05:00:00.000Z", "language": 0}
+      {"date": "2016-12-04T05:00:00Z", "language": 0},
+      {"date": "2016-12-05T05:00:00Z", "language": 0},
+      {"date": "2016-12-06T05:00:00Z", "language": 0},
+      {"date": "2016-12-07T05:00:00Z", "language": 0}
     ],
     "waitlists": [
-      {"date": "2016-11-20T05:00:00.000Z", "language": 0}
+      {"date": "2016-12-08T05:00:00Z", "language": 0}
     ]
   },
   {
@@ -18,14 +18,13 @@
     "name": "Amir Amangeldi",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2016-11-21T05:00:00.000Z", "language": 1},
-      {"date": "2016-11-22T05:00:00.000Z", "language": 1},
-      {"date": "2016-11-23T05:00:00.000Z", "language": 1},
-      {"date": "2016-11-24T05:00:00.000Z", "language": 1},
-      {"date": "2016-12-05T05:00:00.000Z", "language": 1}
+      {"date": "2016-12-04T05:00:00Z", "language": 0},
+      {"date": "2016-12-05T05:00:00Z", "language": 1},
+      {"date": "2016-12-06T05:00:00Z", "language": 1},
+      {"date": "2016-12-07T05:00:00Z", "language": 1}
     ],
     "waitlists": [
-      {"date": "2016-11-20T05:00:00.000Z", "language": 1}
+      {"date": "2016-12-08T05:00:00Z", "language": 1}
     ]
   },
   {
@@ -33,13 +32,27 @@
     "name": "Pete Huffman",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2016-11-21T05:00:00.000Z", "language": 2},
-      {"date": "2016-11-22T05:00:00.000Z", "language": 2},
-      {"date": "2016-11-23T05:00:00.000Z", "language": 2},
-      {"date": "2016-11-24T05:00:00.000Z", "language": 2}
+      {"date": "2016-12-04T05:00:00Z", "language": 2},
+      {"date": "2016-12-05T05:00:00Z", "language": 2},
+      {"date": "2016-12-06T05:00:00Z", "language": 2},
+      {"date": "2016-12-07T05:00:00Z", "language": 2}
     ],
     "waitlists": [
-      {"date": "2016-11-20T05:00:00.000Z", "language": 2}
+      {"date": "2016-12-08T05:00:00Z", "language": 2}
+    ]
+  },
+  {
+    "id": "00888888",
+    "name": "Daniel Scharstein",
+    "email": "schar@middlebury.edu",
+    "attendance": [
+      {"date": "2016-12-04T05:00:00Z", "language": 3},
+      {"date": "2016-12-05T05:00:00Z", "language": 3},
+      {"date": "2016-12-06T05:00:00Z", "language": 3},
+      {"date": "2016-12-07T05:00:00Z", "language": 3}
+    ],
+    "waitlists": [
+      {"date": "2016-12-08T05:00:00Z", "language": 3}
     ]
   }
 ]

@@ -37,11 +37,11 @@ var run = function(db, moment) {
   // Get today's date from MomentJS and find tomorrow
   var today = moment();
   var tomorrow = today.add(1, 'days').startOf('day');
-  console.log("tomorrow: " + tomorrow.toISOString() + "\n");
+  console.log("tomorrow: " + tomorrow.utc().format() + "\n");
 
   // Get tomorrow's object from database and run the algorithm
   var languages;
-  db.collection('dates').find({date: tomorrow.toISOString()})
+  db.collection('dates').find({date: tomorrow.utc().format()})
     .toArray(function(err, result) {
       if (err) {
         throw err;
@@ -149,7 +149,7 @@ var run = function(db, moment) {
       console.log("new guests: "+ waitlistToGuests);
 
       db.collection('dates').update(
-        {date: tomorrow.toISOString()},
+        {date: tomorrow.utc().format()},
         {$set: {vacancy: languages}}
       );
 

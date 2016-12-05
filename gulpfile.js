@@ -7,6 +7,7 @@ require('dotenv').config();
 //**TASKS TO USE**
 gulp.task('start', ['start-mongo', 'webpack', 'start-server']);
 gulp.task('start-fresh', ['init-db', 'webpack', 'start-server']);
+gulp.task('start-server', ['init-db', 'start-server']);
 
 
 
@@ -43,7 +44,7 @@ gulp.task('webpack', function(){
 });
 
 //starts the server
-gulp.task('start-server', function(cb) {
+gulp.task('start-server', ['start-mongo'], function(cb) {
   const args = ['server.js'];
   const options = {stdio: 'inherit'};
   child.spawn('./node_modules/.bin/babel-node', args, options);
