@@ -158,7 +158,7 @@ var run = function(db, moment) {
           if (err) {
             throw err;
           }
-          mail.sendNewGuests(result[0].email, newGuest.language);
+          mail.sendNewGuests(result[0].email, newGuest.language, tomorrow);
         });
       });
   });
