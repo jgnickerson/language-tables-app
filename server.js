@@ -57,7 +57,7 @@ app.get('/languages', (req, res) => {
         results = results.map((element) => {
           return {
             date: element.date,
-            seats: element.vacancy[0].seatsReserved - element.vacancy[0].seatsAvailable
+            seats: element.vacancy[0].seatsAvailable - element.vacancy[0].seatsReserved 
           }
         });
 
