@@ -16,7 +16,7 @@ let CheckboxListItem = React.createClass({
   render: function() {
     return (
       <div>
-        <label>
+        <label className="checkboxList">
           <input
             ref="checkbox"
             type="checkbox"

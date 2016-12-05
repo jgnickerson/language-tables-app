@@ -43,6 +43,23 @@ input[type="text"]:focus {
   border-bottom-color: #757575;
 }
 
+input[type="submit"] {
+
+}
+
+input[type="submit"]:focus {
+  outline:none
+}
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+}
+
+label.checkboxList {
+  font-size: 18px;
+}
+
 .btn {
   border-radius: 3px;
   border: none;
@@ -51,6 +68,7 @@ input[type="text"]:focus {
   cursor: pointer;
   font-size: 16px;
   margin-top: 15px;
+  padding: 8px;
   width: 25%;
   float: left;
   text-align: center;
@@ -61,6 +79,7 @@ input[type="text"]:focus {
 }
 
 .btn:focus {
+  outline: none;
   border: #BDBDBD 3px solid;
   border-radius:3px;
 }
