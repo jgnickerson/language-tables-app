@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import $ from 'jquery';
+import _ from 'lodash';
 
 //0th selection item greyed out because its value is 0
 var LanguageSelect = React.createClass({
@@ -15,7 +16,7 @@ var LanguageSelect = React.createClass({
         success: (response) => {
           let options = response.map(function(item) {
             return {
-              label: item.language_string,
+              label: _.capitalize(item.language_string),
               value: item.language
             }
           });
@@ -30,9 +31,10 @@ var LanguageSelect = React.createClass({
   render: function() {
     return (
       <div>
-        <h2>Language</h2>
+        <br/>
         <Select
           name="language-select"
+          placeholder="Select a language..."
           value={this.props.language}
           options={this.state.languages}
           onChange={this.props.onChange}

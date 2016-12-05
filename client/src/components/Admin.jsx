@@ -71,11 +71,15 @@ var Admin = React.createClass({
   handleSubmit: function(event) {
     event.preventDefault();
     let date = this.state.date;
-    let attendants = _.filter(this.state.checkboxItems, (item) => {
+    let attendants = _.groupBy(_.filter(this.state.checkboxItems, (item) => {
       return item.isChecked;
-    }).map((item) => {
-      return item.key;
-    });
+    }), 'language');
+
+    attendants = _.mapValues(attendants, (value) => {
+      return _.map(value, (attendant) => {
+        return attendant.key;
+      })
+    })
 
     this.postAttendance({ date: date, attendants: attendants })
   },
@@ -91,18 +95,20 @@ var Admin = React.createClass({
     let lists = [];
     this.state.languages.forEach((lang) => {
       let langAttendants = _.filter(this.state.checkboxItems, (person) => {
-        console.log(lang, person);
         return person.language === lang.language;
       })
 
-      let list = (
-        <div key={lang.language_string}>
-          <h3>{lang.language_string}</h3>
+      let list;
+      if (langAttendants.length > 0) {
+        list = (
+          <div key={lang.language_string}>
+            <h3>{_.capitalize(lang.language_string)}</h3>
 
-          <CheckboxList items={langAttendants} onChange={this.handleCheck} />
-          <br/>
-        </div>
-      )
+            <CheckboxList items={langAttendants} onChange={this.handleCheck} />
+            <br/>
+          </div>
+        )
+      }
       lists.push(list);
     });
 

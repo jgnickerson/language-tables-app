@@ -166,7 +166,8 @@ app.get('/attendance', (req, res) => {
               }
             })
 
-            attendants.push(langAttendants[0]);
+
+            attendants = attendants.concat(langAttendants);
           }
           resolve();
         })
@@ -188,14 +189,26 @@ app.get('/attendance', (req, res) => {
 
 app.post('/attendance', (req, res) => {
   var date = req.body.date;
-  var ids = req.body.attendants;
+  var attendants = req.body.attendants;
+  var promises = [];
 
-  db.collection('dates').update(
-    { date: date },
-    { $set: { "vacancy.0.guestlist" : ids }}
-  );
+  for (var language in constants.languages) {
+    promises.push(new Promise((resolve, reject) => {
+      var queryString = "vacancy." + constants.languages[language]+".guestlist";
+      var ids = attendants[constants.languages[language]] || [];
+      var update = { $set: {} };
+      update.$set[queryString] = ids;
+      db.collection('dates').update(
+        { date: date },
+        update
+      );
+      resolve();
+    }));
+  }
 
-  res.sendStatus(200);
+  Promise.all(promises).then(()=> {
+    res.sendStatus(200);
+  });
 });
 
 // TODO change the job to 00 00 11 * * 1-5
