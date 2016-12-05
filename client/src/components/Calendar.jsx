@@ -18,18 +18,45 @@ var Calendar = React.createClass({
   },
 
   componentWillMount: function() {
-    $.ajax({
-      url: 'http://localhost:3000/languages?id=' + this.props.language,
-      type: 'GET',
-      datatype: 'json',
-      success: function(response) {
+    this.getLanguage().then((response) => {
+      this.setState({
+        events: _.forEach(response, (event) => {
+          event.date = moment(event.date)
+        })
+      });
+    });
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.language !== this.props.language) {
+      this.getLanguage().then((response) => {
         this.setState({
           events: _.forEach(response, (event) => {
             event.date = moment(event.date)
           })
         });
-      }.bind(this)
+      });
+    }
+  },
+
+  getLanguage: function() {
+    let promise = new Promise((resolve, reject) => {
+      let request = new XMLHttpRequest();
+      request.open('GET', '/languages?id=' + this.props.language, true);
+      request.onload = () => {
+        if (request.status >= 200 && request.status < 400) {
+          let response = JSON.parse(request.responseText);
+          resolve(response);
+        } else {
+          reject();
+        }
+      };
+
+      request.send();
     })
+
+
+    return promise;
   },
 
   checkAvailability: function(date) {
@@ -69,8 +96,6 @@ var Calendar = React.createClass({
     //can only sign up for waitlist before 7:55pm
     let canSignupForWaitlist = moment().isBefore(moment(date).startOf('day').subtract(4,'hours').subtract(5, 'minutes'));
 
-
-    console.log(availability);
     //waitlist
     if (availability && availability.seats === 0 && canSignupForWaitlist) {
       content = (
