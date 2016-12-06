@@ -263,15 +263,12 @@ app.get('/cancel', (req, res) => {
 });
 
 app.get('/attendance', (req, res) => {
-  var date = moment().startOf('day').add(1, 'day').utc().format();
+  var date = moment().startOf('day').add(2, 'day').utc().format();
   var attendants = [];
   var promises = [];
 
-  console.log(date);
-
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
-    console.log(result);
     result[0].vacancy.forEach((day) => {
       promises.push(new Promise((resolve, reject) => {
         db.collection('attendants').find({ id: { $in: day.guestlist } }).toArray()
@@ -351,7 +348,7 @@ var tableAllocationJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
-//tableAllocationJob.start();
+tableAllocationJob.start();
 
 
 //TODO: change cronTime to 00 00 15 * * 1-5

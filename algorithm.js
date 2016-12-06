@@ -36,7 +36,7 @@ var run = function(db, moment) {
 
   // Get today's date from MomentJS and find tomorrow
   var today = moment();
-  var tomorrow = today.add(1, 'days').startOf('day');
+  var tomorrow = today.add(2, 'days').startOf('day');
   console.log("tomorrow: " + tomorrow.utc().format() + "\n");
 
   // Get tomorrow's object from database and run the algorithm
@@ -95,10 +95,10 @@ var run = function(db, moment) {
           for (var i = 0; i < 8; i ++) {
             if (waitlistQ[0].waitlist.length !== 0) {
               var temp = waitlistQ[0].waitlist.shift();
-              waitlistQ[0].guests.push(temp);
+              waitlistQ[0].guestlist.push(temp);
               waitlistQ[0].seatsReserved ++;
 
-              waitlistToGuests.push({guestId: temp, language: languageIndex});
+              waitlistToGuests.push({guestId: temp, language: waitlistQ[0].language});
             }
           }
 
@@ -120,10 +120,10 @@ var run = function(db, moment) {
           for (var i = 0; i < 6; i ++) {
             if (waitlistQ[0].waitlist.length !== 0) {
               var temp = waitlistQ[0].waitlist.shift();
-              waitlistQ[0].guests.push(temp);
+              waitlistQ[0].guestlist.push(temp);
               waitlistQ[0].seatsReserved ++;
 
-              waitlistToGuests.push({guestId: temp, language: languageIndex});
+              waitlistToGuests.push({guestId: temp, language: waitlistQ[0].language});
             }
           }
 
