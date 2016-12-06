@@ -263,16 +263,20 @@ app.get('/cancel', (req, res) => {
 });
 
 app.get('/attendance', (req, res) => {
-  var date = moment().startOf('day').utc().format();
+  var date = moment().startOf('day').add(1, 'day').utc().format();
   var attendants = [];
   var promises = [];
 
+  console.log(date);
+
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
+    console.log(result);
     result[0].vacancy.forEach((day) => {
       promises.push(new Promise((resolve, reject) => {
         db.collection('attendants').find({ id: { $in: day.guestlist } }).toArray()
         .then((result) => {
+          //console.log(result);
           if (result.length > 0) {
             var langAttendants = result.map((item) => {
               return {
@@ -281,7 +285,6 @@ app.get('/attendance', (req, res) => {
                 language: _.find(item.attendance, (day) => { return moment(day.date).isSame(date, 'day') }).language
               }
             })
-
 
             attendants = attendants.concat(langAttendants);
           }
