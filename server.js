@@ -263,7 +263,7 @@ app.get('/cancel', (req, res) => {
 });
 
 app.get('/attendance', (req, res) => {
-  var date = moment().startOf('day').add(2, 'day').utc().format();
+  var date = moment().startOf('day').add(1, 'day').utc().format();
   var attendants = [];
   var promises = [];
 
@@ -332,8 +332,6 @@ var timeToRun = moment().add(10, 'seconds');
 var hour = timeToRun.hour();
 var minute = timeToRun.minutes();
 var second = timeToRun.seconds();
-console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
-console.log("The emails to TA's and professors will be sent at: "+hour+":"+minute+":"+(second+5)+"\n");
 
 
 var tableAllocationJob = new CronJob({
@@ -348,19 +346,21 @@ var tableAllocationJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
-tableAllocationJob.start();
+// console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
+// tableAllocationJob.start();
 
 
 //TODO: change cronTime to 00 00 15 * * 1-5
 var sendEmailToFacultyJob = new CronJob({
-  cronTime: (second+5)+" "+minute+" "+hour+" * * 0-6",
+  cronTime: (second+20)+" "+minute+" "+hour+" * * 0-6",
   onTick: function() {
     /*
      * Runs every weekday (Monday through Friday)
      * at 15:00:00 PM.
      */
 
-     var today = moment().startOf('day');
+     // delete add 1 days
+     var today = moment().add(1, 'days').startOf('day');
 
      //get the faculty collection
      db.collection('faculty').find().toArray((err, result) => {
@@ -405,4 +405,5 @@ var sendEmailToFacultyJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
-//sendEmailToFacultyJob.start();
+// console.log("The emails to TA's and professors will be sent at: "+hour+":"+minute+":"+(second+20)+"\n");
+// sendEmailToFacultyJob.start();

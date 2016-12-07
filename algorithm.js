@@ -36,7 +36,7 @@ var run = function(db, moment) {
 
   // Get today's date from MomentJS and find tomorrow
   var today = moment();
-  var tomorrow = today.add(2, 'days').startOf('day');
+  var tomorrow = today.add(1, 'days').startOf('day');
   console.log("tomorrow: " + tomorrow.utc().format() + "\n");
 
   // Get tomorrow's object from database and run the algorithm
