@@ -1,42 +1,38 @@
 [
-  {"weekday": "Monday",
+  {"language": 0,
    "baseline": [
-     {"language": 0, "tablesOf6": 0, "tablesOf8": 2},
-     {"language": 1, "tablesOf6": 3, "tablesOf8": 0},
-     {"language": 2, "tablesOf6": 1, "tablesOf8": 1},
-     {"language": 3, "tablesOf6": 0, "tablesOf8": 1}
+     {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Thursday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Friday", "tablesOf6": 1, "tablesOf8": 1}
     ]
   },
-  {"weekday": "Tuesday",
+  {"language": 1,
    "baseline": [
-     {"language": 0, "tablesOf6": 0, "tablesOf8": 2},
-     {"language": 1, "tablesOf6": 3, "tablesOf8": 0},
-     {"language": 2, "tablesOf6": 2, "tablesOf8": 0},
-     {"language": 3, "tablesOf6": 1, "tablesOf8": 1}
+     {"weekday": "Monday", "tablesOf6": 3, "tablesOf8": 0},
+     {"weekday": "Tuesday", "tablesOf6": 3, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 3, "tablesOf8": 0},
+     {"weekday": "Thursday", "tablesOf6": 4, "tablesOf8": 0},
+     {"weekday": "Friday", "tablesOf6": 4, "tablesOf8": 0}
     ]
   },
-  {"weekday": "Wednesday",
+  {"language": 2,
    "baseline": [
-     {"language": 0, "tablesOf6": 0, "tablesOf8": 2},
-     {"language": 1, "tablesOf6": 3, "tablesOf8": 0},
-     {"language": 2, "tablesOf6": 0, "tablesOf8": 2},
-     {"language": 3, "tablesOf6": 2, "tablesOf8": 0}
+     {"weekday": "Monday", "tablesOf6": 1, "tablesOf8": 1},
+     {"weekday": "Tuesday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Thursday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Friday", "tablesOf6": 2, "tablesOf8": 0}
     ]
   },
-  {"weekday": "Thursday",
+  {"language": 3,
    "baseline": [
-     {"language": 0, "tablesOf6": 0, "tablesOf8": 2},
-     {"language": 1, "tablesOf6": 4, "tablesOf8": 0},
-     {"language": 2, "tablesOf6": 2, "tablesOf8": 0},
-     {"language": 3, "tablesOf6": 1, "tablesOf8": 1}
-    ]
-  },
-  {"weekday": "Friday",
-   "baseline": [
-     {"language": 0, "tablesOf6": 1, "tablesOf8": 1},
-     {"language": 1, "tablesOf6": 4, "tablesOf8": 0},
-     {"language": 2, "tablesOf6": 2, "tablesOf8": 0},
-     {"language": 3, "tablesOf6": 0, "tablesOf8": 2}
+     {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 1},
+     {"weekday": "Tuesday", "tablesOf6": 1, "tablesOf8": 1},
+     {"weekday": "Wednesday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Thursday", "tablesOf6": 1, "tablesOf8": 1},
+     {"weekday": "Friday", "tablesOf6": 0, "tablesOf8": 2}
     ]
   }
 ]

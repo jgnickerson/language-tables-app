@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Signup from './components/Signup';
 import Admin from './components/Admin';
+import Update from './components/Update';
 import styles from './styles/main';
 import 'react-select/dist/react-select.css';
 
@@ -24,6 +25,7 @@ const App = React.createClass({
     let Child;
     switch (this.state.route) {
         case 'admin': Child = Admin; break;
+        case 'update': Child = Update; break;
         default: Child = Signup;
     }
     return (

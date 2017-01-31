@@ -118,9 +118,18 @@ label {
   margin-bottom: 4px;
 }
 
+label[type="or"] {
+  text-align: center;
+}
+
+
 select {
   font-size: 16px;
   padding: 8px;
+}
+
+h1 {
+  text-align: center;
 }
 
 h2 {

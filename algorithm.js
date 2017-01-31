@@ -48,7 +48,7 @@ var run = function(db, moment) {
       }
 
       languages = result[0].vacancy;
-      console.log(languages);
+      //console.log(languages);
 
       // For each language in the object
       languages.forEach(function(language, languageIndex) {
@@ -142,11 +142,11 @@ var run = function(db, moment) {
           languages[index] = removed;
         }
       }
-      console.log();
-      console.log(languages);
+      // console.log();
+      // console.log(languages);
       //TODO: delete these lines, they are just for testing waitlistToGuests functionality
       //waitlistToGuests.push({guestId: "00666666", language: 0});
-      console.log("new guests: "+ waitlistToGuests);
+      //console.log("new guests: "+ waitlistToGuests);
 
       db.collection('dates').update(
         {date: tomorrow.utc().format()},
@@ -154,6 +154,17 @@ var run = function(db, moment) {
       );
 
       waitlistToGuests.forEach(function(newGuest, newGuestIndex) {
+        // update the waitlists for the news guests in attendants collection
+        db.collection('attendants').update(
+          { id: newGuest.guestId },
+          { $pull: { 'waitlists': { 'date' : tomorrow.utc().format(), 'language' : newGuest.language } }
+        });
+        // update the attendance for the news guests in attendants collection
+        db.collection('attendants').update(
+          { id: newGuest.guestId },
+          { $push: { 'attendance': { 'date' : tomorrow.utc().format(), 'language' : newGuest.language } }
+        });
+
         db.collection('attendants').find({id: newGuest.guestId}, {email: 1}).toArray(function(err, result) {
           if (err) {
             throw err;

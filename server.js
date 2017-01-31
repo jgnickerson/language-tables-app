@@ -161,6 +161,10 @@ app.get('/cancel', (req, res) => {
   var id = decodedString.substring(1, 9);
   var date = decodedString.substring(9, decodedString.length);
 
+  console.log(language +"\n");
+  console.log(id +"\n");
+  console.log(date +"\n");
+
   // remove the reservation from dates collection
   db.collection('dates').find(
     {'date': date},
@@ -168,6 +172,8 @@ app.get('/cancel', (req, res) => {
     if (err) {
       throw err;
     }
+
+    console.log(result);
 
     //for convenience
     var waitlist = result[0].vacancy[0].waitlist;
@@ -262,8 +268,34 @@ app.get('/cancel', (req, res) => {
   res.sendStatus(200);
 });
 
+// getting the current allocation of tables
+app.get('/update', (req, res) => {
+  db.collection('baseline').find({language: Number.parseInt(req.query.lang)}).toArray()
+  .then((result) => {
+    res.json(result[0].baseline);
+    resolve();
+  })
+  .catch((error) => {
+    res.sendStatus(404);
+    reject();
+  });
+});
+
+// updating the current allocation of tables
+app.post('/update', (req, res) => {
+
+  db.collection('baseline').update(
+    { language: req.body.language },
+    { $set: {baseline: req.body.baseline}}
+  );
+
+  res.sendStatus(200);
+});
+
+
 app.get('/attendance', (req, res) => {
-  var date = moment().startOf('day').add(1, 'day').utc().format();
+  //TODO: remove add(1, 'day') -- we want the current day
+  var date = moment().startOf('day').utc().format();
   var attendants = [];
   var promises = [];
 
@@ -273,16 +305,16 @@ app.get('/attendance', (req, res) => {
       promises.push(new Promise((resolve, reject) => {
         db.collection('attendants').find({ id: { $in: day.guestlist } }).toArray()
         .then((result) => {
-          //console.log(result);
           if (result.length > 0) {
             var langAttendants = result.map((item) => {
               return {
                 id: item.id,
                 name: item.name,
-                language: _.find(item.attendance, (day) => { return moment(day.date).isSame(date, 'day') }).language
+                language: _.find(item.attendance, (day) => {
+                  return moment(day.date).isSame(date, 'day')
+                }).language
               }
-            })
-
+            });
             attendants = attendants.concat(langAttendants);
           }
           resolve();
@@ -326,6 +358,7 @@ app.post('/attendance', (req, res) => {
     res.sendStatus(200);
   });
 });
+
 // TODO change cronTime to 00 00 20 * * 1-5
 var timeToRun = moment().add(10, 'seconds');
 
@@ -346,8 +379,8 @@ var tableAllocationJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
-// console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
-// tableAllocationJob.start();
+console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
+tableAllocationJob.start();
 
 
 //TODO: change cronTime to 00 00 15 * * 1-5

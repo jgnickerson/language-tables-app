@@ -18,7 +18,7 @@ var Calendar = React.createClass({
   },
 
   componentWillMount: function() {
-    this.getLanguage().then((response) => {
+    this.getLanguage(this.props.language).then((response) => {
       this.setState({
         events: _.forEach(response, (event) => {
           event.date = moment(event.date)
@@ -29,7 +29,7 @@ var Calendar = React.createClass({
 
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.language !== this.props.language) {
-      this.getLanguage().then((response) => {
+      this.getLanguage(nextProps.language).then((response) => {
         this.setState({
           events: _.forEach(response, (event) => {
             event.date = moment(event.date)
@@ -39,10 +39,10 @@ var Calendar = React.createClass({
     }
   },
 
-  getLanguage: function() {
+  getLanguage: function(language) {
     let promise = new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
-      request.open('GET', '/languages?id=' + this.props.language, true);
+      request.open('GET', '/languages?id=' + language, true);
       request.onload = () => {
         if (request.status >= 200 && request.status < 400) {
           let response = JSON.parse(request.responseText);

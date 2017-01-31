@@ -79,9 +79,10 @@ var Admin = React.createClass({
       return _.map(value, (attendant) => {
         return attendant.key;
       })
-    })
+    });
 
-    this.postAttendance({ date: date, attendants: attendants })
+    this.postAttendance({ date: date, attendants: attendants });
+    window.location.reload();
   },
 
   postAttendance: function(attendanceObj) {

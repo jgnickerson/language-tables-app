@@ -38,7 +38,8 @@ var LanguageSelect = React.createClass({
           value={this.props.language}
           options={this.state.languages}
           onChange={this.props.onChange}
-          clearable={false}
+          clearable={true}
+          resetValue="TEST"
         />
       </div>
     );

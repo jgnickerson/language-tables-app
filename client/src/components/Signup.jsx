@@ -83,9 +83,14 @@ var Signup = React.createClass({
     })
   },
 
+  onHeaderClick : function() {
+    window.location.reload();
+  },
+
   render : function() {
     let calendar, information, confirmation;
-    let header = <Header className='normal' />;
+    let header = <Header className='normal'
+                    onClick={this.onHeaderClick}/>;
     let language = (<LanguageSelect
                       language={this.state.language}
                       onChange={this.handleLanguageChange}
@@ -104,7 +109,7 @@ var Signup = React.createClass({
     if (this.state.date) {
       let message, date = this.state.date.format("MMMM Do");
       if (this.state.seatsAvailable) {
-        message = "You are signing up for " + date;
+        message = "You are signing up for "+this.state.language+" on " + date;
       } else {
         message = "You are signing up for the waitlist on " + date;
       }
