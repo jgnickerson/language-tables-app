@@ -109,7 +109,7 @@ var Signup = React.createClass({
     if (this.state.date) {
       let message, date = this.state.date.format("MMMM Do");
       if (this.state.seatsAvailable) {
-        message = "You are signing up for "+this.state.language+" on " + date;
+        message = "You are signing up for " + date;
       } else {
         message = "You are signing up for the waitlist on " + date;
       }

@@ -295,7 +295,7 @@ app.post('/update', (req, res) => {
 
 app.get('/attendance', (req, res) => {
   //TODO: remove add(1, 'day') -- we want the current day
-  var date = moment().startOf('day').utc().format();
+  var date = moment().startOf('day').add(1, 'day').utc().format();
   var attendants = [];
   var promises = [];
 
@@ -379,8 +379,8 @@ var tableAllocationJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
-console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
-tableAllocationJob.start();
+// console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
+// tableAllocationJob.start();
 
 
 //TODO: change cronTime to 00 00 15 * * 1-5
