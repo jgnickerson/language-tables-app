@@ -17,6 +17,7 @@ var Signup = React.createClass({
       date           : '',
       seatsAvailable : null,
       submitSuccess  : null,
+      errorMessage   : null,
     };
   },
 
@@ -36,9 +37,20 @@ var Signup = React.createClass({
   },
 
   setID : function(event) {
-    this.setState({
-      id : event.target.value
-    });
+     // restricting the user to only type in digits
+     let text = event.target.value;
+     let newText = '';
+     let numbers = '0123456789';
+
+      if (text.length < 1) {
+        this.setState({ id: ''});
+      }
+      for (var i=0; i < text.length; i++) {
+        if (numbers.indexOf(text[i]) > -1 ) {
+          newText = newText + text[i];
+        }
+        this.setState({ id: newText });
+      }
   },
 
   setEmail : function(event) {
@@ -49,7 +61,24 @@ var Signup = React.createClass({
 
   handleSubmit : function(event) {
     event.preventDefault();
-    this.postSubmission();
+    if (this.state.id.length !== 8) {
+      this.setState({
+        errorMessage: "ID number has to be 8 digits."
+      });
+    } else if (this.state.name === '') {
+      this.setState({
+        errorMessage: "Please, enter a name."
+      });
+    } else if (this.state.email === '') {
+      this.setState({
+        errorMessage: "Please, enter an email address."
+      });
+    } else {
+      this.setState({
+        errorMessage: null
+      });
+      this.postSubmission();
+    }
   },
 
   formatData : function() {
@@ -88,7 +117,7 @@ var Signup = React.createClass({
   },
 
   render : function() {
-    let calendar, information, confirmation;
+    let calendar, information, confirmation, errorMessage;
     let header = <Header className='normal'
                     onClick={this.onHeaderClick}/>;
     let language = (<LanguageSelect
@@ -127,6 +156,10 @@ var Signup = React.createClass({
                     </div>
     }
 
+    if (this.state.errorMessage !== null) {
+      errorMessage = <div><br/><label type="errorMessage">{this.state.errorMessage}</label></div>
+    }
+
     if (this.state.submitSuccess !== null) {
       language = null;
       calendar = null;
@@ -145,6 +178,7 @@ var Signup = React.createClass({
         {calendar}
         <br/>
         {information}
+        {errorMessage}
         {confirmation}
         <br/>
       </div>

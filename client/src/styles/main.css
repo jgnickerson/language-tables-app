@@ -122,6 +122,14 @@ label[type="or"] {
   text-align: center;
 }
 
+label[type="errorMessage"] {
+  font-size: 13px;
+  font-weight: 400;
+  color: #FF0000;
+  margin-bottom: 4px;
+  text-align: right;
+}
+
 
 select {
   font-size: 16px;

@@ -95,16 +95,17 @@ var Calendar = React.createClass({
 
     //can only sign up for waitlist before 7:55pm
     let canSignupForWaitlist = moment().isBefore(moment(date).startOf('day').subtract(4,'hours').subtract(5, 'minutes'));
+    let registrationIsOpen = moment().isBefore(moment(date).startOf('day').add(11, 'hours').add(15, 'minutes'));
 
     //waitlist
-    if (availability && availability.seats === 0 && canSignupForWaitlist) {
+    if (availability && availability.seats === 0 && canSignupForWaitlist && registrationIsOpen) {
       content = (
         <div className={'date-cell waitlist ' + selected}>
         {date.format("D")}
         </div>
       );
     //open seats
-  } else if (availability && availability.seats > 0) {
+  } else if (availability && availability.seats > 0 && registrationIsOpen) {
       content = (
         <div className={'date-cell available ' + selected}>
         {date.format("D")}
