@@ -25,13 +25,13 @@ var MongoClient = require('mongodb').MongoClient;
 var db;
 
 //TODO extract db location out to an environment variable
-MongoClient.connect('mongodb://localhost:27017/lt', (err, database) => {
+MongoClient.connect('mongodb://languagetableapp:centurybarrenfortysnake@localhost:3001/lt', (err, database) => {
   if (err) {
     throw err;
   }
   db = database;
   app.listen(app.get('port'), () => {
-    console.log(`Find the server at: http://basin.middlebury.edu:${app.get('port')}/`); // eslint-disable-line no-console
+    console.log(`Find the server at: http://basin.middlebury.edu:3000/:${app.get('port')}/`); // eslint-disable-line no-console
   });
 });
 
