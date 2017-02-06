@@ -4,18 +4,28 @@ var mongoData = require('gulp-mongodb-data');
 require('dotenv').config();
 
 
+//**HELPER FUNCTION TO RUN COMMANDS**
+function runCommand(command) {
+  return function (cb) {
+    child.exec(command, function (err, stdout, stderr) {
+      console.log(stdout);
+      console.log(stderr);
+      cb(err);
+    });
+  }
+}
+
 //**TASKS TO USE**
 gulp.task('start', ['start-mongo', 'webpack', 'start-server']);
 gulp.task('start-fresh', ['init-db', 'webpack', 'start-server']);
 gulp.task('start-server', ['init-db', 'start-server']);
 
 
-
 //**INDIVIDUAL TASKS AND HELPERS**
 
 //fires up mongo
 gulp.task('start-mongo', function() {
-  child.exec('mongod --dbpath ./db', function(err, stdin, stderr) {
+  child.exec('mongod --auth --port 3001 --dbpath ./db', function(err, stdin, stderr) {
     console.log('mongo: ', stdin);
     console.log('mongo: ', stderr);
   });
@@ -23,7 +33,7 @@ gulp.task('start-mongo', function() {
 
 //deletes all collections in lt database
 gulp.task('clean-db', ['start-mongo'], function(cb) {
-  child.exec('mongo lt --eval "db.dropDatabase()"', function(err, stdin, stderr) {
+  child.exec('mongo --port 3001 -u "languagetableapp" -p "centurybarrenfortysnake" --authenticationDatabase "lt" lt --eval "db.dropDatabase()"', function(err, stdin, stderr) {
     console.log('clean-db: ', stdin);
     console.log('clean-db: ', stderr);
     cb(err);
@@ -33,7 +43,7 @@ gulp.task('clean-db', ['start-mongo'], function(cb) {
 //adds all the test collections to a freshly cleaned db
 gulp.task('init-db', ['clean-db', 'start-mongo'], function() {
   gulp.src('./test_data/*.json')
-    .pipe(mongoData({ mongoUrl: 'mongodb://localhost:27017/lt' }));
+    .pipe(mongoData({ mongoUrl: 'mongodb://languagetableapp:centurybarrenfortysnake@localhost:3001/lt' }));
 });
 
 //webpacks our bundle.js
