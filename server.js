@@ -31,7 +31,7 @@ MongoClient.connect('mongodb://languagetableapp:centurybarrenfortysnake@localhos
   }
   db = database;
   app.listen(app.get('port'), () => {
-    console.log(`Find the server at: http://basin.middlebury.edu:3000/:${app.get('port')}/`); // eslint-disable-line no-console
+    console.log(`Find the server at: http://basin.middlebury.edu:${app.get('port')}/`); // eslint-disable-line no-console
   });
 });
 
@@ -264,8 +264,8 @@ app.get('/cancel', (req, res) => {
       });
     }
   });
-
-  res.sendStatus(200);
+  res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully cancelled your reservation.</p>');
+  //res.sendStatus(200);
 });
 
 // getting the current allocation of tables
