@@ -74,6 +74,9 @@ var Admin = React.createClass({
     let attendants = _.groupBy(_.filter(this.state.checkboxItems, (item) => {
       return item.isChecked;
     }), 'language');
+    let absent = _.groupBy(_.filter(this.state.checkboxItems, (item) => {
+      return !item.isChecked;
+    }), 'language');
 
     attendants = _.mapValues(attendants, (value) => {
       return _.map(value, (attendant) => {
@@ -81,7 +84,13 @@ var Admin = React.createClass({
       })
     });
 
-    this.postAttendance({ date: date, attendants: attendants });
+    absent = _.mapValues(absent, (value) => {
+      return _.map(value, (absentee) => {
+        return absentee.key;
+      })
+    });
+
+    this.postAttendance({ date: date, attendants: attendants, absent: absent });
     window.location.reload();
   },
 
@@ -104,6 +113,9 @@ var Admin = React.createClass({
         list = (
           <div key={lang.language_string}>
             <h3>{_.capitalize(lang.language_string)}</h3>
+            <label type="tablesOf">{"Tables of 6: "+lang.tablesOf6}</label>
+            <label type="tablesOf">{"Tables of 8: "+lang.tablesOf8}</label>
+            <br/>
 
             <CheckboxList items={langAttendants} onChange={this.handleCheck} />
             <br/>
@@ -117,8 +129,10 @@ var Admin = React.createClass({
   },
 
   render : function() {
+    let date = moment().format("MMMM Do YYYY");
     return (
       <div>
+        <h2>{date}</h2>
         <form onSubmit={this.handleSubmit}>
           {this.createCheckboxLists()}
           <input

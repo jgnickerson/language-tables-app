@@ -130,6 +130,9 @@ label[type="errorMessage"] {
   text-align: right;
 }
 
+label[type="tablesOf"] {
+   font-weight: normal;
+}
 
 select {
   font-size: 16px;
@@ -142,6 +145,10 @@ h1 {
 
 h2 {
   text-align: center;
+}
+
+h3 {
+  text-decoration: underline;
 }
 
 .rc-calendar-full {

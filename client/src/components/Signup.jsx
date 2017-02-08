@@ -22,7 +22,11 @@ var Signup = React.createClass({
   },
 
   handleLanguageChange: function(language) {
-    this.setState({ language: language });
+    this.setState({
+      language       : language,
+      date           : '',
+      seatsAvailable : null
+    });
   },
 
   //if an invalid date is chosen after a valid one, must clear the date field so they can't continue

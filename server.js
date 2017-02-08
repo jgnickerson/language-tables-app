@@ -41,11 +41,24 @@ app.get('/languages', (req, res) => {
   // *** is undefined the way to check "if x == NULL" in JS?
   if (req.query.id === undefined) {
     let languages = Object.entries(constants.languages);
-    languages = languages.map((lang) => {
-      return {language: lang[1], language_string: lang[0]}
+    db.collection('dates').find({date: moment().startOf('day').utc().format()})
+      .toArray(function(err, result) {
+      if (err) {
+        throw err;
+      }
+      let tables = result[0].vacancy;
+
+      languages = languages.map((lang) => {
+        let langObj = _.find(tables, function(o) { return o.language === lang[1]; });
+        return {language       : lang[1],
+                language_string: lang[0],
+                tablesOf6      : langObj.tablesOf6,
+                tablesOf8      : langObj.tablesOf8}
+      });
+      res.send(languages);
+
     });
 
-    res.send(languages);
   // if id is specified, return an object with dates and seats
   } else {
     let language_id = Number.parseInt(req.query.id);
@@ -161,9 +174,9 @@ app.get('/cancel', (req, res) => {
   var id = decodedString.substring(1, 9);
   var date = decodedString.substring(9, decodedString.length);
 
-  console.log(language +"\n");
-  console.log(id +"\n");
-  console.log(date +"\n");
+  // console.log(language +"\n");
+  // console.log(id +"\n");
+  // console.log(date +"\n");
 
   // remove the reservation from dates collection
   db.collection('dates').find(
@@ -173,7 +186,7 @@ app.get('/cancel', (req, res) => {
       throw err;
     }
 
-    console.log(result);
+    // console.log(result);
 
     //for convenience
     var waitlist = result[0].vacancy[0].waitlist;
@@ -295,7 +308,7 @@ app.post('/update', (req, res) => {
 
 app.get('/attendance', (req, res) => {
   //TODO: remove add(1, 'day') -- we want the current day
-  var date = moment().startOf('day').add(1, 'day').utc().format();
+  var date = moment().startOf('day').utc().format();
   var attendants = [];
   var promises = [];
 
@@ -338,6 +351,8 @@ app.get('/attendance', (req, res) => {
 app.post('/attendance', (req, res) => {
   var date = req.body.date;
   var attendants = req.body.attendants;
+  var absent = req.body.absent;
+  //console.log(absent);
   var promises = [];
 
   for (var language in constants.languages) {
@@ -350,6 +365,14 @@ app.post('/attendance', (req, res) => {
         { date: date },
         update
       );
+
+      var absentIds = absent[constants.languages[language]] || [];
+      for (var i = 0; i < absentIds.length; i++) {
+        db.collection('attendants').update(
+          { id: absentIds[i] },
+          { $pull: { 'attendance': { 'date' : date, 'language' : constants.languages[language] } } }
+        );
+      }
       resolve();
     }));
   }
@@ -366,12 +389,14 @@ var hour = timeToRun.hour();
 var minute = timeToRun.minutes();
 var second = timeToRun.seconds();
 
+// for testing:
+// cronTime: second+" "+minute+" "+hour+" * * 0-6",
 
 var tableAllocationJob = new CronJob({
-  cronTime: second+" "+minute+" "+hour+" * * 0-6",
+  cronTime: "00 00 20 * * 0-4",
   onTick: function() {
     /*
-     * Runs every weekday (Monday through Friday)
+     * Runs the day before every weekday (Sunday through Thursday)
      * at 20:00:00 PM.
      */
      algorithm.run(db, moment);
@@ -380,12 +405,14 @@ var tableAllocationJob = new CronJob({
   timeZone: 'America/New_York'
 });
 // console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
-// tableAllocationJob.start();
+tableAllocationJob.start();
 
 
 //TODO: change cronTime to 00 00 15 * * 1-5
+// for testing:
+// (second+20)+" "+minute+" "+hour+" * * 0-6"
 var sendEmailToFacultyJob = new CronJob({
-  cronTime: (second+20)+" "+minute+" "+hour+" * * 0-6",
+  cronTime: "00 00 15 * * 1-5",
   onTick: function() {
     /*
      * Runs every weekday (Monday through Friday)
@@ -393,7 +420,7 @@ var sendEmailToFacultyJob = new CronJob({
      */
 
      // delete add 1 days
-     var today = moment().add(1, 'days').startOf('day');
+     var today = moment().startOf('day');
 
      //get the faculty collection
      db.collection('faculty').find().toArray((err, result) => {
@@ -439,4 +466,4 @@ var sendEmailToFacultyJob = new CronJob({
   timeZone: 'America/New_York'
 });
 // console.log("The emails to TA's and professors will be sent at: "+hour+":"+minute+":"+(second+20)+"\n");
-// sendEmailToFacultyJob.start();
+sendEmailToFacultyJob.start();

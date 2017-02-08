@@ -13,7 +13,7 @@ var AccountFields = React.createClass({
         <form onSubmit={this.props.handleSubmit}>
             <label>Name: </label>
             <input type="text" onChange={this.props.setName} value={this.props.name}
-              placeholder="Firstname Lastname" autoCapitalize="words"/>
+              placeholder="First Last" autoCapitalize="words"/>
 
             <label>Midd ID: </label>
             <input type="text" onChange={this.props.setID} value={this.props.id}
