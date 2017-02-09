@@ -104,7 +104,7 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
     language = _.capitalize(language);
   }
   //var languages = ["Spanish", "French", "Chinese", "German"];
-  var text = language + " Language Tables Attendance for " + date + ": <br/> <br/>";
+  var text = "[TEST] " + language + " Language Tables Attendance for " + date + ": <br/> <br/>";
 
   guestlist.forEach(function(guest, guestIndex) {
     text = text + guest + "<br/>";
@@ -113,7 +113,7 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
   var mailOptions = {
     from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
     to: emails, // list of receivers
-    subject: 'Language Tables Attendance', // Subject line
+    subject: '[TEST] Language Tables Attendance', // Subject line
     text: text, // plaintext body
     html: '<b>' + text + '</b>' // html body
   }

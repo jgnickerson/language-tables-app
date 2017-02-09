@@ -16,14 +16,15 @@
   {
     "language": 2,
     "faculty": [
-      {"title": "ta", "email": "moran@middlebury.edu"},
+      {"title": "ta", "email": "ywang@middlebury.edu"},
+      {"title": "test", "email": "moran@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 3,
     "faculty": [
-      {"title": "ta", "email": "aamangeldi@middlebury.edu"},
+      {"title": "ta", "email": "nunley@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
@@ -31,13 +32,14 @@
     "language": 4,
     "faculty": [
       {"title": "ta", "email": "fhamburger@middlebury.edu"},
+      {"title": "test", "email": "graf@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 5,
     "faculty": [
-      {"title": "ta", "email": "mayer@middlebury.edu"},
+      {"title": "ta", "email": "oaloni@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
@@ -60,6 +62,7 @@
     "language": 8,
     "faculty": [
       {"title": "ta", "email": "nneff@middlebury.edu"},
+      {"title": "test", "email": "pserralhaaraujo@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
@@ -74,6 +77,7 @@
     "language": 10,
     "faculty": [
       {"title": "ta", "email": "nneff@middlebury.edu"},
+      {"title": "test", "email": "pserralhaaraujo@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
