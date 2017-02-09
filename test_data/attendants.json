@@ -4,7 +4,7 @@
     "name": "Johnny Appleseed",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -13,7 +13,7 @@
     "name": "Tom Sawyer",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -22,7 +22,7 @@
     "name": "Huck Finn",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -31,7 +31,7 @@
     "name": "Dick Van Dyke",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -40,7 +40,7 @@
     "name": "Mary Poppins",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -49,7 +49,7 @@
     "name": "Harry Karry",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -58,7 +58,7 @@
     "name": "Helen Mirren",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -67,7 +67,7 @@
     "name": "Tom Jones",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -76,7 +76,7 @@
     "name": "Christopher Andrews",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -85,7 +85,7 @@
     "name": "Ananya Christman",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
     ],
     "waitlists": []
   },
@@ -94,7 +94,7 @@
     "name": "Eric Clapton",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
     ],
     "waitlists": []
   },
@@ -103,7 +103,7 @@
     "name": "Steve Winwood",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
     ],
     "waitlists": []
   },
@@ -112,7 +112,7 @@
     "name": "Frank Underwood",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
     ],
     "waitlists": []
   },
@@ -121,7 +121,7 @@
     "name": "Dylan Takamori",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
     ],
     "waitlists": []
   },
@@ -130,7 +130,7 @@
     "name": "Jessica Simpson",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}
+      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
     ],
     "waitlists": []
   },
@@ -139,7 +139,7 @@
     "name": "Jerry Garcia",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 2}
     ],
     "waitlists": []
   },
@@ -148,7 +148,7 @@
     "name": "Bob Weir",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 2}
     ],
     "waitlists": []
   },
@@ -157,7 +157,7 @@
     "name": "Phil Lesh",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
     ],
     "waitlists": []
   },
@@ -166,7 +166,7 @@
     "name": "Mickey Hart",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
     ],
     "waitlists": []
   },
@@ -175,7 +175,7 @@
     "name": "Bill Kreutzman",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
     ],
     "waitlists": []
   },
@@ -184,7 +184,7 @@
     "name": "Keith Godcheaux",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
     ],
     "waitlists": []
   },
@@ -193,16 +193,16 @@
     "name": "Donna Godcheaux",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
     ],
     "waitlists": []
   },
   {
     "id": "00333337",
-    "name": "Pigpen",
+    "name": "Peter Krakowski",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
     ],
     "waitlists": []
   },
@@ -211,7 +211,7 @@
     "name": "Mickey Mouse",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
     ],
     "waitlists": []
   },
@@ -220,7 +220,7 @@
     "name": "Minnie Mouse",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}
+      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
     ],
     "waitlists": []
   },
@@ -228,7 +228,7 @@
     "id": "00111110",
     "name": "Gordon Nickerson",
     "email": "aamangeldi@middlebury.edu",
-    "attendance": [],
+    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
     "waitlists": [
       {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
     ]
@@ -237,7 +237,7 @@
     "id": "00111111",
     "name": "Amir Amangeldi",
     "email": "aamangeldi@middlebury.edu",
-    "attendance": [],
+    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
     "waitlists": [
       {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
     ]
@@ -246,7 +246,7 @@
     "id": "00111112",
     "name": "Peter Huffman",
     "email": "aamangeldi@middlebury.edu",
-    "attendance": [],
+    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
     "waitlists": [
       {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
     ]
@@ -255,7 +255,7 @@
     "id": "00111113",
     "name": "Peter Johnson",
     "email": "aamangeldi@middlebury.edu",
-    "attendance": [],
+    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
     "waitlists": [
       {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
     ]
@@ -264,7 +264,7 @@
     "id": "00111114",
     "name": "Christopher Andrews",
     "email": "aamangeldi@middlebury.edu",
-    "attendance": [],
+    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
     "waitlists": [
       {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
     ]
@@ -274,7 +274,7 @@
     "name": "Michael Phelps",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 5}
     ],
     "waitlists": []
   },
@@ -283,7 +283,7 @@
     "name": "Tom Bean",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 5}
     ],
     "waitlists": []
   },
@@ -292,7 +292,7 @@
     "name": "Birgitta Cheng",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 5}
     ],
     "waitlists": []
   },
@@ -301,7 +301,7 @@
     "name": "Shannia Fu",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 5}
     ],
     "waitlists": []
   },
@@ -310,7 +310,7 @@
     "name": "Forest Gagnon",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 6}
     ],
     "waitlists": []
   },
@@ -319,7 +319,7 @@
     "name": "G Achi",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 6}
     ],
     "waitlists": []
   },
@@ -328,7 +328,7 @@
     "name": "Tony Jin",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 6}
     ],
     "waitlists": []
   },
@@ -337,7 +337,7 @@
     "name": "Kyle Dickey",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 6}
     ],
     "waitlists": []
   },
@@ -346,7 +346,7 @@
     "name": "Paul Molloy",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 7}
     ],
     "waitlists": []
   },
@@ -355,7 +355,7 @@
     "name": "Ben Raifman",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 7}
     ],
     "waitlists": []
   },
@@ -364,7 +364,7 @@
     "name": "Ryan Rizzo",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 7}
     ],
     "waitlists": []
   },
@@ -373,7 +373,7 @@
     "name": "Lily Taub",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 7}
     ],
     "waitlists": []
   },
@@ -382,7 +382,7 @@
     "name": "Forrest Wallace",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 8}
     ],
     "waitlists": []
   },
@@ -391,7 +391,7 @@
     "name": "Davin Chia",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 8}
     ],
     "waitlists": []
   },
@@ -400,7 +400,7 @@
     "name": "Amanuel Afework",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 8}
     ],
     "waitlists": []
   },
@@ -409,7 +409,7 @@
     "name": "Kaysee Orozco",
     "email": "aamangeldi@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
+      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 8}
     ],
     "waitlists": []
   },
@@ -417,7 +417,7 @@
     "id": "00111115",
     "name": "Ananya Christman",
     "email": "aamangeldi@middlebury.edu",
-    "attendance": [],
+    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 9}],
     "waitlists": [
       {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
     ]
@@ -426,7 +426,7 @@
     "id": "00111116",
     "name": "Amy Briggs",
     "email": "aamangeldi@middlebury.edu",
-    "attendance": [],
+    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 9}],
     "waitlists": [
       {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
     ]
@@ -436,7 +436,7 @@
     "name": "Daniel Scharstein",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 9}
     ],
     "waitlists": []
   },
@@ -445,7 +445,7 @@
     "name": "Pamela Anderson",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 9}
     ],
     "waitlists": []
   },
@@ -454,7 +454,7 @@
     "name": "Sylvester Stallone",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
     ],
     "waitlists": []
   },
@@ -463,7 +463,7 @@
     "name": "Freddie Mercury",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
     ],
     "waitlists": []
   },
@@ -472,7 +472,7 @@
     "name": "Billy Paine",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
     ],
     "waitlists": []
   },
@@ -481,7 +481,7 @@
     "name": "Fred Flinstone",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
     ],
     "waitlists": []
   },
@@ -490,7 +490,7 @@
     "name": "Jim Halpert",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
     ],
     "waitlists": []
   },
@@ -499,7 +499,7 @@
     "name": "Pam Beasley",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
     ],
     "waitlists": []
   },
@@ -508,7 +508,7 @@
     "name": "Oscar Martinez",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 11}
     ],
     "waitlists": []
   },
@@ -517,7 +517,7 @@
     "name": "Kevin Malone",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 11}
     ],
     "waitlists": []
   },
@@ -526,7 +526,7 @@
     "name": "Creed Bratton",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 11}
     ],
     "waitlists": []
   },
@@ -535,7 +535,7 @@
     "name": "Michael Scott",
     "email": "phuffman@middlebury.edu",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
+      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 11}
     ],
     "waitlists": []
   }
