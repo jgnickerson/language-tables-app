@@ -53,7 +53,12 @@ let CheckboxList = React.createClass({
   },
 
   render: function() {
-    let items = this.props.items.map(this.renderItem);
+    let items;
+    if (this.props.items.length > 0) {
+      items = this.props.items.map(this.renderItem);
+    } else {
+      items = (<div><label className="checkboxList">{"Nobody signed up."}</label></div>)
+    }
     return (
       <div>
         {items}

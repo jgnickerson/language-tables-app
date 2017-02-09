@@ -109,10 +109,16 @@ var Admin = React.createClass({
       })
 
       let list;
-      if (langAttendants.length > 0) {
+      let languageString;
+      if (lang.language_string !== "ASL") {
+	languageString = _.capitalize(lang.language_string);
+      } else {
+	languageString = lang.language_string;
+      }
+      //if (langAttendants.length > 0) {
         list = (
           <div key={lang.language_string}>
-            <h3>{_.capitalize(lang.language_string)}</h3>
+            <h3>{languageString}</h3>
             <label type="tablesOf">{"Tables of 6: "+lang.tablesOf6}</label>
             <label type="tablesOf">{"Tables of 8: "+lang.tablesOf8}</label>
             <br/>
@@ -121,7 +127,7 @@ var Admin = React.createClass({
             <br/>
           </div>
         )
-      }
+      //}
       lists.push(list);
     });
 
@@ -129,7 +135,7 @@ var Admin = React.createClass({
   },
 
   render : function() {
-    let date = moment().format("MMMM Do YYYY");
+    let date = moment().format("dddd, MMMM Do YYYY");
     return (
       <div>
         <h2>{date}</h2>
