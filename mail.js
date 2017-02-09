@@ -32,6 +32,9 @@ var languages = Object.entries(constants.languages);
 // send mail with defined transport object
 var send = function(reservationObj, waitlist) {
   var language = languages[reservationObj.language][0];
+  if (language !== "ASL") {
+    language = _.capitalize(language)
+  }
   //var language = ["Spanish", "French", "Chinese", "German"];
   var languageString = reservationObj.language.toString();
   if (languageString.length === 1) {
@@ -48,7 +51,7 @@ var send = function(reservationObj, waitlist) {
   } else {
     text = "You are <u>signed up</u> for ";
   }
-  text += _.capitalize(language) + " Language Tables on " + moment(reservationObj.date).format('MM-DD-YYYY') + ". </br>";
+  text += language + " Language Tables on " + moment(reservationObj.date).format('MM-DD-YYYY') + ". </br>";
 
   if (waitlist) {
     text += "You will receive another email if a spot opens up. Thank you for your patience. </br>";
@@ -73,8 +76,11 @@ var send = function(reservationObj, waitlist) {
 // send mail to newly added guests
 var sendNewGuests = function(email, language, date) {
   var languageString = languages[language][0];
+  if (languageString !== "ASL") {
+    languageString = _.capitalize(languageString);
+  }
   // var languages = ["Spanish", "French", "Chinese", "German"];
-  var text = "You just got a spot at " + _.capitalize(languageString) + " Language Tables for "+date.format('MM-DD-YYYY')+"!";
+  var text = "You just got a spot at " + languageString + " Language Tables for "+date.format('MM-DD-YYYY')+"!";
 
   var mailOptions = {
     from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
@@ -94,8 +100,11 @@ var sendNewGuests = function(email, language, date) {
 // send mail to faculty
 var sendProfTA = function(faculty, guestlist, date, emails) {
   var language = languages[faculty.language][0];
+  if (language !== "ASL") {
+    language = _.capitalize(language);
+  }
   //var languages = ["Spanish", "French", "Chinese", "German"];
-  var text = _.capitalize(language) + " Language Tables Attendance for " + date + ": <br/> <br/>";
+  var text = language + " Language Tables Attendance for " + date + ": <br/> <br/>";
 
   guestlist.forEach(function(guest, guestIndex) {
     text = text + guest + "<br/>";
