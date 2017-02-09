@@ -15,8 +15,14 @@ var LanguageSelect = React.createClass({
         datatype: 'json',
         success: (response) => {
           let options = response.map(function(item) {
+            let string;
+            if (item.language_string === "ASL") {
+              string = item.language_string;
+            } else {
+              string = _.capitalize(item.language_string);
+            }
             return {
-              label: _.capitalize(item.language_string),
+              label: string,
               value: item.language
             }
           });

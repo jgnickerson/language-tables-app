@@ -46,14 +46,26 @@ app.get('/languages', (req, res) => {
       if (err) {
         throw err;
       }
-      let tables = result[0].vacancy;
+      let tables, langObj, tablesOf6, tablesOf8;
+      if (result[0] !== undefined) {
+        tables = result[0].vacancy;
+      } else {
+        tables = [];
+      }
 
       languages = languages.map((lang) => {
-        let langObj = _.find(tables, function(o) { return o.language === lang[1]; });
+        langObj = _.find(tables, function(o) { return o.language === lang[1]; });
+        if (langObj !== undefined) {
+          tablesOf6 = langObj.tablesOf6;
+          tablesOf8 = langObj.tablesOf8;
+        } else {
+          tablesOf6 = 0;
+          tablesOf8 = 0;
+        }
         return {language       : lang[1],
                 language_string: lang[0],
-                tablesOf6      : langObj.tablesOf6,
-                tablesOf8      : langObj.tablesOf8}
+                tablesOf6      : tablesOf6,
+                tablesOf8      : tablesOf8}
       });
       res.send(languages);
 
@@ -70,7 +82,9 @@ app.get('/languages', (req, res) => {
         results = results.map((element) => {
           return {
             date: element.date,
-            seats: element.vacancy[0].seatsAvailable - element.vacancy[0].seatsReserved
+            seats: element.vacancy[0].seatsAvailable - element.vacancy[0].seatsReserved,
+            tablesOf6: element.vacancy[0].tablesOf6,
+            tablesOf8: element.vacancy[0].tablesOf8,
           }
         });
 
@@ -170,9 +184,9 @@ app.get('/cancel', (req, res) => {
   //var encodedString = new Buffer(string).toString('base64');
   var decodedString = new Buffer(encodedString, 'base64').toString('ascii');
 
-  var language = Number.parseInt(decodedString.substring(0, 1));
-  var id = decodedString.substring(1, 9);
-  var date = decodedString.substring(9, decodedString.length);
+  var language = Number.parseInt(decodedString.substring(0, 2), 10);
+  var id = decodedString.substring(2, 10);
+  var date = decodedString.substring(10, decodedString.length);
 
   // console.log(language +"\n");
   // console.log(id +"\n");

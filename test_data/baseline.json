@@ -1,14 +1,36 @@
 [
   {"language": 0,
+   "language_string": "ARABIC",
    "baseline": [
-     {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 2},
-     {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 2},
-     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Monday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Tuesday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 1, "tablesOf8": 1},
      {"weekday": "Thursday", "tablesOf6": 0, "tablesOf8": 2},
-     {"weekday": "Friday", "tablesOf6": 1, "tablesOf8": 1}
+     {"weekday": "Friday", "tablesOf6": 0, "tablesOf8": 0}
     ]
   },
   {"language": 1,
+   "language_string": "ASL",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 1, "tablesOf8": 0},
+     {"weekday": "Thursday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Friday", "tablesOf6": 0, "tablesOf8": 0}
+    ]
+  },
+  {"language": 2,
+   "language_string": "CHINESE",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 3, "tablesOf8": 0},
+     {"weekday": "Tuesday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 3, "tablesOf8": 0},
+     {"weekday": "Thursday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Friday", "tablesOf6": 2, "tablesOf8": 0}
+    ]
+  },
+  {"language": 3,
+   "language_string": "FRENCH",
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 3, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 3, "tablesOf8": 0},
@@ -17,22 +39,84 @@
      {"weekday": "Friday", "tablesOf6": 4, "tablesOf8": 0}
     ]
   },
-  {"language": 2,
-   "baseline": [
-     {"weekday": "Monday", "tablesOf6": 1, "tablesOf8": 1},
-     {"weekday": "Tuesday", "tablesOf6": 2, "tablesOf8": 0},
-     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 2},
-     {"weekday": "Thursday", "tablesOf6": 2, "tablesOf8": 0},
-     {"weekday": "Friday", "tablesOf6": 2, "tablesOf8": 0}
-    ]
-  },
-  {"language": 3,
+  {"language": 4,
+   "language_string": "GERMAN",
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 1},
      {"weekday": "Tuesday", "tablesOf6": 1, "tablesOf8": 1},
      {"weekday": "Wednesday", "tablesOf6": 2, "tablesOf8": 0},
      {"weekday": "Thursday", "tablesOf6": 1, "tablesOf8": 1},
      {"weekday": "Friday", "tablesOf6": 0, "tablesOf8": 2}
+    ]
+  },
+  {"language": 5,
+   "language_string": "HEBREW",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Thursday", "tablesOf6": 0, "tablesOf8": 1},
+     {"weekday": "Friday", "tablesOf6": 0, "tablesOf8": 0}
+    ]
+  },
+  {"language": 6,
+   "language_string": "ITALIAN",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Tuesday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Thursday", "tablesOf6": 1, "tablesOf8": 1},
+     {"weekday": "Friday", "tablesOf6": 0, "tablesOf8": 2}
+    ]
+  },
+  {"language": 7,
+   "language_string": "JAPANESE",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 1},
+     {"weekday": "Tuesday", "tablesOf6": 1, "tablesOf8": 1},
+     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 1},
+     {"weekday": "Thursday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Friday", "tablesOf6": 2, "tablesOf8": 0}
+    ]
+  },
+  {"language": 8,
+   "language_string": "PORTUGUESE",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 1, "tablesOf8": 0},
+     {"weekday": "Tuesday", "tablesOf6": 1, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 1, "tablesOf8": 0},
+     {"weekday": "Thursday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Friday", "tablesOf6": 2, "tablesOf8": 0}
+    ]
+  },
+  {"language": 9,
+   "language_string": "RUSSIAN",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Thursday", "tablesOf6": 2, "tablesOf8": 0},
+     {"weekday": "Friday", "tablesOf6": 0, "tablesOf8": 2}
+    ]
+  },
+  {"language": 10,
+   "language_string": "SPANISH",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Thursday", "tablesOf6": 0, "tablesOf8": 2},
+     {"weekday": "Friday", "tablesOf6": 1, "tablesOf8": 1}
+    ]
+  },
+  {"language": 11,
+   "language_string": "SWAHILI",
+   "baseline": [
+     {"weekday": "Monday", "tablesOf6": 1, "tablesOf8": 0},
+     {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Wednesday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Thursday", "tablesOf6": 0, "tablesOf8": 0},
+     {"weekday": "Friday", "tablesOf6": 1, "tablesOf8": 0}
     ]
   }
 ]

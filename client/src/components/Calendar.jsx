@@ -63,7 +63,13 @@ var Calendar = React.createClass({
     let availability = _.find(this.state.events, function(event) {
       let sameDay = moment(date).isSame(event.date, 'day');
       let isTodayOrFuture = event.date.isSameOrAfter(moment(), 'day');
-      return sameDay && isTodayOrFuture;
+      let tablesExist;
+      if (event.tablesOf6 === 0 && event.tablesOf8 === 0) {
+        tablesExist = false;
+      } else {
+        tablesExist = true;
+      }
+      return sameDay && isTodayOrFuture && tablesExist;
     });
 
     return availability;
@@ -95,6 +101,7 @@ var Calendar = React.createClass({
 
     //can only sign up for waitlist before 7:55pm
     let canSignupForWaitlist = moment().isBefore(moment(date).startOf('day').subtract(4,'hours').subtract(5, 'minutes'));
+    //registration is only open until 11:15am
     let registrationIsOpen = moment().isBefore(moment(date).startOf('day').add(11, 'hours').add(15, 'minutes'));
 
     //waitlist
@@ -105,7 +112,7 @@ var Calendar = React.createClass({
         </div>
       );
     //open seats
-  } else if (availability && availability.seats > 0 && registrationIsOpen) {
+    } else if (availability && availability.seats > 0 && registrationIsOpen) {
       content = (
         <div className={'date-cell available ' + selected}>
         {date.format("D")}
