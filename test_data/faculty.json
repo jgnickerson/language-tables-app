@@ -16,75 +16,60 @@
   {
     "language": 2,
     "faculty": [
-      {"title": "ta", "email": "ywang@middlebury.edu"},
-      {"title": "test", "email": "moran@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 3,
     "faculty": [
-      {"title": "ta", "email": "nunley@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 4,
     "faculty": [
-      {"title": "ta", "email": "fhamburger@middlebury.edu"},
-      {"title": "test", "email": "graf@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 5,
     "faculty": [
-      {"title": "ta", "email": "oaloni@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 6,
     "faculty": [
-      {"title": "ta", "email": "zupan@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 7,
     "faculty": [
-      {"title": "ta", "email": "lwhite@middlebury.edu"},
-      {"title": "ta", "email": "kdavis@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 8,
     "faculty": [
-      {"title": "ta", "email": "nneff@middlebury.edu"},
-      {"title": "test", "email": "pserralhaaraujo@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 9,
     "faculty": [
-      {"title": "ta", "email": "tportice@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 10,
     "faculty": [
-      {"title": "ta", "email": "nneff@middlebury.edu"},
-      {"title": "test", "email": "pserralhaaraujo@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 11,
     "faculty": [
-      {"title": "ta", "email": "bkafumbe@middlebury.edu"},
       {"title": "test", "email": "aamangeldi@middlebury.edu"}
     ]
   }

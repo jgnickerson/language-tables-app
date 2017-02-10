@@ -396,53 +396,6 @@ app.post('/attendance', (req, res) => {
   });
 });
 
-//**DELETE THIS**//
-app.get('/demo', (req, res) => {
-  // delete add 1 days
-  var today = moment().startOf('day');
-
-  //get the faculty collection
-  db.collection('faculty').find().toArray((err, result) => {
-    if (err) {
-      throw err;
-    }
-
-    //for each language department
-    result.forEach(function(object, objectIndex) {
-      db.collection('dates').find({date: today.utc().format()}).toArray((err, result) => {
-        if (err) {
-          throw err;
-        }
-
-        var guestList = result[0].vacancy[object.language].guestlist;
-        var guestNamesList = [];
-        var emails = [];
-
-        //get emails of TA's and Professors for this language
-        object.faculty.forEach((facultyMember, facultyMemberIndex) => {
-          emails.push(facultyMember.email);
-        });
-
-        //get the names of the attendants by their id
-        guestList.forEach((guestId, guestIndex) => {
-          db.collection('attendants').find({id: guestId}, {name: 1}).toArray((err, result) => {
-            if (err) {
-              throw err;
-            }
-            guestNamesList.push(result[0].name);
-
-            //send the email
-            if (guestNamesList.length === guestList.length) {
-              mail.sendProfTA(object, guestNamesList, today.format("MM-DD-YYYY"), emails);
-            }
-          });
-        });
-      });
-    });
-  });
-});
-//****************//
-
 // TODO change cronTime to 00 00 20 * * 1-5
 var timeToRun = moment().add(10, 'seconds');
 

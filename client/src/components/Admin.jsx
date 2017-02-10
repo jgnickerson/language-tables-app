@@ -91,13 +91,7 @@ var Admin = React.createClass({
     });
 
     this.postAttendance({ date: date, attendants: attendants, absent: absent });
-    //**DELETE THIS**//
-    let request = new XMLHttpRequest();
-    request.open('GET', '/demo/', true);
-    request.send();
     window.location.reload();
-
-    //**************//
   },
 
   postAttendance: function(attendanceObj) {
