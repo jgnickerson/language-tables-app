@@ -35,6 +35,84 @@ MongoClient.connect('mongodb://languagetableapp:centurybarrenfortysnake@localhos
   });
 });
 
+app.get('/courses', (req, res) => {
+  let language_id = Number.parseInt(req.query.lang);
+  db.collection('baseline').find({language: language_id},{'courses': 1})
+    .toArray(function(err, results) {
+      if (err) {
+        throw err;
+      }
+      res.send(results[0].courses);
+  });
+});
+
+//TODO: MAKE THIS MORE GENERIC! (Also maybe GET not POST?)
+app.post('/restrictions', (req, res) => {
+  //just for now :(
+  //sad two week periods
+  let period1 = ["2017-02-20T05:00:00Z", "2017-02-21T05:00:00Z", "2017-02-22T05:00:00Z",
+    "2017-02-23T05:00:00Z", "2017-02-24T05:00:00Z", "2017-02-27T05:00:00Z",
+    "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z", "2017-03-02T05:00:00Z",
+    "2017-03-03T05:00:00Z"];
+
+  let period2 = ["2017-03-06T05:00:00Z", "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z",
+    "2017-03-09T05:00:00Z", "2017-03-10T05:00:00Z", "2017-03-13T05:00:00Z",
+    "2017-03-14T05:00:00Z", "2017-03-15T05:00:00Z", "2017-03-16T05:00:00Z",
+    "2017-03-17T05:00:00Z"];
+
+  let period3 = ["2017-03-20T05:00:00Z", "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z",
+    "2017-03-23T05:00:00Z", "2017-03-24T05:00:00Z"];
+
+  let period4 = ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
+    "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z", "2017-04-10T05:00:00Z",
+    "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z", "2017-04-13T05:00:00Z",
+    "2017-04-14T05:00:00Z"];
+
+  let period5 = ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
+    "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z",
+    "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z",
+    "2017-04-28T05:00:00Z"];
+
+  let period6 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
+    "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
+    "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
+    "2017-05-12T05:00:00Z"];
+
+  let maySignUp = true;
+  let dates = [];
+
+  if (period1.includes(req.body.date)) {
+    dates = period1;
+  } else if (period2.includes(req.body.date)) {
+    dates = period2;
+  } else if (period3.includes(req.body.date)) {
+    dates = period3;
+  } else if (period4.includes(req.body.date)) {
+    dates = period4;
+  } else if (period5.includes(req.body.date)) {
+    dates = period5;
+  } else if (period6.includes(req.body.date)) {
+    dates = period6;
+  }
+
+  db.collection('dates').find({date: { $in: dates }, 'vacancy.language': req.body.language})
+    .toArray(function(err,result) {
+      if (err) {
+        throw err;
+      }
+      result.forEach((obj) => {
+        let langObj = _.find(obj.vacancy, { 'language': req.body.language });
+        //console.log(langObj);
+        if (langObj.guestlist.includes(req.body.id)) {
+          maySignUp = false;
+        }
+      });
+      //console.log(maySignUp)
+      res.send(maySignUp);
+  });
+});
+
+
 // '/languages' or '/languages?id=x' routes
 app.get('/languages', (req, res) => {
   // if no id, output all the languages and their number in an array
@@ -103,76 +181,138 @@ app.post('/signup', (req, res) => {
   ***************/
   let guestlistFull = false;
 
-  db.collection('dates').find({date:req.body.date}).toArray(function(err, result) {
+  let date = req.body.date;
+  let timeZoneString = date.substring(10, date.length);
+  // console.log(timeZoneString);
+  if (timeZoneString !== "T05:00:00Z") {
+    date = _.replace(date, timeZoneString, "T05:00:00Z")
+  }
+  // console.log(date);
+
+  db.collection('dates').find({date:date}).toArray(function(err, result) {
     if (err) {
       throw err;
+      //res.sendStatus(500);
     }
-
+    //console.log(req.body.date);
+    //console.log(result);
     let language = result[0].vacancy[req.body.language]
 
     if (language.seatsAvailable - language.seatsReserved === 0) {
       guestlistFull = true;
     }
-  });
-
-  //find a record of the attendant
-  db.collection('attendants').find({id:req.body.id}).toArray(function(err, result) {
-    if (err) {
-      throw err;
-    }
-
-    // if attendant does not exist in database
-    if (result[0] == undefined) {
-      //create a new attendant with the new record of attendance
-      db.collection('attendants').insert({
-        id: req.body.id,
-        name: req.body.name,
-        email: req.body.email
-      });
-    }
 
     if (guestlistFull) {
       //add a new record of waitlists for the student
       db.collection('attendants').update(
-        {id: req.body.id},
-        {$push: {waitlists: {date:req.body.date, language:req.body.language}}}
+        { id: req.body.id },
+        {
+         $push: { waitlists: { date: date,
+                               language: req.body.language,
+                               course: req.body.course,
+                               name: req.body.name,
+                               email: req.body.email } }
+        },
+        { upsert: true }
       );
 
       //add the student id to the date's waitlist
       db.collection('dates').update(
-        {date: req.body.date, "vacancy.language": req.body.language},
-        {$addToSet: {"vacancy.$.waitlist": req.body.id}}
+        {date: date, "vacancy.language": req.body.language},
+        {$push: {"vacancy.$.waitlist": req.body.id}}
       );
 
       //send a waitlister message
       mail.send(req.body, true);
+      //send a success status to the client
+      res.sendStatus(200);
 
     } else {
       //add a new record of attendance for the student
       db.collection('attendants').update(
-        {id: req.body.id},
-        {$push: {attendance: {date:req.body.date, language:req.body.language}}}
+        { id: req.body.id },
+        {
+         $push: { attendance: { date: date,
+                               language: req.body.language,
+                               course: req.body.course,
+                               name: req.body.name,
+                               email: req.body.email } }
+        },
+        { upsert: true }
       );
 
       //increment the number of reserved seats at the given language at the given date
       db.collection('dates').update(
-        {date: req.body.date, "vacancy.language": req.body.language},
-        {$inc: {"vacancy.$.seatsReserved": 1}}
-      );
-
-      //add the student id to the date's guestlist
-      db.collection('dates').update(
-        {date: req.body.date, "vacancy.language": req.body.language},
-        {$addToSet: {"vacancy.$.guestlist": req.body.id}}
+        { date: date, "vacancy.language": req.body.language },
+        {
+          $inc: {"vacancy.$.seatsReserved": 1},
+          $push: {"vacancy.$.guestlist": req.body.id}
+        }
       );
 
       //send a guestlist message
       mail.send(req.body, false);
+      //send a success status to the client
+      res.sendStatus(200);
     }
+
   });
 
-  //send a success status to the client
-  res.sendStatus(200);
+    // //find a record of the attendant
+    // db.collection('attendants').find({id:req.body.id}).toArray(function(err, result) {
+    //   if (err) {
+    //     throw err;
+    //   }
+    //
+    //   // if attendant does not exist in database
+    //   if (result[0] == undefined) {
+    //     //create a new attendant with the new record of attendance
+    //     db.collection('attendants').insert({
+    //       id: req.body.id,
+    //       name: req.body.name,
+    //       email: req.body.email,
+    //     });
+    //   }
+    //
+    //   if (guestlistFull) {
+    //     //add a new record of waitlists for the student
+    //     db.collection('attendants').update(
+    //       {id: req.body.id},
+    //       {$push: {waitlists: {date:req.body.date, language:req.body.language, course: req.body.course}}}
+    //     );
+    //
+    //     //add the student id to the date's waitlist
+    //     db.collection('dates').update(
+    //       {date: req.body.date, "vacancy.language": req.body.language},
+    //       {$addToSet: {"vacancy.$.waitlist": req.body.id}}
+    //     );
+    //
+    //     //send a waitlister message
+    //     mail.send(req.body, true);
+    //
+    //   } else {
+    //     //add a new record of attendance for the student
+    //     db.collection('attendants').update(
+    //       {id: req.body.id},
+    //       {$push: {attendance: {date:req.body.date, language:req.body.language, course: req.body.course}}}
+    //     );
+    //
+    //     //increment the number of reserved seats at the given language at the given date
+    //     db.collection('dates').update(
+    //       {date: req.body.date, "vacancy.language": req.body.language},
+    //       {$inc: {"vacancy.$.seatsReserved": 1}}
+    //     );
+    //
+    //     //add the student id to the date's guestlist
+    //     db.collection('dates').update(
+    //       {date: req.body.date, "vacancy.language": req.body.language},
+    //       {$addToSet: {"vacancy.$.guestlist": req.body.id}}
+    //     );
+    //
+    //     //send a guestlist message
+    //     mail.send(req.body, false);
+    //   }
+    // });
 });
 
 // '/cancel' or '/cancel?reservation=x' routes
@@ -186,11 +326,20 @@ app.get('/cancel', (req, res) => {
 
   var language = Number.parseInt(decodedString.substring(0, 2), 10);
   var id = decodedString.substring(2, 10);
-  var date = decodedString.substring(10, decodedString.length);
+  var date = decodedString.substring(10, 30);
+  var name = decodedString.substring(30, decodedString.length);
 
   // console.log(language +"\n");
   // console.log(id +"\n");
   // console.log(date +"\n");
+  // console.log(name +"\n");
+
+  let timeZoneString = date.substring(10, date.length);
+  // console.log(timeZoneString);
+  if (timeZoneString !== "T05:00:00Z") {
+    date = _.replace(date, timeZoneString, "T05:00:00Z")
+  }
+  // console.log(date);
 
   // remove the reservation from dates collection
   db.collection('dates').find(
@@ -223,7 +372,7 @@ app.get('/cancel', (req, res) => {
       // update the waitlist in attendants collection
       db.collection('attendants').update(
         { id: id },
-        { $pull: { 'waitlists': { 'date' : date, 'language' : language } }
+        { $pull: { 'waitlists': { 'date' : date, 'language' : language, 'name' : name } }
       });
 
     //if the attendant is on the guestlist for that language on that day
@@ -252,23 +401,27 @@ app.get('/cancel', (req, res) => {
           {'date': date, 'vacancy.language': language},
           {$set: {'vacancy.$.waitlist': waitlist}}
         );
-        // update the waitlists for the lucky person in attendants collection
-        db.collection('attendants').update(
-          { id: luckyPerson[0] },
-          { $pull: { 'waitlists': { 'date' : date, 'language' : language } }
-        });
-        // update the attendance for the lucky person in attendants collection
-        db.collection('attendants').update(
-          { id: luckyPerson[0] },
-          { $push: { 'attendance': { 'date' : date, 'language' : language } }
-        });
 
         //send an email to the lucky person
-        db.collection('attendants').find({id: luckyPerson[0]}).toArray((err, result) => {
+        db.collection('attendants').find( { id: luckyPerson[0] },
+          { waitlists: { $elemMatch: { 'date' : date, 'language' : language, 'name' : name } } })
+          .toArray((err, result) => {
           if (err) {
             throw err;
           }
-          mail.sendNewGuests(result[0].email, language, moment(date));
+
+          // update the waitlists for the lucky person in attendants collection
+          db.collection('attendants').update(
+            { id: luckyPerson[0] },
+            { $pull: { 'waitlists': result[0].waitlists[0] }
+          });
+          // update the attendance for the lucky person in attendants collection
+          db.collection('attendants').update(
+            { id: luckyPerson[0] },
+            { $push: { 'attendance': result[0].waitlists[0] }
+          });
+
+          mail.sendNewGuests(result[0].waitlists[0].email, language, moment(date));
         });
       }
 
@@ -287,7 +440,7 @@ app.get('/cancel', (req, res) => {
       // update the attendance in attendants collection
       db.collection('attendants').update(
         { id: id },
-        { $pull: { 'attendance': { 'date' : date, 'language' : language } }
+        { $pull: { 'attendance': { 'date' : date, 'language' : language, 'name' : name } }
       });
     }
   });
@@ -328,18 +481,30 @@ app.get('/attendance', (req, res) => {
 
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
-    result[0].vacancy.forEach((day) => {
+    result[0].vacancy.forEach((lang) => {
       promises.push(new Promise((resolve, reject) => {
-        db.collection('attendants').find({ id: { $in: day.guestlist } }).toArray()
+        db.collection('attendants').find({ id: { $in: lang.guestlist }, 'attendance.language': lang.language }).toArray()
         .then((result) => {
           if (result.length > 0) {
+            //console.log(result[0]);
+            var alreadyCheckedGuest = false;
             var langAttendants = result.map((item) => {
-              return {
-                id: item.id,
-                name: item.name,
-                language: _.find(item.attendance, (day) => {
-                  return moment(day.date).isSame(date, 'day')
-                }).language
+              if (item.id === "000GUEST" && !alreadyCheckedGuest) {
+                //TODO: THINK THROUGH GUESTS!!!
+                // // return all guest objects
+                // var theObject = _.filter(item.attendance, (day) => {
+                //   return moment(day.date).isSame(date, 'day') && day.language === lang.language
+                // });
+                // //theObject.forEach()
+              } else {
+                var theOneWeNeed = _.find(item.attendance, (day) => {
+                  return moment(day.date).isSame(date, 'day') && day.language === lang.language
+                });
+                return {
+                  id: item.id,
+                  name: theOneWeNeed.name,
+                  language: theOneWeNeed.language
+                }
               }
             });
             attendants = attendants.concat(langAttendants);
@@ -396,7 +561,7 @@ app.post('/attendance', (req, res) => {
   });
 });
 
-// TODO change cronTime to 00 00 20 * * 1-5
+// TODO change cronTime to 00 00 20 * * 0-4
 var timeToRun = moment().add(10, 'seconds');
 
 var hour = timeToRun.hour();
@@ -404,13 +569,12 @@ var minute = timeToRun.minutes();
 var second = timeToRun.seconds();
 
 // for testing:
-// cronTime: second+" "+minute+" "+hour+" * * 0-6",
-
+// cronTime: second+" "+minute+" "+hour+" * * 0-4",
 var tableAllocationJob = new CronJob({
   cronTime: "00 00 20 * * 0-4",
   onTick: function() {
     /*
-     * Runs the day before every weekday (Sunday through Thursday)
+     * Runs Sunday through Thursday
      * at 20:00:00 PM.
      */
      algorithm.run(db, moment);
@@ -418,19 +582,17 @@ var tableAllocationJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
-// console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
-tableAllocationJob.start();
 
 
 //TODO: change cronTime to 00 00 15 * * 1-5
 // for testing:
-// (second+20)+" "+minute+" "+hour+" * * 0-6"
+// second+" "+minute+" "+hour+" * * 1-5"
 var sendEmailToFacultyJob = new CronJob({
-  cronTime: "00 00 15 * * 1-5",
+  cronTime: "00 30 14 * * 1-5",
   onTick: function() {
     /*
      * Runs every weekday (Monday through Friday)
-     * at 15:00:00 PM.
+     * at 14:30:00 PM.
      */
 
      // delete add 1 days
@@ -441,7 +603,6 @@ var sendEmailToFacultyJob = new CronJob({
        if (err) {
          throw err;
        }
-
        //for each language department
        result.forEach(function(object, objectIndex) {
          db.collection('dates').find({date: today.utc().format()}).toArray((err, result) => {
@@ -479,5 +640,39 @@ var sendEmailToFacultyJob = new CronJob({
   start: false,
   timeZone: 'America/New_York'
 });
+
+var sendReminderEmailsJob = new CronJob({
+  cronTime: "00 00 15 * * 0-4",
+  onTick: function() {
+    /*
+     * Runs Sunday through Thursday
+     * at 15:00:00 PM.
+     */
+
+    //send reminder emails the day before
+    let tomorrow = moment().startOf('day').add(1, 'day');
+
+    db.collection('dates').find({date: tomorrow.utc().format()}).toArray((err, result) => {
+      if (err) {
+        throw err;
+      }
+
+      let guestlistsForTomorrow = result[0].vacancy;
+      guestlistsForTomorrow.forEach((langObj, langObjIndex) => {
+        langObj.guestlist.forEach((guest, guestIndex) => {
+          db.collection('attendants').find({id: guest}).toArray((err, result) => {
+            mail.sendReminderEmail(result[0], tomorrow.utc().format());
+          });
+        });
+      });
+    });
+  },
+  start: false,
+  timeZone: 'America/New_York'
+});
+
+// console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
 // console.log("The emails to TA's and professors will be sent at: "+hour+":"+minute+":"+(second+20)+"\n");
-sendEmailToFacultyJob.start();
+// tableAllocationJob.start();
+// sendEmailToFacultyJob.start();
+// sendReminderEmailsJob.start();

@@ -11,6 +11,7 @@ var Signup = React.createClass({
   getInitialState: function() {
     return {
       name           : '',
+      course         : '',
       id             : '',
       email          : '',
       language       : null,
@@ -25,13 +26,30 @@ var Signup = React.createClass({
     this.setState({
       language       : language,
       date           : '',
-      seatsAvailable : null
+      seatsAvailable : null,
+      errorMessage   : null,
+      course         : ''
+    });
+  },
+
+  courseChange: function(course) {
+    if (course === "Middlebury College Guest") {
+      this.setState({
+        id: "000GUEST"
+      });
+    } else {
+      this.setState({
+        id: ""
+      });
+    }
+    this.setState({
+      course : course,
     });
   },
 
   //if an invalid date is chosen after a valid one, must clear the date field so they can't continue
   handleDateChange : function(date, seatsAvailable) {
-    let registrationIsOpen = moment().isBefore(moment(date).startOf('day').add(11, 'hours').add(15, 'minutes'));
+    let registrationIsOpen = moment().isBefore(moment(date).startOf('day').add(13, 'hours').add(45, 'minutes'));
     if (registrationIsOpen) {
       this.setState({ date: date, seatsAvailable: seatsAvailable });
     }
@@ -68,7 +86,20 @@ var Signup = React.createClass({
 
   handleSubmit : function(event) {
     event.preventDefault();
-    if (this.state.id.length !== 8) {
+    // TODO: CHANGE THIS HARDCODED MESS
+    if (this.state.language === 2 && moment().isBefore('2017-02-24')) {
+      this.setState({
+        errorMessage: "Chinese department will allow online sign-ups starting on Friday, February 24th. Until then, you don't need to sign up online."
+      });
+    } else if (this.state.language === 3 && moment(this.state.date).isAfter('2017-03-31')) {
+      this.setState({
+        errorMessage: "Please choose an earlier date. For now, French department does not allow signing up for the dates after March 31st."
+      });
+    } else if (this.state.language === 7 && moment().isBefore('2017-02-23')) {
+      this.setState({
+        errorMessage: "Japanese department will allow online sign-ups starting on Thursday, February 23th. Until then, you don't need to sign up online."
+      });
+    } else if (this.state.id.length !== 8 && this.state.id !== "000GUEST") {
       this.setState({
         errorMessage: "ID number has to be 8 digits."
       });
@@ -80,6 +111,12 @@ var Signup = React.createClass({
       this.setState({
         errorMessage: "Please, enter an email address."
       });
+    } else if (this.state.course === '') {
+      this.setState({
+        errorMessage: "Please, select a course enrollment status."
+      });
+    } else if (this.state.language === 10 && this.state.id !== "000GUEST") {
+        this.checkRestrictions();
     } else {
       this.setState({
         errorMessage: null
@@ -88,9 +125,36 @@ var Signup = React.createClass({
     }
   },
 
+  checkRestrictions : function() {
+    let information = this.formatData();
+    $.ajax({
+        url: 'http://localhost:3000/restrictions',
+        type: 'POST',
+        datatype: 'json',
+        data: JSON.stringify(information),
+        contentType: "application/json",
+        success: (response) => {
+          if (response) {
+            this.setState({
+              errorMessage: null
+            });
+            this.postSubmission();
+          } else {
+            this.setState({
+              errorMessage: "Please choose a different date. Spanish department only allows 1 sign-up every 2-week period."
+            });
+          }
+        },
+        error: function(error) {
+          console.log(error);
+        }
+    });
+  },
+
   formatData : function() {
     var reservation = {
       name : this.state.name,
+      course: this.state.course,
       id : this.state.id,
       email : this.state.email,
       date : this.state.date.utc().format(),
@@ -103,7 +167,7 @@ var Signup = React.createClass({
   postSubmission : function() {
     let submission = this.formatData();
     $.ajax({
-      url:'http://basin.middlebury.edu:3000/signup',
+      url:'http://localhost:3000/signup',
       type: 'POST',
       datatype: 'json',
       data: JSON.stringify(submission),
@@ -125,6 +189,10 @@ var Signup = React.createClass({
 
   render : function() {
     let calendar, information, confirmation, errorMessage;
+
+    //TODO: POSSIBLY REMOVE THE TEMPORARY WARNING
+    let warning, warningText;
+
     let header = <Header className='normal'
                     onClick={this.onHeaderClick}/>;
     let language = (<LanguageSelect
@@ -140,6 +208,12 @@ var Signup = React.createClass({
                     onChange={this.handleDateChange}
                   />
     }
+
+    if (this.state.language === 2) {
+      warningText = "Please only sign up for the days that you are assigned by the Chinese Department."
+    }
+    warning = <div><h2 type="warning">{warningText}</h2></div>
+
 
 
     if (this.state.date) {
@@ -159,6 +233,9 @@ var Signup = React.createClass({
                           id={this.state.id}
                           setID={this.setID}
                           handleSubmit={this.handleSubmit}
+                          language={this.state.language}
+                          course={this.state.course}
+                          courseChange={this.courseChange}
                       />
                     </div>
     }
@@ -182,6 +259,7 @@ var Signup = React.createClass({
       <div>
         {header}
         {language}
+        {warning}
         {calendar}
         <br/>
         {information}

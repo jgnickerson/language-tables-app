@@ -1,541 +1,1224 @@
 [
   {
-    "id": "00222220",
-    "name": "Johnny Appleseed",
-    "email": "phuffman@middlebury.edu",
+    "id": "RESERVED",
     "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222221",
-    "name": "Tom Sawyer",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222222",
-    "name": "Huck Finn",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222223",
-    "name": "Dick Van Dyke",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222224",
-    "name": "Mary Poppins",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222225",
-    "name": "Harry Karry",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222226",
-    "name": "Helen Mirren",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222227",
-    "name": "Tom Jones",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222228",
-    "name": "Christopher Andrews",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222229",
-    "name": "Ananya Christman",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 0}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222230",
-    "name": "Eric Clapton",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222231",
-    "name": "Steve Winwood",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222232",
-    "name": "Frank Underwood",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222233",
-    "name": "Dylan Takamori",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00222234",
-    "name": "Jessica Simpson",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 9}, {"date": "2017-02-15T05:00:00Z", "language": 9}, {"date": "2017-02-22T05:00:00Z", "language": 9}, {"date": "2017-03-01T05:00:00Z", "language": 9}, {"date":"2017-02-09T05:00:00Z", "language": 2}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333330",
-    "name": "Jerry Garcia",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 2}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333331",
-    "name": "Bob Weir",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 2}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333332",
-    "name": "Phil Lesh",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333333",
-    "name": "Mickey Hart",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333334",
-    "name": "Bill Kreutzman",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333335",
-    "name": "Keith Godcheaux",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333336",
-    "name": "Donna Godcheaux",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333337",
-    "name": "Peter Krakowski",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333338",
-    "name": "Mickey Mouse",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00333339",
-    "name": "Minnie Mouse",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 3}, {"date": "2017-02-15T05:00:00Z", "language": 3}, {"date": "2017-02-22T05:00:00Z", "language": 3}, {"date": "2017-03-01T05:00:00Z", "language": 3}, {"date":"2017-02-09T05:00:00Z", "language": 3}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00111110",
-    "name": "Gordon Nickerson",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
-    "waitlists": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
-    ]
-  },
-  {
-    "id": "00111111",
-    "name": "Amir Amangeldi",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
-    "waitlists": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
-    ]
-  },
-  {
-    "id": "00111112",
-    "name": "Peter Huffman",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
-    "waitlists": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
-    ]
-  },
-  {
-    "id": "00111113",
-    "name": "Peter Johnson",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
-    "waitlists": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
-    ]
-  },
-  {
-    "id": "00111114",
-    "name": "Christopher Andrews",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 4}],
-    "waitlists": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}
-    ]
-  },
-  {
-    "id": "00444440",
-    "name": "Michael Phelps",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 5}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444441",
-    "name": "Tom Bean",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 5}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444442",
-    "name": "Birgitta Cheng",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 5}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444443",
-    "name": "Shannia Fu",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 5}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444444",
-    "name": "Forest Gagnon",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 6}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444445",
-    "name": "G Achi",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 6}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444446",
-    "name": "Tony Jin",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 6}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444447",
-    "name": "Kyle Dickey",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 6}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444448",
-    "name": "Paul Molloy",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 7}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444449",
-    "name": "Ben Raifman",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 7}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444450",
-    "name": "Ryan Rizzo",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 7}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444451",
-    "name": "Lily Taub",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 7}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444452",
-    "name": "Forrest Wallace",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 8}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444453",
-    "name": "Davin Chia",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 8}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444454",
-    "name": "Amanuel Afework",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 8}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00444455",
-    "name": "Kaysee Orozco",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 10}, {"date": "2017-02-15T05:00:00Z", "language": 10}, {"date": "2017-02-22T05:00:00Z", "language": 10}, {"date": "2017-03-01T05:00:00Z", "language": 10}, {"date":"2017-02-09T05:00:00Z", "language": 8}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00111115",
-    "name": "Ananya Christman",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 9}],
-    "waitlists": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
-    ]
-  },
-  {
-    "id": "00111116",
-    "name": "Amy Briggs",
-    "email": "aamangeldi@middlebury.edu",
-    "attendance": [{"date":"2017-02-09T05:00:00Z", "language": 9}],
-    "waitlists": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}
-    ]
-  },
-  {
-    "id": "00555550",
-    "name": "Daniel Scharstein",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 9}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555551",
-    "name": "Pamela Anderson",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 9}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555552",
-    "name": "Sylvester Stallone",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555553",
-    "name": "Freddie Mercury",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555554",
-    "name": "Billy Paine",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555555",
-    "name": "Fred Flinstone",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555556",
-    "name": "Jim Halpert",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555557",
-    "name": "Pam Beasley",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 10}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555558",
-    "name": "Oscar Martinez",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 11}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555559",
-    "name": "Kevin Malone",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 11}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555560",
-    "name": "Creed Bratton",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 11}
-    ],
-    "waitlists": []
-  },
-  {
-    "id": "00555561",
-    "name": "Michael Scott",
-    "email": "phuffman@middlebury.edu",
-    "attendance": [
-      {"date": "2017-02-08T05:00:00Z", "language": 4}, {"date": "2017-02-15T05:00:00Z", "language": 4}, {"date": "2017-02-22T05:00:00Z", "language": 4}, {"date": "2017-03-01T05:00:00Z", "language": 4}, {"date":"2017-02-09T05:00:00Z", "language": 11}
+      {"date": "2017-02-20T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 0, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-22T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 1, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 2, "name": "Student"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 2, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 3, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 4, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-23T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 5, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 6, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-20T05:00:00Z", "language": 7, "name": "Student"},
+
+
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-21T05:00:00Z", "language": 7, "name": "Student"},
+
+      {"date": "2017-02-22T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-22T05:00:00Z", "language": 7, "name": "Student"},
+
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-23T05:00:00Z", "language": 7, "name": "Student"},
+
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+      {"date": "2017-02-24T05:00:00Z", "language": 7, "name": "Student"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 7, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 8, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 9, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-20T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-21T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-22T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-23T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-02-27T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-28T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-01T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-02T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-06T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-07T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-08T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-09T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-13T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-14T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-15T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-16T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-03-20T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-21T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-22T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-23T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-03T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-04T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-05T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-06T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-10T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-11T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-12T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-13T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-17T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-18T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-19T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-20T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-04-24T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-25T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-26T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-27T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-01T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-02T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-03T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-04T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+      {"date": "2017-05-08T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-09T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-10T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-11T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 10, "name": "Faculty Member/Teaching Assistant"},
+
+
+
+      {"date": "2017-02-20T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-24T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-02-27T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-03T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-06T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-10T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-13T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-17T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-20T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-03-24T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-03T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-07T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-10T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-14T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-17T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-21T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-24T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-04-28T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-01T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-05T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-08T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"},
+      {"date": "2017-05-12T05:00:00Z", "language": 11, "name": "Faculty Member/Teaching Assistant"}
     ],
     "waitlists": []
   }

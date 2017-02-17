@@ -5,22 +5,24 @@ import _ from 'lodash';
 
 var Admin = React.createClass({
   getInitialState: function() {
+    var checkboxItems = localStorage.getItem( 'CheckboxItems' ) || [];
+
     return ({
       date: "",
-      checkboxItems: [],
+      checkboxItems: checkboxItems,
       languages: []
     })
   },
 
-  componentWillMount: function() {
+  updateCheckboxItems: function() {
     //get checkbox items
     let request1 = new XMLHttpRequest();
     request1.open('GET', '/attendance/', true);
     request1.onload = () => {
       if (request1.status >= 200 && request1.status < 400) {
         let response = JSON.parse(request1.responseText);
-        console.log(response);
         let checkboxItems = this.formatCheckboxItems(response.attendants);
+        localStorage.setItem( 'CheckboxItems', checkboxItems );
         this.setState({
           date: response.date,
           checkboxItems: checkboxItems
@@ -44,13 +46,34 @@ var Admin = React.createClass({
     request2.send();
   },
 
+  componentDidMount: function() {
+    this.interval = setInterval(this.updateCheckboxItems, 1000);
+  },
+
+  componentWillUnmount: function() {
+    clearInterval(this.interval);
+  },
+
   formatCheckboxItems: function (attendants) {
     let checklistItems = attendants.map((attendant) => {
+      let isChecked,
+        label = attendant.name + " - " + attendant.id,
+        key = attendant.id,
+        language = attendant.language,
+        alreadyExisting = _.find(this.state.checkboxItems, function(o) {
+          return o.label === label && o.key === key && o.language === language;
+        });
+
+      if (alreadyExisting !== undefined) {
+        isChecked = alreadyExisting.isChecked;
+      } else {
+        isChecked = false;
+      }
       return {
-        label: attendant.name + " - " + attendant.id,
-        key: attendant.id,
-        language: attendant.language,
-        isChecked: false
+        label: label,
+        key: key,
+        language: language,
+        isChecked: isChecked
       }
     })
 
@@ -106,14 +129,15 @@ var Admin = React.createClass({
     this.state.languages.forEach((lang) => {
       let langAttendants = _.filter(this.state.checkboxItems, (person) => {
         return person.language === lang.language;
-      })
+      });
+      langAttendants = _.sortBy(langAttendants, [function(o) { return o.label; }]);
 
       let list;
       let languageString;
       if (lang.language_string !== "ASL") {
-	languageString = _.capitalize(lang.language_string);
+	       languageString = _.capitalize(lang.language_string);
       } else {
-	languageString = lang.language_string;
+	       languageString = lang.language_string;
       }
       //if (langAttendants.length > 0) {
         list = (

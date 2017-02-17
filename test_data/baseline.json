@@ -1,6 +1,7 @@
 [
   {"language": 0,
    "language_string": "ARABIC",
+   "courses": ["ARBC 0103", "ARBC 0202", "ARBC 0302", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 2, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 2, "tablesOf8": 0},
@@ -11,6 +12,7 @@
   },
   {"language": 1,
    "language_string": "ASL",
+   "courses": ["Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 0},
@@ -21,6 +23,7 @@
   },
   {"language": 2,
    "language_string": "CHINESE",
+   "courses": ["CHNS 0103", "CHNS 0202", "CHNS 0302", "CHNS 0412", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 3, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 2, "tablesOf8": 0},
@@ -31,6 +34,7 @@
   },
   {"language": 3,
    "language_string": "FRENCH",
+   "courses": ["FREN 0105", "FREN 0201", "FREN 0205", "FREN 0210", "FREN 0221", "FREN 0230", "FREN 0342", "FREN 0348", "FREN 0378", "FREN 0448", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 3, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 3, "tablesOf8": 0},
@@ -41,6 +45,7 @@
   },
   {"language": 4,
    "language_string": "GERMAN",
+   "courses": ["GRMN 0103", "GRMN 0111", "GRMN 0202", "GRMN 0370", "GRMN 0430", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 1},
      {"weekday": "Tuesday", "tablesOf6": 1, "tablesOf8": 1},
@@ -51,6 +56,7 @@
   },
   {"language": 5,
    "language_string": "HEBREW",
+   "courses": ["HEBM 0103", "HEBM 0302", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 0},
@@ -61,6 +67,7 @@
   },
   {"language": 6,
    "language_string": "ITALIAN",
+   "courses": ["ITAL 0103", "ITAL 0123", "ITAL 0252", "ITAL 0353", "ITAL 0453", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 2, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 2, "tablesOf8": 0},
@@ -71,6 +78,7 @@
   },
   {"language": 7,
    "language_string": "JAPANESE",
+   "courses": ["JAPN 0103", "JAPN 0202", "JAPN 0302", "JAPN 0402", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 1},
      {"weekday": "Tuesday", "tablesOf6": 1, "tablesOf8": 1},
@@ -81,6 +89,7 @@
   },
   {"language": 8,
    "language_string": "PORTUGUESE",
+   "courses": ["PGSE 0103", "PGSE 0210", "PGSE 0215", "PGSE 0369", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 1, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 1, "tablesOf8": 0},
@@ -91,6 +100,7 @@
   },
   {"language": 9,
    "language_string": "RUSSIAN",
+   "courses": ["RUSS 0103", "RUSS 0202", "RUSS 0312", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 2},
      {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 2},
@@ -101,6 +111,7 @@
   },
   {"language": 10,
    "language_string": "SPANISH",
+   "courses": ["SPAN 0103", "SPAN 0105", "SPAN 0201", "SPAN 0220", "Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 0, "tablesOf8": 2},
      {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 2},
@@ -111,6 +122,7 @@
   },
   {"language": 11,
    "language_string": "SWAHILI",
+   "courses": ["Not Enrolled (Student)", "Faculty/Staff", "Middlebury College Guest"],
    "baseline": [
      {"weekday": "Monday", "tablesOf6": 1, "tablesOf8": 0},
      {"weekday": "Tuesday", "tablesOf6": 0, "tablesOf8": 0},

@@ -101,8 +101,8 @@ var Calendar = React.createClass({
 
     //can only sign up for waitlist before 7:55pm
     let canSignupForWaitlist = moment().isBefore(moment(date).startOf('day').subtract(4,'hours').subtract(5, 'minutes'));
-    //registration is only open until 11:15am
-    let registrationIsOpen = moment().isBefore(moment(date).startOf('day').add(11, 'hours').add(15, 'minutes'));
+    //registration is only open until 1:45 pm
+    let registrationIsOpen = moment().isBefore(moment(date).startOf('day').add(13, 'hours').add(45, 'minutes'));
 
     //waitlist
     if (availability && availability.seats === 0 && canSignupForWaitlist && registrationIsOpen) {
@@ -133,7 +133,7 @@ var Calendar = React.createClass({
   render : function() {
     return (
       <div>
-        <h2>Date</h2>
+        <h2>Pick a date:</h2>
         <FullCalendar
           Select={Select}
           fullscreen={false}

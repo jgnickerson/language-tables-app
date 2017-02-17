@@ -3,11 +3,63 @@
   Email, school id, name
 */
 
-var React = require('react');
+//var React = require('react');
+import React from 'react';
+import Select from 'react-select';
+import $ from 'jquery';
+import _ from 'lodash';
 
 var AccountFields = React.createClass({
 
+  getInitialState: function() {
+    return { courses: [] }
+  },
+
+  componentWillMount: function() {
+    $.ajax({
+        url: 'http://localhost:3000/courses?lang='+this.props.language,
+        datatype: 'json',
+        success: (response) => {
+          let options = response.map(function(item) {
+            return {
+              label: item,
+              value: item
+            }
+          });
+          this.setState({ courses: options });
+        },
+        error: function(error) {
+          console.log(error);
+        }
+    });
+  },
+
   render : function() {
+    let courseSelect, middId;
+
+    if (this.state.courses) {
+      courseSelect = <div>
+                      <label>Course enrollment: </label>
+                      <Select
+                        name="course-select"
+                        placeholder="Select a course..."
+                        value={this.props.course}
+                        options={this.state.courses}
+                        onChange={this.props.courseChange}
+                        clearable={true}
+                      />
+                      <br />
+                      </div>
+    }
+
+    if (this.props.course !== "Middlebury College Guest") {
+      middId = <div>
+                <label>Midd ID: </label>
+                <input type="text" onChange={this.props.setID} value={this.props.id}
+                placeholder="00123456" maxLength="8"/>
+                </div>
+    }
+
     return (
       <div>
         <form onSubmit={this.props.handleSubmit}>
@@ -15,9 +67,9 @@ var AccountFields = React.createClass({
             <input type="text" onChange={this.props.setName} value={this.props.name}
               placeholder="First Last" autoCapitalize="words"/>
 
-            <label>Midd ID: </label>
-            <input type="text" onChange={this.props.setID} value={this.props.id}
-              placeholder="00123456" maxLength="8"/>
+            {courseSelect}
+
+            {middId}
 
             <label>Email: </label>
             <input type="text" onChange={this.props.setEmail} value={this.props.email}
