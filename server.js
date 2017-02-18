@@ -404,7 +404,7 @@ app.get('/cancel', (req, res) => {
 
         //send an email to the lucky person
         db.collection('attendants').find( { id: luckyPerson[0] },
-          { waitlists: { $elemMatch: { 'date' : date, 'language' : language, 'name' : name } } })
+          { 'waitlists': { $elemMatch: { 'date' : date, 'language' : language } } })
           .toArray((err, result) => {
           if (err) {
             throw err;
@@ -474,7 +474,6 @@ app.post('/update', (req, res) => {
 
 
 app.get('/attendance', (req, res) => {
-  //TODO: remove add(1, 'day') -- we want the current day
   var date = moment().startOf('day').utc().format();
   var attendants = [];
   var promises = [];
@@ -561,12 +560,13 @@ app.post('/attendance', (req, res) => {
   });
 });
 
-// TODO change cronTime to 00 00 20 * * 0-4
+// **** FOR TESTING *****
 var timeToRun = moment().add(10, 'seconds');
 
 var hour = timeToRun.hour();
 var minute = timeToRun.minutes();
 var second = timeToRun.seconds();
+// ******
 
 // for testing:
 // cronTime: second+" "+minute+" "+hour+" * * 0-4",
@@ -584,7 +584,6 @@ var tableAllocationJob = new CronJob({
 });
 
 
-//TODO: change cronTime to 00 00 15 * * 1-5
 // for testing:
 // second+" "+minute+" "+hour+" * * 1-5"
 var sendEmailToFacultyJob = new CronJob({
@@ -656,13 +655,28 @@ var sendReminderEmailsJob = new CronJob({
       if (err) {
         throw err;
       }
-
+      let alreadySentToGUESTS = false;
       let guestlistsForTomorrow = result[0].vacancy;
       guestlistsForTomorrow.forEach((langObj, langObjIndex) => {
         langObj.guestlist.forEach((guest, guestIndex) => {
-          db.collection('attendants').find({id: guest}).toArray((err, result) => {
-            mail.sendReminderEmail(result[0], tomorrow.utc().format());
-          });
+
+          if (guest !== "RESERVED") {
+            if (guest === "000GUEST") {
+              if (alreadySentToGUESTS === false) {
+                // and don't send the email to guests again
+                alreadySentToGUESTS = true;
+                // send the reminder emails to all guests in one go
+                db.collection('attendants').find({id: guest}).toArray((err, result) => {
+                  mail.sendReminderEmail(result[0], tomorrow.utc().format());
+                });
+              }
+            } else {
+              db.collection('attendants').find({id: guest}).toArray((err, result) => {
+                mail.sendReminderEmail(result[0], tomorrow.utc().format());
+              });
+            }
+          }
+
         });
       });
     });
@@ -671,8 +685,8 @@ var sendReminderEmailsJob = new CronJob({
   timeZone: 'America/New_York'
 });
 
-// console.log("\nThe algorithm will run at: "+hour+":"+minute+":"+second+"\n");
-// console.log("The emails to TA's and professors will be sent at: "+hour+":"+minute+":"+(second+20)+"\n");
+// TODO: start the tableAllocationJob week 2
 // tableAllocationJob.start();
-// sendEmailToFacultyJob.start();
-// sendReminderEmailsJob.start();
+
+//sendEmailToFacultyJob.start();
+sendReminderEmailsJob.start();

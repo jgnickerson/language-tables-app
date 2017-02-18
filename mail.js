@@ -134,40 +134,84 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
 }
 
 var sendReminderEmail = function(guestObj, tomorrow) {
-  var tomorrowObj = _.find(guestObj.attendance, function(o) {
-    return o.date === tomorrow;
-  });
+  // send the reminder emails to all guests at once (only called once)
+  if (guestObj.id === "000GUEST") {
+    var allTomorrowsObjects = _.filter(guestObj.attendance, function (o) {
+      return o.date === tomorrow;
+    });
 
-  var laterThanTomorrow = _.filter(guestObj.attendance, function(o) {
-    return moment(o.date).isAfter(tomorrow);
-  });
-  console.log(laterThanTomorrow);
+    allTomorrowsObjects.forEach((tomorrowObj) => {
+      var laterThanTomorrow = _.filter(guestObj.attendance, function(o) {
+        return moment(o.date).isAfter(tomorrow) && o.name === tomorrowObj.name && o.email === tomorrowObj.email;
+      });
 
-  var languageString = languages[tomorrowObj.language][0];
-  var text = "Dear "+guestObj.name+", <br/><br/>This is a reminder that you are signed up for the ";
-  text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
+      var languageString = languages[tomorrowObj.language][0];
+      var text = "Dear "+tomorrowObj.name+", <br/><br/>This is a reminder that you are signed up for the ";
+      text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
 
-  if (laterThanTomorrow.length > 0) {
-    text += "<br/>You are also signed up for the following dates: <br/><br/>";
-    laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
-      text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+"<br/>";
+      if (laterThanTomorrow.length > 0) {
+        text += "<br/>You are also signed up for the following dates: <br/><br/>";
+        laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
+          text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+"<br/>";
+        });
+      }
+      text += "<br/>Thank you, <br/>Language Tables";
+
+      var mailOptions = {
+        from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
+        to: tomorrowObj.email, // list of receivers
+        subject: 'Language Tables Reminder', // Subject line
+        text: text, // plaintext body
+        html: text // html body
+      }
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+          return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+      });
+    });
+
+    //no need to return anything
+
+  // all the other non-guests
+  } else {
+    var tomorrowObj = _.find(guestObj.attendance, function(o) {
+      return o.date === tomorrow;
+    });
+
+    var laterThanTomorrow = _.filter(guestObj.attendance, function(o) {
+      return moment(o.date).isAfter(tomorrow);
+    });
+    //console.log(laterThanTomorrow);
+
+    var languageString = languages[tomorrowObj.language][0];
+    var text = "Dear "+tomorrowObj.name+", <br/><br/>This is a reminder that you are signed up for the ";
+    text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
+
+    if (laterThanTomorrow.length > 0) {
+      text += "<br/>You are also signed up for the following dates: <br/><br/>";
+      laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
+        text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+"<br/>";
+      });
+    }
+    text += "<br/>Thank you, <br/>Language Tables";
+
+    var mailOptions = {
+      from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
+      to: tomorrowObj.email, // list of receivers
+      subject: 'Language Tables Reminder', // Subject line
+      text: text, // plaintext body
+      html: text // html body
+    }
+    return transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+        return console.log(error);
+      }
+      console.log('Message sent: ' + info.response);
     });
   }
-  text += "<br/>Thank you, <br/>Language Tables";
-
-  var mailOptions = {
-    from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
-    to: guestObj.email, // list of receivers
-    subject: 'Language Tables Reminder', // Subject line
-    text: text, // plaintext body
-    html: text // html body
-  }
-  return transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-      return console.log(error);
-    }
-    console.log('Message sent: ' + info.response);
-  });
 }
 
 module.exports = {
