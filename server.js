@@ -523,11 +523,14 @@ app.get('/attendance', (req, res) => {
                 var theOneWeNeed = _.find(item.attendance, (day) => {
                   return moment(day.date).isSame(date, 'day') && day.language === lang.language
                 });
-                langAttendants.push({
-                  id: item.id,
-                  name: theOneWeNeed.name,
-                  language: theOneWeNeed.language
-                });
+
+                if (theOneWeNeed !== undefined) {
+                  langAttendants.push({
+                    id: item.id,
+                    name: theOneWeNeed.name,
+                    language: theOneWeNeed.language
+                  });
+                }
               }
 
             });
@@ -536,6 +539,7 @@ app.get('/attendance', (req, res) => {
           resolve();
         })
         .catch((error) => {
+          console.log(error);
           res.sendStatus(404);
           reject();
         });
@@ -701,7 +705,9 @@ var sendEmailToFacultyJob = new CronJob({
                    }
                  } else {
                    var theOne = _.find(result[0].attendance, {'date': today.utc().format(), 'language': object.language});
-                   guestNamesList.push(theOne.name);
+                   if (theOne !== undefined) {
+                     guestNamesList.push(theOne.name);
+                   }
                  }
 
                  // send the email if all names are added (one per lang)
