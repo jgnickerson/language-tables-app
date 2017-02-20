@@ -2,75 +2,81 @@
   {
     "language": 0,
     "faculty": [
-      {"title": "ta", "email": "aamangeldi@middlebury.edu"},
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "zalabweh@middlebury.edu"},
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 1,
     "faculty": [
-      {"title": "ta", "email": "aamangeldi@middlebury.edu"},
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 2,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 3,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "lconeau@middlebury.edu"},
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 4,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "fhamburger@middlebury.edu"},
+      {"daily": true, "email": "graf@middlebury.edu"},
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 5,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "oaloni@middlebury.edu"},
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 6,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "ctorresi@middlebury.edu"},
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 7,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 8,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "pserralhaaraujo@middlebury.edu"},
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 9,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 10,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "mignaciacollvilla@middlebury.edu"},
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   },
   {
     "language": 11,
     "faculty": [
-      {"title": "test", "email": "aamangeldi@middlebury.edu"}
+      {"daily": true, "email": "aamangeldi@middlebury.edu"}
     ]
   }
 ]

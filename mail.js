@@ -112,7 +112,7 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
     language = _.capitalize(language);
   }
   //var languages = ["Spanish", "French", "Chinese", "German"];
-  var text = language + " Language Tables Attendance for " + date + ": <br/> <br/>";
+  var text = language + " Language Tables Attendance on " + date + ": <br/> <br/>";
 
   guestlist.forEach(function(guest, guestIndex) {
     text = text + guest + "<br/>";

@@ -5,11 +5,11 @@ import _ from 'lodash';
 
 var Admin = React.createClass({
   getInitialState: function() {
-    var checkboxItems = localStorage.getItem( 'CheckboxItems' ) || [];
+    //var checkboxItems = localStorage.getItem( 'CheckboxItems' ) || [];
 
     return ({
       date: "",
-      checkboxItems: checkboxItems,
+      checkboxItems: [],
       languages: []
     })
   },
@@ -21,11 +21,19 @@ var Admin = React.createClass({
     request1.onload = () => {
       if (request1.status >= 200 && request1.status < 400) {
         let response = JSON.parse(request1.responseText);
+
         let checkboxItems = this.formatCheckboxItems(response.attendants);
-        localStorage.setItem( 'CheckboxItems', checkboxItems );
+
+        let oldCheckboxItems = this.state.checkboxItems;
+        let newCheckboxItems = _.differenceBy(checkboxItems, oldCheckboxItems, 'label');
+        // console.log("here are the new items:");
+        // console.log(newCheckboxItems);
+
+        let total = oldCheckboxItems.concat(newCheckboxItems);
+
         this.setState({
           date: response.date,
-          checkboxItems: checkboxItems
+          checkboxItems: total
         });
       }
     };
@@ -55,26 +63,43 @@ var Admin = React.createClass({
   },
 
   formatCheckboxItems: function (attendants) {
+    let i = 0;
     let checklistItems = attendants.map((attendant) => {
-      let isChecked,
+      let isChecked, key,
         label = attendant.name + " - " + attendant.id,
-        key = attendant.id,
-        language = attendant.language,
-        alreadyExisting = _.find(this.state.checkboxItems, function(o) {
-          return o.label === label && o.key === key && o.language === language;
+        language = attendant.language;
+
+        if (attendant.id === "RESERVED"){
+          key = i++;
+          key = attendant.id+key;
+        } else if (attendant.id ==="000GUEST") {
+          key = attendant.id+attendant.name;
+        } else {
+          key = attendant.id;
+        }
+
+      // if (attendant.id === "RESERVED") {
+      //   isChecked = true;
+      // } else {
+        let alreadyExisting = _.find(this.state.checkboxItems, function(o) {
+          return o.label === label && o.language === language;
         });
 
-      if (alreadyExisting !== undefined) {
-        isChecked = alreadyExisting.isChecked;
-      } else {
-        isChecked = false;
-      }
+        if (alreadyExisting !== undefined) {
+          isChecked = alreadyExisting.isChecked;
+        } else {
+          isChecked = false;
+        }
+      //}
+
       return {
         label: label,
         key: key,
         language: language,
         isChecked: isChecked
       }
+
+
     })
 
     return checklistItems;
@@ -160,9 +185,25 @@ var Admin = React.createClass({
 
   render : function() {
     let date = moment().format("dddd, MMMM Do YYYY");
+    let totalAttendants = 0,
+      totalTablesOf6 = 0,
+      totalTablesOf8 = 0;
+    this.state.checkboxItems.forEach((item) => {
+      if (item.isChecked) {
+        totalAttendants += 1;
+      }
+    });
+
+    this.state.languages.forEach((item) => {
+      totalTablesOf6 += item.tablesOf6;
+      totalTablesOf8 += item.tablesOf8;
+    });
     return (
       <div>
         <h2>{date}</h2>
+        {"TOTAL ATTENDANTS:       "}<b>{totalAttendants}</b><br/>
+        {"TOTAL TABLES OF 6:      "}<b>{totalTablesOf6}</b><br/>
+        {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8}</b><br/>
         <form onSubmit={this.handleSubmit}>
           {this.createCheckboxLists()}
           <input

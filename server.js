@@ -481,30 +481,55 @@ app.get('/attendance', (req, res) => {
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
     result[0].vacancy.forEach((lang) => {
+      var countReserved = _.countBy(lang.guestlist, _.identity)["RESERVED"];
       promises.push(new Promise((resolve, reject) => {
         db.collection('attendants').find({ id: { $in: lang.guestlist }, 'attendance.language': lang.language }).toArray()
         .then((result) => {
           if (result.length > 0) {
             //console.log(result[0]);
             var alreadyCheckedGuest = false;
-            var langAttendants = result.map((item) => {
+            var langAttendants = [];
+            result.forEach((item) => {
               if (item.id === "000GUEST" && !alreadyCheckedGuest) {
-                //TODO: THINK THROUGH GUESTS!!!
-                // // return all guest objects
-                // var theObject = _.filter(item.attendance, (day) => {
-                //   return moment(day.date).isSame(date, 'day') && day.language === lang.language
-                // });
-                // //theObject.forEach()
+                alreadyCheckedGuest = true;
+                var guests = _.filter(item.attendance, (day) => {
+                  return moment(day.date).isSame(date, 'day') && day.language === lang.language
+                });
+                guests.forEach((guest) => {
+                  langAttendants.push({
+                    id: item.id,
+                    name: guest.name,
+                    language: guest.language
+                  })
+                })
+              } else if (item.id === "RESERVED") {
+                for (var i = 0; i < countReserved; i++) {
+                  if (lang.language === 2 || lang.language === 7) {
+                    langAttendants.push({
+                      id: "RESERVED",
+                      name: "Temporary",
+                      language: lang.language
+                    });
+                  } else {
+                    langAttendants.push({
+                      id: "RESERVED",
+                      name: "Teaching Assistant/Faculty",
+                      language: lang.language
+                    });
+                  }
+
+                }
               } else {
                 var theOneWeNeed = _.find(item.attendance, (day) => {
                   return moment(day.date).isSame(date, 'day') && day.language === lang.language
                 });
-                return {
+                langAttendants.push({
                   id: item.id,
                   name: theOneWeNeed.name,
                   language: theOneWeNeed.language
-                }
+                });
               }
+
             });
             attendants = attendants.concat(langAttendants);
           }
@@ -530,13 +555,21 @@ app.post('/attendance', (req, res) => {
   var date = req.body.date;
   var attendants = req.body.attendants;
   var absent = req.body.absent;
-  //console.log(absent);
   var promises = [];
 
   for (var language in constants.languages) {
     promises.push(new Promise((resolve, reject) => {
       var queryString = "vacancy." + constants.languages[language]+".guestlist";
       var ids = attendants[constants.languages[language]] || [];
+
+      //trim off the extra character from the IDS (leftover from keys)
+      ids = ids.map((id) => {
+        if (id.length > 8) {
+          id = id.substring(0,8);
+        }
+        return id;
+      });
+
       var update = { $set: {} };
       update.$set[queryString] = ids;
       db.collection('dates').update(
@@ -545,12 +578,39 @@ app.post('/attendance', (req, res) => {
       );
 
       var absentIds = absent[constants.languages[language]] || [];
-      for (var i = 0; i < absentIds.length; i++) {
-        db.collection('attendants').update(
-          { id: absentIds[i] },
-          { $pull: { 'attendance': { 'date' : date, 'language' : constants.languages[language] } } }
-        );
-      }
+      var absentGuestNames = [];
+      //trim off the extra character from the IDS (leftover from keys)
+      absentIds = absentIds.map((absentId) => {
+        if (absentId.length > 8) {
+          var temp = absentId.substring(8, absentId.length);
+          absentId = absentId.substring(0,8);
+          if (absentId === "000GUEST") {
+            absentGuestNames.push(temp);
+          }
+        }
+        return absentId;
+      });
+
+      var i = 0;
+      absentIds.forEach((absentId) => {
+        // don't update the RESERVED -- we don't care
+        if (absentId !== "RESERVED") {
+          // make sure to pull out the correct guest
+          if (absentId === "000GUEST") {
+            var name = absentGuestNames[i];
+            i++;
+            db.collection('attendants').update(
+              { id: absentId },
+              { $pull: { 'attendance': { 'date' : date, 'language' : constants.languages[language], 'name' : name } } }
+            );
+          } else {
+            db.collection('attendants').update(
+              { id: absentId },
+              { $pull: { 'attendance': { 'date' : date, 'language' : constants.languages[language] } } }
+            );
+          }
+        }
+      });
       resolve();
     }));
   }
@@ -593,8 +653,6 @@ var sendEmailToFacultyJob = new CronJob({
      * Runs every weekday (Monday through Friday)
      * at 14:30:00 PM.
      */
-
-     // delete add 1 days
      var today = moment().startOf('day');
 
      //get the faculty collection
@@ -615,22 +673,45 @@ var sendEmailToFacultyJob = new CronJob({
 
            //get emails of TA's and Professors for this language
            object.faculty.forEach((facultyMember, facultyMemberIndex) => {
-             emails.push(facultyMember.email);
+             if (facultyMember.daily === true) {
+               emails.push(facultyMember.email);
+             }
            });
+
+           var reservedCount = _.countBy(guestList, _.identity)["RESERVED"];
+           var lengthToSend = guestList.length - reservedCount;
+           var alreadyAddedAllGuests = false;
+           var emailSent = false;
 
            //get the names of the attendants by their id
            guestList.forEach((guestId, guestIndex) => {
-             db.collection('attendants').find({id: guestId}, {name: 1}).toArray((err, result) => {
-               if (err) {
-                 throw err;
-               }
-               guestNamesList.push(result[0].name);
+             if (guestId !== "RESERVED") {
+               db.collection('attendants').find({id: guestId}).toArray((err, result) => {
+                 if (err) {
+                   throw err;
+                 }
 
-               //send the email
-               if (guestNamesList.length === guestList.length) {
-                 mail.sendProfTA(object, guestNamesList, today.format("MM-DD-YYYY"), emails);
-               }
-             });
+                 if (guestId === "000GUEST") {
+                   if (!alreadyAddedAllGuests) {
+                     alreadyAddedAllGuests = true;
+                     var theMany = _.filter(result[0].attendance, {'date': today.utc().format(), 'language': object.language});
+                     theMany.forEach((one) => {
+                       guestNamesList.push(one.name);
+                     });
+                   }
+                 } else {
+                   var theOne = _.find(result[0].attendance, {'date': today.utc().format(), 'language': object.language});
+                   guestNamesList.push(theOne.name);
+                 }
+
+                 // send the email if all names are added (one per lang)
+                 if (guestNamesList.length === lengthToSend && !emailSent) {
+                   emailSent = true;
+                   guestNamesList = _.sortBy(guestNamesList, [_.identity]);
+                   mail.sendProfTA(object, guestNamesList, today.format("dddd, MMMM Do"), emails);
+                 }
+               });
+             }
            });
          });
        });
@@ -688,5 +769,5 @@ var sendReminderEmailsJob = new CronJob({
 // TODO: start the tableAllocationJob week 2
 // tableAllocationJob.start();
 
-//sendEmailToFacultyJob.start();
+sendEmailToFacultyJob.start();
 sendReminderEmailsJob.start();
