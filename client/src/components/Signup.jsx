@@ -50,7 +50,7 @@ var Signup = React.createClass({
   //if an invalid date is chosen after a valid one, must clear the date field so they can't continue
   handleDateChange : function(date, seatsAvailable) {
     let registrationIsOpen = moment().isBefore(moment(date).startOf('day').add(13, 'hours').add(45, 'minutes'));
-    if (registrationIsOpen) {
+    if (registrationIsOpen && seatsAvailable > 0) {
       this.setState({ date: date, seatsAvailable: seatsAvailable });
     }
   },
