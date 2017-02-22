@@ -11,6 +11,7 @@ const languages = {
   RUSSIAN: 9,
   SPANISH: 10,
   SWAHILI: 11,
+  KOREAN: 12
 }
 
 module.exports = { languages: languages };
