@@ -103,9 +103,9 @@ var Signup = React.createClass({
       this.setState({
         errorMessage: "Please choose an earlier date. For now, French department does not allow signing up for the dates after March 31st."
       });
-    } else if (this.state.language === 7 && moment().isBefore('2017-02-23')) {
+    } else if (this.state.language === 7 && moment().isBefore(moment('2017-02-23T05:00:00Z').add(19, 'hours'))) {
       this.setState({
-        errorMessage: "Japanese department will allow online sign-ups starting on Thursday, February 23th. Until then, you don't need to sign up online."
+        errorMessage: "Japanese department will allow online sign-ups starting at 7pm on Thursday, February 23th. Until then, you don't need to sign up online."
       });
     } else if (this.state.id.length !== 8 && this.state.id !== "000GUEST") {
       this.setState({
