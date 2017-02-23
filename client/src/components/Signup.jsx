@@ -33,18 +33,24 @@ var Signup = React.createClass({
   },
 
   courseChange: function(course) {
+    //TODO: need componentWillMount?... to handle the id changes
     if (course === "Middlebury College Guest") {
       this.setState({
-        id: "000GUEST"
+        id: "000GUEST",
+        course : course
       });
     } else {
-      this.setState({
-        id: ""
-      });
+      if (this.state.id === "000GUEST") {
+        this.setState({
+          id: "",
+          course : course
+        });
+      } else {
+        this.setState({
+          course : course,
+        });
+      }
     }
-    this.setState({
-      course : course,
-    });
   },
 
   //if an invalid date is chosen after a valid one, must clear the date field so they can't continue
@@ -94,19 +100,125 @@ var Signup = React.createClass({
 
   handleSubmit : function(event) {
     event.preventDefault();
+    //make sure the date is T05 not T04
+    let date = this.state.date.utc().format();
+    let timeZoneString = date.substring(10, date.length);
+    if (timeZoneString !== "T05:00:00Z") {
+      date = _.replace(date, timeZoneString, "T05:00:00Z")
+    }
+
+
     // TODO: CHANGE THIS HARDCODED MESS
-    if (this.state.language === 2 && moment().isBefore('2017-02-24')) {
-      this.setState({
-        errorMessage: "Chinese department will allow online sign-ups starting on Friday, February 24th. Until then, you don't need to sign up online."
-      });
-    } else if (this.state.language === 3 && moment(this.state.date).isAfter('2017-03-31')) {
+    if (this.state.language === 2 && this.state.id !== "000GUEST") {
+
+      let period1 = ["2017-02-27T05:00:00Z", "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z",
+        "2017-03-02T05:00:00Z", "2017-03-03T05:00:00Z", "2017-03-06T05:00:00Z",
+        "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z", "2017-03-09T05:00:00Z",
+        "2017-03-10T05:00:00Z", "2017-03-13T05:00:00Z", "2017-03-14T05:00:00Z",
+        "2017-03-15T05:00:00Z", "2017-03-16T05:00:00Z", "2017-03-17T05:00:00Z"];
+
+      let period2 = ["2017-03-20T05:00:00Z", "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z",
+      "2017-03-23T05:00:00Z", "2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
+      "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z"];
+
+      let period3 = ["2017-04-10T05:00:00Z", "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z",
+      "2017-04-13T05:00:00Z", "2017-04-14T05:00:00Z", "2017-04-17T05:00:00Z",
+      "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z", "2017-04-20T05:00:00Z",
+      "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z", "2017-04-25T05:00:00Z",
+      "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z", "2017-04-28T05:00:00Z"];
+
+      let period4 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
+        "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
+        "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
+        "2017-05-12T05:00:00Z"];
+
+      // make sure the sign up for the given date is open
+      if (date === "2017-02-24T05:00:00Z") {
+        this.setState({
+          errorMessage: "Sign-up for the week 2/20-2/24 is not required."
+        });
+      } else if (period1.includes(date) && moment().isBefore(moment('2017-02-24T05:00:00Z'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 2/27-3/17 will open on Friday, February 24th."
+        });
+      } else if (period2.includes(date) && moment().isBefore(moment('2017-03-17T05:00:00Z'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 3/20-4/7 will open on Friday, March 17th."
+        });
+      } else if (period3.includes(date) && moment().isBefore(moment('2017-04-07T05:00:00Z'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 4/10-4/28 will open on Friday, April 7th."
+        });
+      } else if (period4.includes(date) && moment().isBefore(moment('2017-04-28T05:00:00Z'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 5/1-5/12 will open on Friday, April 28th."
+        });
+      } else {
+        // if sign up is open, check the max of 2 restrictions per week
+        this.checkRestrictions();
+      }
+
+    } else if (this.state.language === 3 && moment(date).isAfter('2017-03-31')) {
       this.setState({
         errorMessage: "Please choose an earlier date. For now, French department does not allow signing up for the dates after March 31st."
       });
-    } else if (this.state.language === 7 && moment().isBefore(moment('2017-02-23T05:00:00Z').add(19, 'hours'))) {
-      this.setState({
-        errorMessage: "Japanese department will allow online sign-ups starting at 7pm on Thursday, February 23th. Until then, you don't need to sign up online."
-      });
+
+    } else if (this.state.language === 7 && this.state.id !== "000GUEST") {
+
+      let period1 = ["2017-02-27T05:00:00Z", "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z",
+        "2017-03-02T05:00:00Z", "2017-03-03T05:00:00Z", "2017-03-06T05:00:00Z",
+        "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z", "2017-03-09T05:00:00Z",
+        "2017-03-10T05:00:00Z"];
+
+      let period2 = ["2017-03-13T05:00:00Z", "2017-03-14T05:00:00Z", "2017-03-15T05:00:00Z",
+      "2017-03-16T05:00:00Z", "2017-03-17T05:00:00Z", "2017-03-20T05:00:00Z",
+      "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z", "2017-03-23T05:00:00Z"];
+
+      let period3 = ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
+      "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z", "2017-04-10T05:00:00Z",
+      "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z", "2017-04-13T05:00:00Z",
+      "2017-04-14T05:00:00Z"];
+
+      let period4 = ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
+        "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z",
+        "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z",
+        "2017-04-28T05:00:00Z"];
+
+      let period5 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
+        "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
+        "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
+        "2017-05-12T05:00:00Z"];
+
+      // make sure the sign up for the given date is open
+      if (date === "2017-02-24T05:00:00Z") {
+        this.setState({
+          errorMessage: "Sign-up for the week 2/20-2/24 is not required."
+        });
+      } else if (period1.includes(date) && moment().isBefore(moment('2017-02-23T05:00:00Z').add(19, 'hours'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 2/27-3/10 will open at 7pm on Thursday, February 23rd."
+        });
+      } else if (period2.includes(date) && moment().isBefore(moment('2017-03-09T05:00:00Z').add(19, 'hours'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 3/13-3/23 will open at 7pm on Thursday, March 9th."
+        });
+      } else if (period3.includes(date) && moment().isBefore(moment('2017-03-23T05:00:00Z').add(19, 'hours'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 4/3-4/14 will open at 7pm on Thursday, March 23rd."
+        });
+      } else if (period4.includes(date) && moment().isBefore(moment('2017-04-13T05:00:00Z').add(19, 'hours'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 4/17-4/28 will open at 7pm on Thursday, April 13th."
+        });
+      } else if (period5.includes(date) && moment().isBefore(moment('2017-04-27T05:00:00Z').add(19, 'hours'))) {
+        this.setState({
+          errorMessage: "Sign-up for the period 5/1-5/12 will open at 7pm on Thursday, April 27th."
+        });
+      } else {
+        // if sign up is open, check the max of 3 restrictions
+        this.checkRestrictions();
+      }
+
     } else if (this.state.id.length !== 8 && this.state.id !== "000GUEST") {
       this.setState({
         errorMessage: "ID number has to be 8 digits."
@@ -148,9 +260,21 @@ var Signup = React.createClass({
             });
             this.postSubmission();
           } else {
-            this.setState({
-              errorMessage: "Please choose a different date. Spanish department only allows 1 sign-up every 2-week period."
-            });
+            if (this.state.language === 10) {
+              this.setState({
+                errorMessage: "Please choose a different date. Spanish department only allows 1 sign-up every 2-week period."
+              });
+            }
+            if (this.state.language === 7) {
+              this.setState({
+                errorMessage: "Please choose a different date. Japanese department only allows 3 sign-ups every 2-week period."
+              });
+            }
+            if (this.state.language === 2) {
+              this.setState({
+                errorMessage: "Please choose a different date. You have exceeded the maximum number of sign-ups for the week of "+moment(this.state.date).format("MMMM Do")+"."
+              });
+            }
           }
         },
         error: function(error) {
@@ -160,12 +284,19 @@ var Signup = React.createClass({
   },
 
   formatData : function() {
+    let date = this.state.date.utc().format();
+    let timeZoneString = date.substring(10, date.length);
+    if (timeZoneString !== "T05:00:00Z") {
+      date = _.replace(date, timeZoneString, "T05:00:00Z")
+    }
+
+
     var reservation = {
       name : this.state.name,
       course: this.state.course,
       id : this.state.id,
       email : this.state.email,
-      date : this.state.date.utc().format(),
+      date : date,
       language : this.state.language
     }
 

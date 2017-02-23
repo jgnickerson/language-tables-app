@@ -185,13 +185,15 @@ var Admin = React.createClass({
 
   render : function() {
     let date = moment().format("dddd, MMMM Do YYYY");
-    let totalAttendants = 0,
+    let totalCheckedIn = 0,
+      totalAttendants = 0,
       totalTablesOf6 = 0,
       totalTablesOf8 = 0;
     this.state.checkboxItems.forEach((item) => {
       if (item.isChecked) {
-        totalAttendants += 1;
+        totalCheckedIn += 1;
       }
+      totalAttendants += 1;
     });
 
     this.state.languages.forEach((item) => {
@@ -201,9 +203,9 @@ var Admin = React.createClass({
     return (
       <div>
         <h2>{date}</h2>
-        {"TOTAL ATTENDANTS:       "}<b>{totalAttendants}</b><br/>
-        {"TOTAL TABLES OF 6:      "}<b>{totalTablesOf6}</b><br/>
-        {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8}</b><br/>
+        {"TOTAL ATTENDANTS:       "}<b>{totalCheckedIn+" / "+totalAttendants}</b><br/>
+        {"TOTAL TABLES OF 6:      "}<b>{totalTablesOf6+" / 12"}</b><br/>
+        {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8+" / 6 "}</b><br/>
         <form onSubmit={this.handleSubmit}>
           {this.createCheckboxLists()}
           <input
