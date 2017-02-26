@@ -313,12 +313,11 @@ app.post('/signup', (req, res) => {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
 
-  let errors = [];
-
   db.collection('dates').find({date:date}).toArray(function(err, result) {
     if (err) {
       console.log(err);
-      errors.push(err);
+      res.send(500);
+      return;
     }
 
     let language = result[0].vacancy[req.body.language]
@@ -342,28 +341,27 @@ app.post('/signup', (req, res) => {
         function(err, result) {
           if (err) {
             console.log(err);
-            errors.push(err);
+            res.send(500);
+            return;
           }
 
           //add the student id to the date's waitlist
           db.collection('dates').update(
             {date: date, "vacancy.language": req.body.language},
-            {$push: {"vacancy.$.waitlist": req.body.id}}
-          ), function(err, result) {
-            if (err) {
-              console.log(err);
-              errors.push(err);
-            }
+            {$push: {"vacancy.$.waitlist": req.body.id}},
+            function(err, result) {
+              if (err) {
+                console.log(err);
+                res.send(500);
+                return;
+              }
 
-            if (errors.length === 0) {
               //send a waitlister message
               mail.send(req.body, true);
               //send a success status to the client
               res.sendStatus(200);
-            } else {
-              res.sendStatus(500);
-            }
-          };
+
+          });
         }
       );
 
@@ -384,7 +382,8 @@ app.post('/signup', (req, res) => {
         function(err, result) {
           if (err) {
             console.log(err);
-            errors.push(err);
+            res.send(500);
+            return;
           }
 
           //increment the number of reserved seats at the given language at the given date
@@ -396,17 +395,14 @@ app.post('/signup', (req, res) => {
             }, function(err, result) {
               if (err) {
                 console.log(err);
-                errors.push(err);
+                res.send(500);
+                return;
               }
 
-              if (errors.length === 0) {
-                //send a guestlist message
-                mail.send(req.body, false);
-                //send a success status to the client
-                res.sendStatus(200);
-              } else {
-                res.sendStatus(500);
-              }
+              //send a guestlist message
+              mail.send(req.body, false);
+              //send a success status to the client
+              res.sendStatus(200);
             }
           );
         }
@@ -440,15 +436,14 @@ app.get('/cancel', (req, res) => {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
 
-  let errors = [];
-
   // remove the reservation from dates collection
   db.collection('dates').find(
     {'date': date},
     {'vacancy': {$elemMatch: {'language': language}}}).toArray((err, result) => {
     if (err) {
       console.log(err);
-      errors.push(err);
+      res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+      return;
     }
 
     //for convenience
@@ -470,7 +465,8 @@ app.get('/cancel', (req, res) => {
         function(err, results) {
           if (err) {
             console.log(err);
-            errors.push(err);
+            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+            return;
           }
 
           // update the waitlist in dates collection
@@ -480,7 +476,8 @@ app.get('/cancel', (req, res) => {
             function(err, result) {
               if (err) {
                 console.log(err);
-                errors.push(err);
+                res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+                return;
               }
             }
           );
@@ -518,7 +515,8 @@ app.get('/cancel', (req, res) => {
           .toArray((err, result) => {
           if (err) {
             console.log(err);
-            errors.push(err);
+            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+            return;
           }
 
           //used to send email after database is finished updating
@@ -537,7 +535,8 @@ app.get('/cancel', (req, res) => {
             function(err, result) {
               if (err) {
                 console.log(err);
-                errors.push(err);
+                res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+                return;
               }
 
               // update the waitlist in dates collection
@@ -547,7 +546,8 @@ app.get('/cancel', (req, res) => {
                 function(err, result) {
                   if (err) {
                     console.log(err);
-                    errors.push(err);
+                    res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+                    return;
                   }
                 }
               );
@@ -568,7 +568,8 @@ app.get('/cancel', (req, res) => {
         function(err, result) {
           if (err) {
             console.log(err);
-            errors.push(err);
+            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+            return;
           }
 
           // update the attendance in attendants collection
@@ -578,23 +579,21 @@ app.get('/cancel', (req, res) => {
           }, function(err, result) {
             if (err) {
               console.log(err);
-              errors.push(err);
+              res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+              return;
             }
           });
 
           if (luckyID && luckyAttendant) {
             mail.sendNewGuests(luckyAttendant.email, language, moment(date));
           }
+
+          //successfully removed the attendant from all necessary places in the db, so send a success message
+          res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully canceled your reservation.</p>');
         }
       );
     }
   });
-  if (errors.length === 0) {
-    //successfully removed the attendant from all necessary places in the db, so send a success message
-    res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully canceled your reservation.</p>');
-  } else {
-    res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
-  }
 });
 
 // getting the current allocation of tables
