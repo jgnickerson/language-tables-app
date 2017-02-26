@@ -11,7 +11,7 @@ var LanguageSelect = React.createClass({
 
   componentWillMount: function() {
     $.ajax({
-        url: 'http://basin.middlebury.edu:3000/languages',
+        url: 'http://localhost:3000/languages',
         datatype: 'json',
         success: (response) => {
           let options = response.map(function(item) {

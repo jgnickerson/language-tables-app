@@ -475,10 +475,9 @@ app.get('/cancel', (req, res) => {
     {'date': date},
     {'vacancy': {$elemMatch: {'language': language}}}).toArray((err, result) => {
     if (err) {
-      throw err;
+      console.log(err);
+      res.send(err);
     }
-
-    // console.log(result);
 
     //for convenience
     var waitlist = result[0].vacancy[0].waitlist;
@@ -492,17 +491,30 @@ app.get('/cancel', (req, res) => {
       var index = waitlist.indexOf(id);
       waitlist.splice(index, 1);
 
-      // update the waitlist in dates collection
-      db.collection('dates').update(
-        {'date': date, 'vacancy.language': language},
-        {$set: {'vacancy.$.waitlist': waitlist}}
-      );
-
       // update the waitlist in attendants collection
       db.collection('attendants').update(
         { id: id },
-        { $pull: { 'waitlists': { 'date' : date, 'language' : language, 'name' : name } }
-      });
+        { $pull: { 'waitlists': { 'date' : date, 'language' : language, 'name' : name } } },
+        function(err, results) {
+          if (err) {
+            console.log(err);
+            res.send(err);
+          }
+
+          // update the waitlist in dates collection
+          db.collection('dates').update(
+            {'date': date, 'vacancy.language': language},
+            {$set: {'vacancy.$.waitlist': waitlist}},
+            function(err, result) {
+              if (err) {
+                console.log(err);
+                res.send(err);
+              }
+            }
+          );
+        }
+      );
+
 
     //if the attendant is on the guestlist for that language on that day
     } else if (guestlist.includes(id)) {
@@ -514,67 +526,100 @@ app.get('/cancel', (req, res) => {
       // decrement the number of seats reserved
       seatsReserved--;
 
+      //declare here, so we can check later
+      let luckyID, luckyAttendant;
+
       // if waitlist is not empty
       if (waitlist.length > 0) {
 
         // remove waitlist[0]
-        var luckyPerson = waitlist.splice(0, 1);
+        luckyID = waitlist.splice(0, 1);
         // push waitlist[0] to guestlist
         guestlist.push(luckyPerson[0]);
 
         // increment the number of seats reserved
         seatsReserved++;
 
-        // update the waitlist in dates collection
-        db.collection('dates').update(
-          {'date': date, 'vacancy.language': language},
-          {$set: {'vacancy.$.waitlist': waitlist}}
-        );
-
         //send an email to the lucky person
-        db.collection('attendants').find( { id: luckyPerson[0] },
+        db.collection('attendants').find( { id: luckyID[0] },
           { 'waitlists': { $elemMatch: { 'date' : date, 'language' : language } } })
           .toArray((err, result) => {
           if (err) {
-            throw err;
+            console.log(err);
+            res.send(err);
           }
 
-          // update the waitlists for the lucky person in attendants collection
-          db.collection('attendants').update(
-            { id: luckyPerson[0] },
-            { $pull: { 'waitlists': result[0].waitlists[0] }
+          //used to send email after database is finished updating
+          luckyAttendant = result[0].waitlists[0];
+
+          // update the waitlists/attendance for the lucky person in attendants collection
+          db.collection('attendants').bulkWrite([
+            { updateOne: {
+              filter: { id: luckyID[0] },
+              update: { $pull: { 'waitlists': result[0].waitlists[0] } }
+            }},
+            { updateOne: {
+              filter: { id: luckyID[0] },
+              update: { $push: { 'attendance': result[0].waitlists[0] } }
+            }}], { ordered: true },
+            function(err, result) {
+              if (err) {
+                console.log(err);
+                res.send(err);
+              }
+
+              // update the waitlist in dates collection
+              db.collection('dates').update(
+                {'date': date, 'vacancy.language': language},
+                {$set: {'vacancy.$.waitlist': waitlist}},
+                function(err, result) {
+                  if (err) {
+                    console.log(err);
+                    res.send(err);
+                  }
+                }
+              );
+            });
           });
-          // update the attendance for the lucky person in attendants collection
+        }
+
+      // update the guestlist, number of seats in dates collection
+      db.collection('dates').bulkWrite([
+        { updateOne: {
+          filter: {'date': date, 'vacancy.language': language},
+          update: {$set: {'vacancy.$.guestlist': guestlist}}
+        }},
+        { updateOne: {
+          filter: {'date': date, 'vacancy.language': language},
+          update: {$set: {'vacancy.$.seatsReserved': seatsReserved}}
+        }}], { ordered: true },
+        function(err, result) {
+          if (err) {
+            console.log(err);
+            res.send(err);
+          }
+
+          // update the attendance in attendants collection
           db.collection('attendants').update(
-            { id: luckyPerson[0] },
-            { $push: { 'attendance': result[0].waitlists[0] }
+            { id: id },
+            { $pull: { 'attendance': { 'date' : date, 'language' : language, 'name' : name } }
+          }, function(err, result) {
+            if (err) {
+              console.log(err);
+              res.send(err);
+            }
+
+            //successfully removed the attendant from all necessary places in the db, so send a success message
+            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully cancelled your reservation.</p>');
           });
 
-          mail.sendNewGuests(result[0].waitlists[0].email, language, moment(date));
-        });
-      }
-
-      // update the guestlist in dates collection
-      db.collection('dates').update(
-        {'date': date, 'vacancy.language': language},
-        {$set: {'vacancy.$.guestlist': guestlist}}
+          if (luckyID && luckyAttendant) {
+            mail.sendNewGuests(luckyAttendant.email, language, moment(date));
+          }
+        }
       );
-
-      // update the number of seats reserved in dates collection
-      db.collection('dates').update(
-        {'date': date, 'vacancy.language': language},
-        {$set: {'vacancy.$.seatsReserved': seatsReserved}}
-      );
-
-      // update the attendance in attendants collection
-      db.collection('attendants').update(
-        { id: id },
-        { $pull: { 'attendance': { 'date' : date, 'language' : language, 'name' : name } }
-      });
     }
   });
-  res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully cancelled your reservation.</p>');
-  //res.sendStatus(200);
 });
 
 // getting the current allocation of tables

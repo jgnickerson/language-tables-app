@@ -17,7 +17,7 @@ var AccountFields = React.createClass({
 
   componentWillMount: function() {
     $.ajax({
-        url: 'http://basin.middlebury.edu:3000/courses?lang='+this.props.language,
+        url: 'http://localhost:3000/courses?lang='+this.props.language,
         datatype: 'json',
         success: (response) => {
           let options = response.map(function(item) {

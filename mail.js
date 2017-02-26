@@ -44,7 +44,7 @@ var send = function(reservationObj, waitlist) {
 
   var decodedString = languageString + reservationObj.id + reservationObj.date + reservationObj.name;
   var encodedString = new Buffer(decodedString).toString('base64');
-  var cancelLink = 'http://basin.middlebury.edu:3000/cancel?reservation=' + encodedString;
+  var cancelLink = 'http://localhost:3000/cancel?reservation=' + encodedString;
 
   var text = "Dear "+reservationObj.name+", </br></br>";
   if (waitlist) {
