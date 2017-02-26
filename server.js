@@ -304,10 +304,6 @@ app.get('/languages', (req, res) => {
 app.post('/signup', (req, res) => {
   //assuming there is a seat at the given date and language table
   //since calendar won't allow picking dates with seats = 0
-
-  /***************
-    TODO: res.sendStatus(400) if have errors?
-  ***************/
   let guestlistFull = false;
 
   let date = req.body.date;
@@ -316,15 +312,15 @@ app.post('/signup', (req, res) => {
   if (timeZoneString !== "T05:00:00Z") {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
-  // console.log(date);
+
+  let errors = [];
 
   db.collection('dates').find({date:date}).toArray(function(err, result) {
     if (err) {
-      throw err;
-      //res.sendStatus(500);
+      console.log(err);
+      errors.push(err);
     }
-    //console.log(req.body.date);
-    //console.log(result);
+
     let language = result[0].vacancy[req.body.language]
 
     if (language.seatsAvailable - language.seatsReserved === 0) {
@@ -342,19 +338,36 @@ app.post('/signup', (req, res) => {
                                name: req.body.name,
                                email: req.body.email } }
         },
-        { upsert: true }
+        { upsert: true },
+        function(err, result) {
+          if (err) {
+            console.log(err);
+            errors.push(err);
+          }
+
+          //add the student id to the date's waitlist
+          db.collection('dates').update(
+            {date: date, "vacancy.language": req.body.language},
+            {$push: {"vacancy.$.waitlist": req.body.id}}
+          ), function(err, result) {
+            if (err) {
+              console.log(err);
+              errors.push(err);
+            }
+
+            if (errors.length === 0) {
+              //send a waitlister message
+              mail.send(req.body, true);
+              //send a success status to the client
+              res.sendStatus(200);
+            } else {
+              res.sendStatus(500);
+            }
+          };
+        }
       );
 
-      //add the student id to the date's waitlist
-      db.collection('dates').update(
-        {date: date, "vacancy.language": req.body.language},
-        {$push: {"vacancy.$.waitlist": req.body.id}}
-      );
 
-      //send a waitlister message
-      mail.send(req.body, true);
-      //send a success status to the client
-      res.sendStatus(200);
 
     } else {
       //add a new record of attendance for the student
@@ -367,81 +380,39 @@ app.post('/signup', (req, res) => {
                                name: req.body.name,
                                email: req.body.email } }
         },
-        { upsert: true }
-      );
+        { upsert: true },
+        function(err, result) {
+          if (err) {
+            console.log(err);
+            errors.push(err);
+          }
 
-      //increment the number of reserved seats at the given language at the given date
-      db.collection('dates').update(
-        { date: date, "vacancy.language": req.body.language },
-        {
-          $inc: {"vacancy.$.seatsReserved": 1},
-          $push: {"vacancy.$.guestlist": req.body.id}
+          //increment the number of reserved seats at the given language at the given date
+          db.collection('dates').update(
+            { date: date, "vacancy.language": req.body.language },
+            {
+              $inc: {"vacancy.$.seatsReserved": 1},
+              $push: {"vacancy.$.guestlist": req.body.id}
+            }, function(err, result) {
+              if (err) {
+                console.log(err);
+                errors.push(err);
+              }
+
+              if (errors.length === 0) {
+                //send a guestlist message
+                mail.send(req.body, false);
+                //send a success status to the client
+                res.sendStatus(200);
+              } else {
+                res.sendStatus(500);
+              }
+            }
+          );
         }
       );
-
-      //send a guestlist message
-      mail.send(req.body, false);
-      //send a success status to the client
-      res.sendStatus(200);
     }
-
   });
-
-    // //find a record of the attendant
-    // db.collection('attendants').find({id:req.body.id}).toArray(function(err, result) {
-    //   if (err) {
-    //     throw err;
-    //   }
-    //
-    //   // if attendant does not exist in database
-    //   if (result[0] == undefined) {
-    //     //create a new attendant with the new record of attendance
-    //     db.collection('attendants').insert({
-    //       id: req.body.id,
-    //       name: req.body.name,
-    //       email: req.body.email,
-    //     });
-    //   }
-    //
-    //   if (guestlistFull) {
-    //     //add a new record of waitlists for the student
-    //     db.collection('attendants').update(
-    //       {id: req.body.id},
-    //       {$push: {waitlists: {date:req.body.date, language:req.body.language, course: req.body.course}}}
-    //     );
-    //
-    //     //add the student id to the date's waitlist
-    //     db.collection('dates').update(
-    //       {date: req.body.date, "vacancy.language": req.body.language},
-    //       {$addToSet: {"vacancy.$.waitlist": req.body.id}}
-    //     );
-    //
-    //     //send a waitlister message
-    //     mail.send(req.body, true);
-    //
-    //   } else {
-    //     //add a new record of attendance for the student
-    //     db.collection('attendants').update(
-    //       {id: req.body.id},
-    //       {$push: {attendance: {date:req.body.date, language:req.body.language, course: req.body.course}}}
-    //     );
-    //
-    //     //increment the number of reserved seats at the given language at the given date
-    //     db.collection('dates').update(
-    //       {date: req.body.date, "vacancy.language": req.body.language},
-    //       {$inc: {"vacancy.$.seatsReserved": 1}}
-    //     );
-    //
-    //     //add the student id to the date's guestlist
-    //     db.collection('dates').update(
-    //       {date: req.body.date, "vacancy.language": req.body.language},
-    //       {$addToSet: {"vacancy.$.guestlist": req.body.id}}
-    //     );
-    //
-    //     //send a guestlist message
-    //     mail.send(req.body, false);
-    //   }
-    // });
 });
 
 // '/cancel' or '/cancel?reservation=x' routes
