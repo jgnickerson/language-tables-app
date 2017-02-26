@@ -468,7 +468,8 @@ app.get('/cancel', (req, res) => {
   if (timeZoneString !== "T05:00:00Z") {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
-  // console.log(date);
+
+  let errors = [];
 
   // remove the reservation from dates collection
   db.collection('dates').find(
@@ -476,7 +477,7 @@ app.get('/cancel', (req, res) => {
     {'vacancy': {$elemMatch: {'language': language}}}).toArray((err, result) => {
     if (err) {
       console.log(err);
-      res.send(err);
+      errors.push(err);
     }
 
     //for convenience
@@ -498,7 +499,7 @@ app.get('/cancel', (req, res) => {
         function(err, results) {
           if (err) {
             console.log(err);
-            res.send(err);
+            errors.push(err);
           }
 
           // update the waitlist in dates collection
@@ -508,7 +509,7 @@ app.get('/cancel', (req, res) => {
             function(err, result) {
               if (err) {
                 console.log(err);
-                res.send(err);
+                errors.push(err);
               }
             }
           );
@@ -546,7 +547,7 @@ app.get('/cancel', (req, res) => {
           .toArray((err, result) => {
           if (err) {
             console.log(err);
-            res.send(err);
+            errors.push(err);
           }
 
           //used to send email after database is finished updating
@@ -565,7 +566,7 @@ app.get('/cancel', (req, res) => {
             function(err, result) {
               if (err) {
                 console.log(err);
-                res.send(err);
+                errors.push(err);
               }
 
               // update the waitlist in dates collection
@@ -575,7 +576,7 @@ app.get('/cancel', (req, res) => {
                 function(err, result) {
                   if (err) {
                     console.log(err);
-                    res.send(err);
+                    errors.push(err);
                   }
                 }
               );
@@ -596,7 +597,7 @@ app.get('/cancel', (req, res) => {
         function(err, result) {
           if (err) {
             console.log(err);
-            res.send(err);
+            errors.push(err);
           }
 
           // update the attendance in attendants collection
@@ -606,11 +607,8 @@ app.get('/cancel', (req, res) => {
           }, function(err, result) {
             if (err) {
               console.log(err);
-              res.send(err);
+              errors.push(err);
             }
-
-            //successfully removed the attendant from all necessary places in the db, so send a success message
-            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully cancelled your reservation.</p>');
           });
 
           if (luckyID && luckyAttendant) {
@@ -620,6 +618,12 @@ app.get('/cancel', (req, res) => {
       );
     }
   });
+  if (errors.length === 0) {
+    //successfully removed the attendant from all necessary places in the db, so send a success message
+    res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully canceled your reservation.</p>');
+  } else {
+    res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+  }
 });
 
 // getting the current allocation of tables
