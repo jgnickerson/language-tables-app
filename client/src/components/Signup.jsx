@@ -313,7 +313,7 @@ var Signup = React.createClass({
       contentType: "application/json",
       success: function(response) {
         console.log("Success: ", response);
-        this.setState({ submitSuccess: true });
+        this.setState({ submitSuccess: response });
       }.bind(this),
       error: function(error) {
         console.log(error);
