@@ -98,6 +98,28 @@ var Signup = React.createClass({
     });
   },
 
+  validEmail : function(email) {
+    if (this.state.id !== "000GUEST" && email.indexOf("@middlebury.edu") === -1) {
+      return false;
+    }
+    if (this.state.id === "000GUEST" && (email.indexOf("@") === -1
+        || email.indexOf(".") === -1))  {
+      return false;
+    }
+    // restricting the user to only type in characters
+
+    let newText = '';
+    let invalidChars = " 0123456789~!#$%^&*()_-=+|\"':;[]/";
+
+     for (var i=0; i < email.length; i++) {
+       if (invalidChars.indexOf(email[i]) > -1 ) {
+         return false;
+       }
+     }
+
+     return true;
+  },
+
   handleSubmit : function(event) {
     event.preventDefault();
     //make sure the date is T05 not T04
@@ -231,6 +253,10 @@ var Signup = React.createClass({
       this.setState({
         errorMessage: "Please, enter an email address."
       });
+    } else if (!this.validEmail(this.state.email)) {
+      this.setState({
+        errorMessage: "Please, enter a valid email address."
+      })
     } else if (this.state.course === '') {
       this.setState({
         errorMessage: "Please, select a course enrollment status."
