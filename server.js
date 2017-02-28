@@ -626,6 +626,7 @@ app.get('/attendance', (req, res) => {
   var attendants = [];
   var promises = [];
 
+  //get today's date object
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
     result[0].vacancy.forEach((lang) => {
@@ -634,7 +635,6 @@ app.get('/attendance', (req, res) => {
         db.collection('attendants').find({ id: { $in: lang.guestlist }, 'attendance.language': lang.language }).toArray()
         .then((result) => {
           if (result.length > 0) {
-            //console.log(result[0]);
             var alreadyCheckedGuest = false;
             var langAttendants = [];
             result.forEach((item) => {
@@ -703,73 +703,15 @@ app.get('/attendance', (req, res) => {
   });
 });
 
-app.post('/attendance', (req, res) => {
-  var date = req.body.date;
-  var attendants = req.body.attendants;
-  var absent = req.body.absent;
-  var promises = [];
 
-  for (var language in constants.languages) {
-    promises.push(new Promise((resolve, reject) => {
-      var queryString = "vacancy." + constants.languages[language]+".guestlist";
-      var ids = attendants[constants.languages[language]] || [];
+app.patch('/attendance', (req, res) => {
+  let student = req.body; // {id: '00000000', language: '00'};
+  let date = moment().startOf('day').utc().format();
+  let attendants = db.collection('attendants');
 
-      //trim off the extra character from the IDS (leftover from keys)
-      ids = ids.map((id) => {
-        if (id.length > 8) {
-          id = id.substring(0,8);
-        }
-        return id;
-      });
-
-      var update = { $set: {} };
-      update.$set[queryString] = ids;
-      db.collection('dates').update(
-        { date: date },
-        update
-      );
-
-      var absentIds = absent[constants.languages[language]] || [];
-      var absentGuestNames = [];
-      //trim off the extra character from the IDS (leftover from keys)
-      absentIds = absentIds.map((absentId) => {
-        if (absentId.length > 8) {
-          var temp = absentId.substring(8, absentId.length);
-          absentId = absentId.substring(0,8);
-          if (absentId === "000GUEST") {
-            absentGuestNames.push(temp);
-          }
-        }
-        return absentId;
-      });
-
-      var i = 0;
-      absentIds.forEach((absentId) => {
-        // don't update the RESERVED -- we don't care
-        if (absentId !== "RESERVED") {
-          // make sure to pull out the correct guest
-          if (absentId === "000GUEST") {
-            var name = absentGuestNames[i];
-            i++;
-            db.collection('attendants').update(
-              { id: absentId },
-              { $pull: { 'attendance': { 'date' : date, 'language' : constants.languages[language], 'name' : name } } }
-            );
-          } else {
-            db.collection('attendants').update(
-              { id: absentId },
-              { $pull: { 'attendance': { 'date' : date, 'language' : constants.languages[language] } } }
-            );
-          }
-        }
-      });
-      resolve();
-    }));
+  attendants.find({ id: student.id, 'attendance.language': student.language, 'attendance.date': date }).then((result, err) => {
+    console.log(result);
   }
-
-  Promise.all(promises).then(()=> {
-    res.sendStatus(200);
-  });
 });
 
 // **** FOR TESTING *****
