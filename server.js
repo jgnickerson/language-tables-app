@@ -706,12 +706,19 @@ app.get('/attendance', (req, res) => {
 
 app.patch('/attendance', (req, res) => {
   let student = req.body; // {id: '00000000', language: '00'};
+  student.language = Number(student.language);
+  
   let date = moment().startOf('day').utc().format();
   let attendants = db.collection('attendants');
 
-  attendants.find({ id: student.id, 'attendance.language': student.language, 'attendance.date': date }).then((result, err) => {
-    console.log(result);
-  }
+  attendants.find({ "id" : student.id, "attendance.language" : student.language, "attendance.date" : date }).toArray((err, docs) => {
+    if (err) {
+      //console.log(err);
+    }
+    console.log(docs);
+
+    res.sendStatus(200);
+  });
 });
 
 // **** FOR TESTING *****
