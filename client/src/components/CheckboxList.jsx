@@ -39,7 +39,7 @@ let CheckboxList = React.createClass({
   renderItem: function(item) {
     let onChange = function(event) {
       let value = event.target.checked;
-      this.props.onChange(item.key, value)
+      this.props.onChange(item.key, value, item.language)
     }.bind(this);
 
     return (

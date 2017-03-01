@@ -665,7 +665,6 @@ app.get('/attendance', (req, res) => {
                       language: lang.language
                     });
                   }
-
                 }
               } else {
                 var theOneWeNeed = _.find(item.attendance, (day) => {
@@ -676,7 +675,8 @@ app.get('/attendance', (req, res) => {
                   langAttendants.push({
                     id: item.id,
                     name: theOneWeNeed.name,
-                    language: theOneWeNeed.language
+                    language: theOneWeNeed.language,
+                    checked: theOneWeNeed.checked ? theOneWeNeed.checked : false
                   });
                 }
               }
@@ -703,14 +703,15 @@ app.get('/attendance', (req, res) => {
   });
 });
 
-
 app.patch('/attendance', (req, res) => {
   let student = req.body; // {id: '00000000', language: '00'};
   let date = moment().startOf('day').utc().format();
+  console.log(date);
   let attendants = db.collection('attendants');
 
-  attendants.findOneAndUpdate(
-    { "id" : student.id, "attendance.language" : student.language, "attendance.date" : date },
+  //finds the student and either "checks" or "unchecks" their attendance for today
+  attendants.update(
+    { id : student.id, attendance: {  $elemMatch : { date : date, language : student.language }}},
     { $set : { "attendance.$.checked" : student.checked }},
   (err, result) => {
     if (err) {
@@ -718,6 +719,8 @@ app.patch('/attendance', (req, res) => {
       res.sendStatus(500);
       return;
     }
+
+    //console.log(result);
 
     res.sendStatus(200);
     return;
