@@ -5,8 +5,6 @@ import _ from 'lodash';
 
 var Admin = React.createClass({
   getInitialState: function() {
-    //var checkboxItems = localStorage.getItem( 'CheckboxItems' ) || [];
-
     return ({
       date: "",
       checkboxItems: [],
@@ -25,16 +23,9 @@ var Admin = React.createClass({
 
         let checkboxItems = this.formatCheckboxItems(response.attendants);
 
-        let oldCheckboxItems = this.state.checkboxItems;
-        let newCheckboxItems = _.differenceBy(checkboxItems, oldCheckboxItems, 'label');
-        // console.log("here are the new items:");
-        // console.log(newCheckboxItems);
-
-        let total = oldCheckboxItems.concat(newCheckboxItems);
-
         this.setState({
           date: response.date,
-          checkboxItems: total
+          checkboxItems: checkboxItems
         });
       }
     };
@@ -79,27 +70,11 @@ var Admin = React.createClass({
           key = attendant.id;
         }
 
-        // let alreadyExisting = _.find(this.state.checkboxItems, function(o) {
-        //   return o.label === label && o.language === language;
-        // });
-        //
-        // if (alreadyExisting !== undefined) {
-        //   isChecked = alreadyExisting.isChecked;
-        // } else {
-        //   isChecked = false;
-        // }
-
-        if (attendant.checked) {
-          isChecked = attendant.checked;
-        } else {
-          isChecked = false;
-        }
-
       return {
         label: label,
         key: key,
         language: language,
-        isChecked: isChecked
+        isChecked: attendant.checked
       }
     });
 
