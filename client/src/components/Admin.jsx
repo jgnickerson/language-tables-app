@@ -64,17 +64,20 @@ var Admin = React.createClass({
         if (attendant.id === "RESERVED"){
           key = i++;
           key = attendant.id+key;
+          isChecked = true;
         } else if (attendant.id ==="000GUEST") {
           key = attendant.id+attendant.name;
+          isChecked = true;
         } else {
           key = attendant.id;
+          isChecked = attendant.checked;
         }
 
       return {
         label: label,
         key: key,
         language: language,
-        isChecked: attendant.checked
+        isChecked: isChecked
       }
     });
 
@@ -106,38 +109,6 @@ var Admin = React.createClass({
     }))
   },
 
-  handleSubmit: function(event) {
-    event.preventDefault();
-    let date = this.state.date;
-    let attendants = _.groupBy(_.filter(this.state.checkboxItems, (item) => {
-      return item.isChecked;
-    }), 'language');
-    let absent = _.groupBy(_.filter(this.state.checkboxItems, (item) => {
-      return !item.isChecked;
-    }), 'language');
-
-    attendants = _.mapValues(attendants, (value) => {
-      return _.map(value, (attendant) => {
-        return attendant.key;
-      })
-    });
-
-    absent = _.mapValues(absent, (value) => {
-      return _.map(value, (absentee) => {
-        return absentee.key;
-      })
-    });
-
-    this.postAttendance({ date: date, attendants: attendants, absent: absent });
-    window.location.reload();
-  },
-
-  postAttendance: function(attendanceObj) {
-    var request = new XMLHttpRequest();
-    request.open('POST', '/attendance', true);
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.send(JSON.stringify(attendanceObj));
-  },
 
   createCheckboxLists: function() {
     let lists = [];
@@ -198,11 +169,6 @@ var Admin = React.createClass({
         {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8+" / 6 "}</b><br/>
         <form onSubmit={this.handleSubmit}>
           {this.createCheckboxLists()}
-          <input
-            className="btn"
-            type="submit"
-            value="Submit"
-          />
         </form>
       </div>
     );
