@@ -652,19 +652,11 @@ app.get('/attendance', (req, res) => {
                 })
               } else if (item.id === "RESERVED") {
                 for (var i = 0; i < countReserved; i++) {
-                  if (lang.language === 2 || lang.language === 7) {
-                    langAttendants.push({
-                      id: "RESERVED",
-                      name: "Temporary",
-                      language: lang.language
-                    });
-                  } else {
-                    langAttendants.push({
-                      id: "RESERVED",
-                      name: "Teaching Assistant/Faculty",
-                      language: lang.language
-                    });
-                  }
+                  langAttendants.push({
+                    id: "RESERVED",
+                    name: "Teaching Assistant/Faculty",
+                    language: lang.language
+                  });
                 }
               } else {
                 var theOneWeNeed = _.find(item.attendance, (day) => {

@@ -248,7 +248,7 @@ var Signup = React.createClass({
   checkRestrictions : function() {
     let information = this.formatData();
     $.ajax({
-        url: 'http://localhost:3000/restrictions',
+        url: 'http://basin.middlebury.edu:3000/restrictions',
         type: 'POST',
         datatype: 'json',
         data: JSON.stringify(information),
@@ -306,7 +306,7 @@ var Signup = React.createClass({
   postSubmission : function() {
     let submission = this.formatData();
     $.ajax({
-      url:'http://localhost:3000/signup',
+      url:'http://basin.middlebury.edu:3000/signup',
       type: 'POST',
       datatype: 'json',
       data: JSON.stringify(submission),
