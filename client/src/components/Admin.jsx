@@ -5,8 +5,6 @@ import _ from 'lodash';
 
 var Admin = React.createClass({
   getInitialState: function() {
-    //var checkboxItems = localStorage.getItem( 'CheckboxItems' ) || [];
-
     return ({
       date: "",
       checkboxItems: [],
@@ -21,19 +19,13 @@ var Admin = React.createClass({
     request1.onload = () => {
       if (request1.status >= 200 && request1.status < 400) {
         let response = JSON.parse(request1.responseText);
+        console.log(response);
 
         let checkboxItems = this.formatCheckboxItems(response.attendants);
 
-        let oldCheckboxItems = this.state.checkboxItems;
-        let newCheckboxItems = _.differenceBy(checkboxItems, oldCheckboxItems, 'label');
-        // console.log("here are the new items:");
-        // console.log(newCheckboxItems);
-
-        let total = oldCheckboxItems.concat(newCheckboxItems);
-
         this.setState({
           date: response.date,
-          checkboxItems: total
+          checkboxItems: checkboxItems
         });
       }
     };
@@ -55,7 +47,7 @@ var Admin = React.createClass({
   },
 
   componentDidMount: function() {
-    this.interval = setInterval(this.updateCheckboxItems, 1000);
+    this.interval = setInterval(this.updateCheckboxItems, 2000);
   },
 
   componentWillUnmount: function() {
@@ -78,42 +70,40 @@ var Admin = React.createClass({
           key = attendant.id;
         }
 
-      // if (attendant.id === "RESERVED") {
-      //   isChecked = true;
-      // } else {
-        let alreadyExisting = _.find(this.state.checkboxItems, function(o) {
-          return o.label === label && o.language === language;
-        });
-
-        if (alreadyExisting !== undefined) {
-          isChecked = alreadyExisting.isChecked;
-        } else {
-          isChecked = false;
-        }
-      //}
-
       return {
         label: label,
         key: key,
         language: language,
-        isChecked: isChecked
+        isChecked: attendant.checked
       }
-
-
-    })
+    });
 
     return checklistItems;
   },
 
-  handleCheck: function(key, value) {
-    this.setState({
-      checkboxItems: this.state.checkboxItems.map((item) => {
-        if (item.key === key) {
-          item.isChecked = value;
-        }
-        return item;
-      })
-    })
+  handleCheck: function(key, value, language) {
+    let request = new XMLHttpRequest();
+    request.open('PATCH', '/attendance', true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 400) {
+        console.log("successful request");
+        //only actually change the state of the checkbox item if the request succeeds.
+        this.setState({
+          checkboxItems: this.state.checkboxItems.map((item) => {
+            if (item.key === key) {
+              item.isChecked = value;
+            }
+            return item;
+          })
+        });
+      }
+    }
+    request.send(JSON.stringify({
+      id: key,
+      language: language,
+      checked: value
+    }))
   },
 
   handleSubmit: function(event) {

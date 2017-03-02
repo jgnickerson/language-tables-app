@@ -626,6 +626,7 @@ app.get('/attendance', (req, res) => {
   var attendants = [];
   var promises = [];
 
+  //get today's date object
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
     result[0].vacancy.forEach((lang) => {
@@ -634,7 +635,6 @@ app.get('/attendance', (req, res) => {
         db.collection('attendants').find({ id: { $in: lang.guestlist }, 'attendance.language': lang.language }).toArray()
         .then((result) => {
           if (result.length > 0) {
-            //console.log(result[0]);
             var alreadyCheckedGuest = false;
             var langAttendants = [];
             result.forEach((item) => {
@@ -665,7 +665,6 @@ app.get('/attendance', (req, res) => {
                       language: lang.language
                     });
                   }
-
                 }
               } else {
                 var theOneWeNeed = _.find(item.attendance, (day) => {
@@ -676,7 +675,8 @@ app.get('/attendance', (req, res) => {
                   langAttendants.push({
                     id: item.id,
                     name: theOneWeNeed.name,
-                    language: theOneWeNeed.language
+                    language: theOneWeNeed.language,
+                    checked: theOneWeNeed.checked ? theOneWeNeed.checked : false
                   });
                 }
               }
@@ -703,72 +703,27 @@ app.get('/attendance', (req, res) => {
   });
 });
 
-app.post('/attendance', (req, res) => {
-  var date = req.body.date;
-  var attendants = req.body.attendants;
-  var absent = req.body.absent;
-  var promises = [];
+app.patch('/attendance', (req, res) => {
+  let student = req.body; // {id: '00000000', language: '00'};
+  let date = moment().startOf('day').utc().format();
+  console.log(date);
+  let attendants = db.collection('attendants');
 
-  for (var language in constants.languages) {
-    promises.push(new Promise((resolve, reject) => {
-      var queryString = "vacancy." + constants.languages[language]+".guestlist";
-      var ids = attendants[constants.languages[language]] || [];
+  //finds the student and either "checks" or "unchecks" their attendance for today
+  attendants.update(
+    { id : student.id, attendance: {  $elemMatch : { date : date, language : student.language }}},
+    { $set : { "attendance.$.checked" : student.checked }},
+  (err, result) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500);
+      return;
+    }
 
-      //trim off the extra character from the IDS (leftover from keys)
-      ids = ids.map((id) => {
-        if (id.length > 8) {
-          id = id.substring(0,8);
-        }
-        return id;
-      });
+    //console.log(result);
 
-      var update = { $set: {} };
-      update.$set[queryString] = ids;
-      db.collection('dates').update(
-        { date: date },
-        update
-      );
-
-      var absentIds = absent[constants.languages[language]] || [];
-      var absentGuestNames = [];
-      //trim off the extra character from the IDS (leftover from keys)
-      absentIds = absentIds.map((absentId) => {
-        if (absentId.length > 8) {
-          var temp = absentId.substring(8, absentId.length);
-          absentId = absentId.substring(0,8);
-          if (absentId === "000GUEST") {
-            absentGuestNames.push(temp);
-          }
-        }
-        return absentId;
-      });
-
-      var i = 0;
-      absentIds.forEach((absentId) => {
-        // don't update the RESERVED -- we don't care
-        if (absentId !== "RESERVED") {
-          // make sure to pull out the correct guest
-          if (absentId === "000GUEST") {
-            var name = absentGuestNames[i];
-            i++;
-            db.collection('attendants').update(
-              { id: absentId },
-              { $pull: { 'attendance': { 'date' : date, 'language' : constants.languages[language], 'name' : name } } }
-            );
-          } else {
-            db.collection('attendants').update(
-              { id: absentId },
-              { $pull: { 'attendance': { 'date' : date, 'language' : constants.languages[language] } } }
-            );
-          }
-        }
-      });
-      resolve();
-    }));
-  }
-
-  Promise.all(promises).then(()=> {
     res.sendStatus(200);
+    return;
   });
 });
 
