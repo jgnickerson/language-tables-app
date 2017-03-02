@@ -622,7 +622,7 @@ app.post('/update', (req, res) => {
 
 
 app.get('/attendance', (req, res) => {
-  var date = moment().startOf('day').add(1, 'day').utc().format();
+  var date = moment().startOf('day').utc().format();
   var attendants = [];
   var promises = [];
 
@@ -697,7 +697,7 @@ app.get('/attendance', (req, res) => {
 
 app.patch('/attendance', (req, res) => {
   let student = req.body; // {id: '00000000', language: '00'};
-  let date = moment().startOf('day').add(1, 'day').utc().format();
+  let date = moment().startOf('day').utc().format();
   //console.log(date);
   let attendants = db.collection('attendants');
 
@@ -793,13 +793,13 @@ var sendDailyEmailToFacultyJob = new CronJob({
                  if (guestId === "000GUEST") {
                    if (!alreadyAddedAllGuests) {
                      alreadyAddedAllGuests = true;
-                     var theMany = _.filter(result[0].attendance, {'date': today.utc().format(), 'language': object.language});
+                     var theMany = _.filter(result[0].attendance, {'date': today.utc().format(), 'language': object.language, 'checked':true});
                      theMany.forEach((one) => {
                        guestNamesList.push(one.name);
                      });
                    }
                  } else {
-                   var theOne = _.find(result[0].attendance, {'date': today.utc().format(), 'language': object.language});
+                   var theOne = _.find(result[0].attendance, {'date': today.utc().format(), 'language': object.language, 'checked':true});
                    if (theOne !== undefined) {
                      guestNamesList.push(theOne.name);
                    }
@@ -807,6 +807,7 @@ var sendDailyEmailToFacultyJob = new CronJob({
 
                  // send the email if all names are added (one per lang)
                  if (guestNamesList.length === lengthToSend && !emailSent) {
+                   console.log("Language: "+object.language);
                    emailSent = true;
                    guestNamesList = _.sortBy(guestNamesList, [_.identity]);
                    mail.sendProfTA(object, guestNamesList, today.format("dddd, MMMM Do"), emails);
