@@ -19,7 +19,7 @@ var Admin = React.createClass({
     request1.onload = () => {
       if (request1.status >= 200 && request1.status < 400) {
         let response = JSON.parse(request1.responseText);
-        console.log(response);
+        //console.log(response);
 
         let checkboxItems = this.formatCheckboxItems(response.attendants);
 
@@ -90,7 +90,7 @@ var Admin = React.createClass({
     request.setRequestHeader('Content-Type', 'application/json');
     request.onload = () => {
       if (request.status >= 200 && request.status < 400) {
-        console.log("successful request");
+        //console.log("successful request");
         //only actually change the state of the checkbox item if the request succeeds.
         this.setState({
           checkboxItems: this.state.checkboxItems.map((item) => {

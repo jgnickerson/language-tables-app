@@ -622,7 +622,7 @@ app.post('/update', (req, res) => {
 
 
 app.get('/attendance', (req, res) => {
-  var date = moment().startOf('day').utc().format();
+  var date = moment().startOf('day').add(1, 'day').utc().format();
   var attendants = [];
   var promises = [];
 
@@ -697,8 +697,8 @@ app.get('/attendance', (req, res) => {
 
 app.patch('/attendance', (req, res) => {
   let student = req.body; // {id: '00000000', language: '00'};
-  let date = moment().startOf('day').utc().format();
-  console.log(date);
+  let date = moment().startOf('day').add(1, 'day').utc().format();
+  //console.log(date);
   let attendants = db.collection('attendants');
 
   //finds the student and either "checks" or "unchecks" their attendance for today
