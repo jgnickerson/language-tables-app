@@ -414,10 +414,10 @@ app.post('/signup', (req, res) => {
 // '/cancel' or '/cancel?reservation=x' routes
 app.get('/cancel', (req, res) => {
 
+  console.log("canceling a reservation...")
   //uncomment below for actual implementation
   var encodedString = req.query.reservation;
-  //var string = "1006666662016-12-05T05:00:00.000Z"
-  //var encodedString = new Buffer(string).toString('base64');
+
   var decodedString = new Buffer(encodedString, 'base64').toString('ascii');
 
   var language = Number.parseInt(decodedString.substring(0, 2), 10);
@@ -425,16 +425,16 @@ app.get('/cancel', (req, res) => {
   var date = decodedString.substring(10, 30);
   var name = decodedString.substring(30, decodedString.length);
 
-  // console.log(language +"\n");
-  // console.log(id +"\n");
-  // console.log(date +"\n");
-  // console.log(name +"\n");
-
   let timeZoneString = date.substring(10, date.length);
   // console.log(timeZoneString);
   if (timeZoneString !== "T05:00:00Z") {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
+
+  console.log("language: "+language +"\n");
+  console.log("id: "+id +"\n");
+  console.log("date: "+date +"\n");
+  console.log("name: "+name +"\n");
 
   // remove the reservation from dates collection
   db.collection('dates').find(
@@ -504,7 +504,7 @@ app.get('/cancel', (req, res) => {
         // remove waitlist[0]
         luckyID = waitlist.splice(0, 1);
         // push waitlist[0] to guestlist
-        guestlist.push(luckyPerson[0]);
+        guestlist.push(luckyID[0]);
 
         // increment the number of seats reserved
         seatsReserved++;
@@ -745,7 +745,7 @@ var tableAllocationJob = new CronJob({
 
 // for testing:
 // second+" "+minute+" "+hour+" * * 1-5"
-var sendEmailToFacultyJob = new CronJob({
+var sendDailyEmailToFacultyJob = new CronJob({
   cronTime: "00 30 14 * * 1-5",
   onTick: function() {
     /*
@@ -870,5 +870,6 @@ var sendReminderEmailsJob = new CronJob({
 // TODO: start the tableAllocationJob week 2
 // tableAllocationJob.start();
 
-sendEmailToFacultyJob.start();
+//sendWeeklyEmailToFacultyJob.start()
+sendDailyEmailToFacultyJob.start();
 sendReminderEmailsJob.start();

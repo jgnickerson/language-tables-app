@@ -74,7 +74,7 @@ var send = function(reservationObj, waitlist) {
     if(error){
       return console.log(error);
     }
-    console.log('Message sent: ' + info.response);
+    console.log('"Signup confirmation" message sent: ' + info.response);
   });
 }
 
@@ -101,7 +101,7 @@ var sendNewGuests = function(email, language, date) {
     if(error){
       return console.log(error);
     }
-    console.log('Message sent: ' + info.response);
+    console.log('"You just got a spot" message sent: ' + info.response);
   });
 }
 
@@ -129,7 +129,7 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
     if(error){
       return console.log(error);
     }
-    console.log('Message sent: ' + info.response);
+    console.log('"Daily attendance" message sent: ' + info.response);
   });
 }
 
@@ -169,7 +169,7 @@ var sendReminderEmail = function(guestObj, tomorrow) {
         if(error){
           return console.log(error);
         }
-        console.log('Message sent: ' + info.response);
+        console.log('"Guest Reminder" message sent: ' + info.response);
       });
     });
 
@@ -209,7 +209,7 @@ var sendReminderEmail = function(guestObj, tomorrow) {
       if(error){
         return console.log(error);
       }
-      console.log('Message sent: ' + info.response);
+      console.log('"Non-guest Reminder" message sent: ' + info.response);
     });
   }
 }

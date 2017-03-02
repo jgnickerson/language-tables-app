@@ -65,7 +65,7 @@ var AccountFields = React.createClass({
         <form onSubmit={this.props.handleSubmit}>
             <label>Name: </label>
             <input type="text" onChange={this.props.setName} value={this.props.name}
-              placeholder="First Last" autoCapitalize="words"/>
+              placeholder="First Last"/>
 
             {courseSelect}
 
