@@ -21,15 +21,6 @@ var transporter = nodemailer.createTransport(smtpConfig);
 // get the languages from the ./constants file
 var languages = Object.entries(constants.languages);
 
-// setup e-mail data with unicode symbols
-// var mailOptions = {
-//     from: '"Language Tables" <LanguageTables@middlebury.com>', // sender address
-//     to: 'gordonnickerson94@gmail.com', // list of receivers
-//     subject: 'Language Tables Signup', // Subject line
-//     text: 'You are signed up! *RESERVATION INFORMATION HERE*', // plaintext body
-//     html: '<b>You are signed up! *RESERVATION INFORMATION HERE*</b>' // html body
-// };
-
 // send mail with defined transport object
 var send = function(reservationObj, waitlist) {
   var language = languages[reservationObj.language][0];
@@ -118,6 +109,10 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
     text = text + guest + "<br/>";
   });
 
+  if (guestlist.length === 0) {
+    text = text + "[None]"
+  }
+
   var mailOptions = {
     from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
     to: emails, // list of receivers
@@ -125,12 +120,22 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
     text: text, // plaintext body
     html: text // html body
   }
-  return transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-      return console.log(error);
-    }
-    console.log('"Daily attendance" message sent: ' + info.response);
-  });
+
+  function trySending(mailOptions, language) {
+    return transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+        if (error.includes("Authentication unsuccessful")) {
+          console.log(error);
+          console.log("Let's try again...");
+          return trySending(mailOptions, language);
+        }
+        return console.log(error);
+      }
+      console.log(language+' "Weekly attendance" message sent: ' + info.response);
+    });
+  }
+
+  return trySending(mailOptions, language);
 }
 
 var sendReminderEmail = function(guestObj, tomorrow) {
@@ -214,9 +219,51 @@ var sendReminderEmail = function(guestObj, tomorrow) {
   }
 }
 
+var sendWeeklyReport = function(emailObj) {
+  var fullPath = './weekly-reports/'+emailObj.folder+'/'+emailObj.language_string+'.xlsx';
+
+  var language = emailObj.language_string;
+  if (language !== "ASL") {
+    language = _.capitalize(language);
+  }
+
+  var text = "Plese find the weekly report attached."
+
+  var mailOptions = {
+    from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
+    to: emailObj.emails, // list of receivers
+    subject: language+' Language Tables Weekly Report', // Subject line
+    text: text, // plaintext body
+    html: text, // html body
+    attachments: [
+      {
+        path: fullPath
+      }
+    ]
+  }
+
+  function trySending(mailOptions, language) {
+    return transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+        if (error.includes("Authentication unsuccessful")) {
+          console.log(error);
+          console.log("Let's try again...");
+          return trySending(mailOptions, language);
+        }
+        return console.log(error);
+      }
+      console.log(language+' "Weekly attendance" message sent: ' + info.response);
+    });
+  }
+
+  return trySending(mailOptions, language);
+
+}
+
 module.exports = {
   send: send,
   sendNewGuests: sendNewGuests,
   sendProfTA: sendProfTA,
-  sendReminderEmail: sendReminderEmail
+  sendReminderEmail: sendReminderEmail,
+  sendWeeklyReport: sendWeeklyReport
 };

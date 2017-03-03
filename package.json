@@ -14,7 +14,9 @@
     "lodash": "^4.17.2",
     "moment": "^2.15.2",
     "mongodb": "^2.2.11",
-    "nodemailer": "^2.6.4"
+    "msexcel-builder": "0.0.2",
+    "nodemailer": "^2.6.4",
+    "xlsx": "^0.8.6"
   },
   "devDependencies": {
     "babel-cli": "6.16.0",

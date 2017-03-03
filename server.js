@@ -3,7 +3,9 @@ const bodyParser = require('body-parser');
 const mail = require('./mail.js');
 const constants = require('./constants.js');
 const _ = require('lodash');
-
+const excelbuilder = require('msexcel-builder');
+const fs = require('fs');
+const XLSX = require('xlsx');
 const express = require('express');
 const moment = require('moment');
 var CronJob = require('cron').CronJob;
@@ -753,17 +755,18 @@ var sendDailyEmailToFacultyJob = new CronJob({
      * at 14:30:00 PM.
      */
      var today = moment().startOf('day');
-
      //get the faculty collection
      db.collection('faculty').find().toArray((err, result) => {
        if (err) {
-         throw err;
+         console.log(err);
+         return;
        }
        //for each language department
        result.forEach(function(object, objectIndex) {
          db.collection('dates').find({date: today.utc().format()}).toArray((err, result) => {
            if (err) {
-             throw err;
+             console.log(err);
+             return;
            }
 
            var guestList = result[0].vacancy[object.language].guestlist;
@@ -777,47 +780,196 @@ var sendDailyEmailToFacultyJob = new CronJob({
              }
            });
 
-           var reservedCount = _.countBy(guestList, _.identity)["RESERVED"];
-           var lengthToSend = guestList.length - reservedCount;
-           var alreadyAddedAllGuests = false;
-           var emailSent = false;
+           //no need to go through this hell if no emails to send to
+           if (emails.length > 0) {
+             var reservedCount = _.countBy(guestList, _.identity)["RESERVED"];
+             var lengthToSend = guestList.length - reservedCount;
+             var alreadyAddedAllGuests = false;
+             var emailSent = false;
 
-           //get the names of the attendants by their id
-           guestList.forEach((guestId, guestIndex) => {
-             if (guestId !== "RESERVED") {
-               db.collection('attendants').find({id: guestId}).toArray((err, result) => {
-                 if (err) {
-                   throw err;
-                 }
+             var promises = [];
 
-                 if (guestId === "000GUEST") {
-                   if (!alreadyAddedAllGuests) {
-                     alreadyAddedAllGuests = true;
-                     var theMany = _.filter(result[0].attendance, {'date': today.utc().format(), 'language': object.language, 'checked':true});
-                     theMany.forEach((one) => {
-                       guestNamesList.push(one.name);
-                     });
-                   }
-                 } else {
-                   var theOne = _.find(result[0].attendance, {'date': today.utc().format(), 'language': object.language, 'checked':true});
-                   if (theOne !== undefined) {
-                     guestNamesList.push(theOne.name);
-                   }
-                 }
+             //get the names of the attendants by their id
+             guestList.forEach((guestId, guestIndex) => {
+               promises.push(new Promise((resolve, reject) => {
+                   db.collection('attendants').find({id: guestId}).toArray((err, result) => {
+                     if (err) {
+                       console.log(err);
+                       return;
+                     }
+                     if (guestId !== "RESERVED") {
 
-                 // send the email if all names are added (one per lang)
-                 if (guestNamesList.length === lengthToSend && !emailSent) {
-                   console.log("Language: "+object.language);
-                   emailSent = true;
-                   guestNamesList = _.sortBy(guestNamesList, [_.identity]);
-                   mail.sendProfTA(object, guestNamesList, today.format("dddd, MMMM Do"), emails);
-                 }
-               });
-             }
-           });
+                       if (guestId === "000GUEST") {
+                         if (!alreadyAddedAllGuests) {
+                           alreadyAddedAllGuests = true;
+                           var theMany = _.filter(result[0].attendance, {'date': today.utc().format(), 'language': object.language, 'checked':true});
+                           theMany.forEach((one) => {
+                             guestNamesList.push(one.name);
+                           });
+                         }
+                       } else {
+                         var theOne = _.find(result[0].attendance, {'date': today.utc().format(), 'language': object.language, 'checked':true});
+                         if (theOne !== undefined) {
+                           guestNamesList.push(theOne.name);
+                         }
+                       }
+
+                     // send the email if all names are added (one per lang)
+                    //  if (guestNamesList.length === lengthToSend && !emailSent) {
+                    //    console.log("Language: "+object.language);
+                    //    emailSent = true;
+                    //    guestNamesList = _.sortBy(guestNamesList, [_.identity]);
+                    //    mail.sendProfTA(object, guestNamesList, today.format("dddd, MMMM Do"), emails);
+                    //  }
+                    }
+
+                    resolve();
+
+                   });
+
+               }));
+             });
+
+             Promise.all(promises).then(() => {
+               guestNamesList = _.sortBy(guestNamesList, [_.identity]);
+               mail.sendProfTA(object, guestNamesList, today.format("dddd, MMMM Do"), emails);
+             });
+           }
          });
        });
      });
+  },
+  start: false,
+  timeZone: 'America/New_York'
+});
+
+// for testing:
+// cronTime: (second+20)+" "+minute+" "+hour+" * * 0-5"
+var sendWeeklyEmailToFacultyJob = new CronJob({
+  cronTime: "00 00 16 * * 5",
+  onTick: function() {
+    /*
+     * Runs every Friday
+     * at 16:00:00 PM.
+     */
+
+    var today = moment().startOf('day');
+    //console.log(today);
+
+    var thisWeek = [today.utc().format()];
+    for (var i = 0; i < 4; i++) {
+      let day = today.subtract(1, 'day').utc().format();
+      thisWeek.push(day);
+    }
+    //console.log(thisWeek);
+
+    //get the faculty collection
+    db.collection('baseline').find().toArray((err, baselineResult) => {
+      if (err) {
+        console.log(err);
+        //return;
+      }
+      db.collection('attendants').find(
+        {id: {$nin: ["000GUEST", "RESERVED"]}}
+      ).toArray((err, attendantsResult) => {
+        if (err) {
+          console.log(err);
+          //return;
+        }
+
+        baselineResult.forEach(function(langObj) {
+          // Create a new workbook file in current working-path
+          var fileName = langObj.language_string+".xlsx";
+          var dir = './weekly-reports/'+moment().startOf('day').utc().format().substring(0,10);
+
+          if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+          }
+          var workbook = excelbuilder.createWorkbook(dir, fileName)
+          var coursePromises = [];
+
+          langObj.courses.forEach(function(courseVal) {
+            //Faculty/Staff causes error?.. don't need their info anyway
+            if (courseVal !== "Faculty/Staff") {
+              coursePromises.push(new Promise((resolve, reject) => {
+
+                var sheet = workbook.createSheet(courseVal, 4, 100);
+                // format the cells
+                sheet.width(1, 20);
+                sheet.width(2, 20);
+                sheet.width(3, 20);
+                sheet.width(4, 20);
+                // put in the data
+                sheet.set(1, 1, 'Name');
+                sheet.set(2, 1, 'ID');
+                sheet.set(3, 1, "THIS WEEK (# of visits)");
+                sheet.set(4, 1, 'TOTAL (# of visits)');
+
+                var courseAttendants = _.filter(attendantsResult,
+                  { attendance: [ {
+                      course: courseVal,
+                      language: langObj.language
+                  } ]});
+                //console.log(courseAttendants);
+                if (courseAttendants) {
+                  for (var i = 0; i < courseAttendants.length; i++) {
+                    if (courseAttendants[i].id) {
+                      sheet.set(1, i+2, courseAttendants[i].attendance[0].name);
+                      sheet.set(2, i+2, courseAttendants[i].id);
+
+                      var totalVisits = _.remove(courseAttendants[i].attendance, {course: courseVal, checked: true});
+                      sheet.set(4, i+2, totalVisits.length);
+
+                      var thisWeekVisits = _(totalVisits).keyBy('date').at(thisWeek).filter().value();
+                      //console.log(thisWeekVisits);
+                      sheet.set(3, i+2, thisWeekVisits.length);
+                    }
+                  }
+                }
+
+                resolve();
+
+              }));
+            }
+          });
+
+          Promise.all(coursePromises).then(() => {
+            workbook.save(function(err) {
+              if (err) {
+                console.log("ERROR creating workbook for "+ langObj.language_string);
+                console.log(err);
+                workbook.cancel();
+              } else {
+                console.log('The workbook for '+langObj.language_string+' was created.');
+
+                //send the email here
+                db.collection('faculty').find({language: langObj.language}).toArray((err, facultyResult) => {
+                  if (err) {
+                    console.log(err);
+                    //return;
+                  }
+
+                  var emails = _.filter(facultyResult[0].faculty, {weekly: true});
+                  emails = emails.map((emailObj) => {
+                    return emailObj.email;
+                  });
+
+                  var emailObj = {
+                    language: langObj.language,
+                    language_string: langObj.language_string,
+                    folder: moment().startOf('day').utc().format().substring(0,10),
+                    emails: emails
+                  };
+
+                  mail.sendWeeklyReport(emailObj);
+                });
+              }
+            });
+          });
+
+        });
+      });
+    });
   },
   start: false,
   timeZone: 'America/New_York'
@@ -871,6 +1023,6 @@ var sendReminderEmailsJob = new CronJob({
 // TODO: start the tableAllocationJob week 2
 // tableAllocationJob.start();
 
-//sendWeeklyEmailToFacultyJob.start()
+sendWeeklyEmailToFacultyJob.start()
 sendDailyEmailToFacultyJob.start();
 sendReminderEmailsJob.start();
