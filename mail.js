@@ -124,7 +124,7 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
   function trySending(mailOptions, language) {
     return transporter.sendMail(mailOptions, function(error, info){
       if(error){
-        if (error.includes("Authentication unsuccessful")) {
+        if (error.toString().indexOf("Authentication unsuccessful") !== -1) {
           console.log(error);
           console.log("Let's try again...");
           return trySending(mailOptions, language);
@@ -245,7 +245,7 @@ var sendWeeklyReport = function(emailObj) {
   function trySending(mailOptions, language) {
     return transporter.sendMail(mailOptions, function(error, info){
       if(error){
-        if (error.includes("Authentication unsuccessful")) {
+        if (error.toString().indexOf("Authentication unsuccessful") !== -1) {
           console.log(error);
           console.log("Let's try again...");
           return trySending(mailOptions, language);
