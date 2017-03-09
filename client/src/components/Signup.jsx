@@ -245,6 +245,8 @@ var Signup = React.createClass({
       this.setState({
         errorMessage: "ID number has to be 8 digits."
       });
+    // } else if (this.state.language === 10 && this.state.id !== "000GUEST") {
+    //     this.checkRestrictions();
     } else if (this.state.name === '') {
       this.setState({
         errorMessage: "Please, enter a name."
@@ -261,8 +263,6 @@ var Signup = React.createClass({
       this.setState({
         errorMessage: "Please, select a course enrollment status."
       });
-    } else if (this.state.language === 10 && this.state.id !== "000GUEST") {
-        this.checkRestrictions();
     } else {
       this.setState({
         errorMessage: null
@@ -286,11 +286,11 @@ var Signup = React.createClass({
             });
             this.postSubmission();
           } else {
-            if (this.state.language === 10) {
-              this.setState({
-                errorMessage: "Please choose a different date. Spanish department only allows 1 sign-up every 2-week period."
-              });
-            }
+            // if (this.state.language === 10) {
+            //   this.setState({
+            //     errorMessage: "Please choose a different date. Spanish department only allows 1 sign-up every 2-week period."
+            //   });
+            // }
             if (this.state.language === 7) {
               this.setState({
                 errorMessage: "Please choose a different date. Japanese department only allows 3 sign-ups every 2-week period."
