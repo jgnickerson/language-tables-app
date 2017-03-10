@@ -844,9 +844,10 @@ var sendDailyEmailToFacultyJob = new CronJob({
 });
 
 // for testing:
+// "00 00 16 * * 5"
 // cronTime: (second+20)+" "+minute+" "+hour+" * * 0-5"
 var sendWeeklyEmailToFacultyJob = new CronJob({
-  cronTime: "00 00 16 * * 5",
+  cronTime: (second)+" "+minute+" "+hour+" * * 0-5",
   onTick: function() {
     /*
      * Runs every Friday
@@ -893,17 +894,33 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
             if (courseVal !== "Faculty/Staff") {
               coursePromises.push(new Promise((resolve, reject) => {
 
-                var sheet = workbook.createSheet(courseVal, 4, 100);
+                var sheet = workbook.createSheet(courseVal, 9, 100);
                 // format the cells
                 sheet.width(1, 20);
                 sheet.width(2, 20);
-                sheet.width(3, 20);
-                sheet.width(4, 20);
+                sheet.width(3, 10);
+                sheet.width(4, 10);
+                sheet.width(5, 10);
+                sheet.width(6, 10);
+                sheet.width(7, 10);
+                sheet.width(8, 20);
+                sheet.width(9, 20);
+
                 // put in the data
                 sheet.set(1, 1, 'Name');
                 sheet.set(2, 1, 'ID');
-                sheet.set(3, 1, "THIS WEEK (# of visits)");
-                sheet.set(4, 1, 'TOTAL (# of visits)');
+                sheet.set(3, 1, 'Monday');
+                sheet.set(4, 1, 'Tuesday');
+                sheet.set(5, 1, 'Wednesday');
+                sheet.set(6, 1, 'Thursday');
+                sheet.set(7, 1, 'Friday');
+                sheet.set(8, 1, 'THIS WEEK [TOTAL]');
+                sheet.set(9, 1, 'THIS SEMESTER [TOTAL]');
+
+                // make the first row bold
+                for (var i = 1; i < 10; i++) {
+                  sheet.font(i, 1, {bold:'true'});
+                }
 
                 var courseAttendants = _.filter(attendantsResult,
                   { attendance: [ {
@@ -918,11 +935,36 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
                       sheet.set(2, i+2, courseAttendants[i].id);
 
                       var totalVisits = _.remove(courseAttendants[i].attendance, {course: courseVal, checked: true});
-                      sheet.set(4, i+2, totalVisits.length);
+                      sheet.set(9, i+2, totalVisits.length);
 
                       var thisWeekVisits = _(totalVisits).keyBy('date').at(thisWeek).filter().value();
-                      //console.log(thisWeekVisits);
-                      sheet.set(3, i+2, thisWeekVisits.length);
+                      var monday = 0;
+                      var tuesday = 0;
+                      var wednesday = 0;
+                      var thursday = 0;
+                      var friday = 0;
+
+                      thisWeekVisits.forEach((visit) => {
+                        if (moment(visit.date).day() == 1) {
+                          monday++;
+                        } else if(moment(visit.date).day() == 2) {
+                          tuesday++;
+                        } else if(moment(visit.date).day() == 3) {
+                          wednesday++;
+                        } else if(moment(visit.date).day() == 4) {
+                          thursday++;
+                        } else if(moment(visit.date).day() == 5) {
+                          friday++;
+                        }
+                      });
+
+                      sheet.set(3, i+2, monday);
+                      sheet.set(4, i+2, tuesday);
+                      sheet.set(5, i+2, wednesday);
+                      sheet.set(6, i+2, thursday);
+                      sheet.set(7, i+2, friday);
+
+                      sheet.set(8, i+2, thisWeekVisits.length);
                     }
                   }
                 }
