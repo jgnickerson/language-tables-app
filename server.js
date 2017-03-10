@@ -844,10 +844,9 @@ var sendDailyEmailToFacultyJob = new CronJob({
 });
 
 // for testing:
-// "00 00 16 * * 5"
 // cronTime: (second+20)+" "+minute+" "+hour+" * * 0-5"
 var sendWeeklyEmailToFacultyJob = new CronJob({
-  cronTime: (second)+" "+minute+" "+hour+" * * 0-5",
+  cronTime: "00 00 16 * * 5",
   onTick: function() {
     /*
      * Runs every Friday
