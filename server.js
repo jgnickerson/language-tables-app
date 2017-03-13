@@ -250,7 +250,15 @@ app.get('/languages', (req, res) => {
   // *** is undefined the way to check "if x == NULL" in JS?
   if (req.query.id === undefined) {
     let languages = Object.entries(constants.languages);
-    db.collection('dates').find({date: moment().startOf('day').utc().format()})
+    let date = moment().startOf('day').utc().format();
+
+    let timeZoneString = date.substring(10, date.length);
+    // console.log(timeZoneString);
+    if (timeZoneString !== "T05:00:00Z") {
+      date = _.replace(date, timeZoneString, "T05:00:00Z")
+    }
+
+    db.collection('dates').find({date: date})
       .toArray(function(err, result) {
       if (err) {
         throw err;
@@ -628,6 +636,12 @@ app.get('/attendance', (req, res) => {
   var attendants = [];
   var promises = [];
 
+  let timeZoneString = date.substring(10, date.length);
+  // console.log(timeZoneString);
+  if (timeZoneString !== "T05:00:00Z") {
+    date = _.replace(date, timeZoneString, "T05:00:00Z")
+  }
+
   //get today's date object
   db.collection('dates').find({ date: date }).toArray()
   .then((result) => {
@@ -703,6 +717,12 @@ app.patch('/attendance', (req, res) => {
   //console.log(date);
   let attendants = db.collection('attendants');
 
+  let timeZoneString = date.substring(10, date.length);
+  // console.log(timeZoneString);
+  if (timeZoneString !== "T05:00:00Z") {
+    date = _.replace(date, timeZoneString, "T05:00:00Z")
+  }
+
   //finds the student and either "checks" or "unchecks" their attendance for today
   attendants.update(
     { id : student.id, attendance: {  $elemMatch : { date : date, language : student.language }}},
@@ -754,7 +774,14 @@ var sendDailyEmailToFacultyJob = new CronJob({
      * Runs every weekday (Monday through Friday)
      * at 14:30:00 PM.
      */
-     var today = moment().startOf('day');
+     var today = moment().startOf('day').utc().format();
+
+     var timeZoneString = today.substring(10, today.length);
+     // console.log(timeZoneString);
+     if (timeZoneString !== "T05:00:00Z") {
+       today = _.replace(today, timeZoneString, "T05:00:00Z")
+     }
+
      //get the faculty collection
      db.collection('faculty').find().toArray((err, result) => {
        if (err) {
@@ -763,7 +790,7 @@ var sendDailyEmailToFacultyJob = new CronJob({
        }
        //for each language department
        result.forEach(function(object, objectIndex) {
-         db.collection('dates').find({date: today.utc().format()}).toArray((err, result) => {
+         db.collection('dates').find({date: today}).toArray((err, result) => {
            if (err) {
              console.log(err);
              return;
@@ -802,25 +829,17 @@ var sendDailyEmailToFacultyJob = new CronJob({
                        if (guestId === "000GUEST") {
                          if (!alreadyAddedAllGuests) {
                            alreadyAddedAllGuests = true;
-                           var theMany = _.filter(result[0].attendance, {'date': today.utc().format(), 'language': object.language, 'checked':true});
+                           var theMany = _.filter(result[0].attendance, {'date': today, 'language': object.language, 'checked':true});
                            theMany.forEach((one) => {
                              guestNamesList.push(one.name);
                            });
                          }
                        } else {
-                         var theOne = _.find(result[0].attendance, {'date': today.utc().format(), 'language': object.language, 'checked':true});
+                         var theOne = _.find(result[0].attendance, {'date': today, 'language': object.language, 'checked':true});
                          if (theOne !== undefined) {
                            guestNamesList.push(theOne.name);
                          }
                        }
-
-                     // send the email if all names are added (one per lang)
-                    //  if (guestNamesList.length === lengthToSend && !emailSent) {
-                    //    console.log("Language: "+object.language);
-                    //    emailSent = true;
-                    //    guestNamesList = _.sortBy(guestNamesList, [_.identity]);
-                    //    mail.sendProfTA(object, guestNamesList, today.format("dddd, MMMM Do"), emails);
-                    //  }
                     }
 
                     resolve();
@@ -832,7 +851,7 @@ var sendDailyEmailToFacultyJob = new CronJob({
 
              Promise.all(promises).then(() => {
                guestNamesList = _.sortBy(guestNamesList, [_.identity]);
-               mail.sendProfTA(object, guestNamesList, today.format("dddd, MMMM Do"), emails);
+               mail.sendProfTA(object, guestNamesList, moment(today).format("dddd, MMMM Do"), emails);
              });
            }
          });
@@ -852,13 +871,22 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
      * Runs every Friday
      * at 16:00:00 PM.
      */
-
-    var today = moment().startOf('day');
+    var today = moment().startOf('day').utc().format();
     //console.log(today);
 
-    var thisWeek = [today.utc().format()];
-    for (var i = 0; i < 4; i++) {
-      let day = today.subtract(1, 'day').utc().format();
+    var timeZoneString = today.substring(10, today.length);
+    // console.log(timeZoneString);
+    if (timeZoneString !== "T05:00:00Z") {
+      today = _.replace(today, timeZoneString, "T05:00:00Z")
+    }
+
+    var thisWeek = [today];
+    for (var i = 1; i < 5; i++) {
+      let day = moment(today).subtract(i, 'day').utc().format();
+      let timeZoneString = day.substring(10, day.length);
+      if (timeZoneString !== "T05:00:00Z") {
+        day = _.replace(day, timeZoneString, "T05:00:00Z")
+      }
       thisWeek.push(day);
     }
     //console.log(thisWeek);
@@ -1025,9 +1053,15 @@ var sendReminderEmailsJob = new CronJob({
      */
 
     //send reminder emails the day before
-    let tomorrow = moment().startOf('day').add(1, 'day');
+    let tomorrow = moment().startOf('day').add(1, 'day').utc().format();
 
-    db.collection('dates').find({date: tomorrow.utc().format()}).toArray((err, result) => {
+    let timeZoneString = tomorrow.substring(10, tomorrow.length);
+    // console.log(timeZoneString);
+    if (timeZoneString !== "T05:00:00Z") {
+      tomorrow = _.replace(tomorrow, timeZoneString, "T05:00:00Z")
+    }
+
+    db.collection('dates').find({date: tomorrow}).toArray((err, result) => {
       if (err) {
         throw err;
       }
@@ -1043,12 +1077,12 @@ var sendReminderEmailsJob = new CronJob({
                 alreadySentToGUESTS = true;
                 // send the reminder emails to all guests in one go
                 db.collection('attendants').find({id: guest}).toArray((err, result) => {
-                  mail.sendReminderEmail(result[0], tomorrow.utc().format());
+                  mail.sendReminderEmail(result[0], tomorrow);
                 });
               }
             } else {
               db.collection('attendants').find({id: guest}).toArray((err, result) => {
-                mail.sendReminderEmail(result[0], tomorrow.utc().format());
+                mail.sendReminderEmail(result[0], tomorrow);
               });
             }
           }

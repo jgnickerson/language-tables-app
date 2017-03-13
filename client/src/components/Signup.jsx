@@ -237,7 +237,7 @@ var Signup = React.createClass({
           errorMessage: "Sign-up for the period 5/1-5/12 will open at 7pm on Thursday, April 27th."
         });
       } else {
-        // if sign up is open, check the max of 3 restrictions
+        // if signup is open, check the max of 3 restrictions
         this.checkRestrictions();
       }
 
