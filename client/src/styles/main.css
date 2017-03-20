@@ -211,3 +211,36 @@ h3 {
   background: #FFEBEE;
   color:#BDBDBD;
 }
+
+
+/* Admin NavBar */
+
+div.admin-nav-bar {
+  position: fixed;
+  background-color: #cccccc;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+ul.admin-nav-bar {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  padding-left: 0;
+}
+
+li.admin-nav-bar {
+    display: inline;
+    font-weight: bold;
+}
+
+li.admin-nav-bar a {
+  padding: 8px;
+  background-color: #dddddd;
+}
+
+div.admin-below-nav {
+  margin-top: 80px;
+}

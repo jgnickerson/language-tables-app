@@ -1,7 +1,12 @@
 import React from 'react';
+import Scroll from 'react-scroll';
+
 import CheckboxList from './CheckboxList';
 import moment from 'moment';
 import _ from 'lodash';
+
+let Link = Scroll.Link;
+let Element = Scroll.Element;
 
 var Admin = React.createClass({
   getInitialState: function() {
@@ -109,6 +114,19 @@ var Admin = React.createClass({
     }))
   },
 
+  createNavBar: function() {
+    let navBarItems = this.state.languages.map((lang) => {
+      let langString = lang.language_string === "ASL" ? "ASL" : _.capitalize(lang.language_string);
+      return (<li className="admin-nav-bar"><Link to={lang.language_string} offset={-70} smooth={true} duration={250}>{langString}</Link></li>)
+    });
+
+    return (
+      <div className="admin-nav-bar">
+        <ul className="admin-nav-bar">{navBarItems}</ul>
+      </div>
+
+    )
+  },
 
   createCheckboxLists: function() {
     let lists = [];
@@ -127,15 +145,18 @@ var Admin = React.createClass({
       }
       //if (langAttendants.length > 0) {
         list = (
-          <div key={lang.language_string}>
-            <h3>{languageString}</h3>
-            <label type="tablesOf">{"Tables of 6: "+lang.tablesOf6}</label>
-            <label type="tablesOf">{"Tables of 8: "+lang.tablesOf8}</label>
-            <br/>
+          <Element id={lang.language_string}>
+            <div key={lang.language_string}>
+              <h3>{languageString}</h3>
+              <label type="tablesOf">{"Tables of 6: "+lang.tablesOf6}</label>
+              <label type="tablesOf">{"Tables of 8: "+lang.tablesOf8}</label>
+              <br/>
 
-            <CheckboxList items={langAttendants} onChange={this.handleCheck} />
-            <br/>
-          </div>
+              <CheckboxList items={langAttendants} onChange={this.handleCheck} />
+              <br/>
+            </div>
+          </Element>
+
         )
       //}
       lists.push(list);
@@ -157,19 +178,24 @@ var Admin = React.createClass({
       totalAttendants += 1;
     });
 
+    let navBar = this.createNavBar();
+
     this.state.languages.forEach((item) => {
       totalTablesOf6 += item.tablesOf6;
       totalTablesOf8 += item.tablesOf8;
     });
     return (
       <div>
-        <h2>{date}</h2>
-        {"TOTAL ATTENDANTS:       "}<b>{totalCheckedIn+" / "+totalAttendants}</b><br/>
-        {"TOTAL TABLES OF 6:      "}<b>{totalTablesOf6+" / 12"}</b><br/>
-        {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8+" / 6 "}</b><br/>
-        <form onSubmit={this.handleSubmit}>
-          {this.createCheckboxLists()}
-        </form>
+        {navBar}
+        <div className="admin-below-nav">
+          <h2>{date}</h2>
+          {"TOTAL ATTENDANTS:       "}<b>{totalCheckedIn+" / "+totalAttendants}</b><br/>
+          {"TOTAL TABLES OF 6:      "}<b>{totalTablesOf6+" / 12"}</b><br/>
+          {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8+" / 6 "}</b><br/>
+          <form onSubmit={this.handleSubmit}>
+            {this.createCheckboxLists()}
+          </form>
+        </div>
       </div>
     );
   }
