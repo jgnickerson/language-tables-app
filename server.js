@@ -963,23 +963,18 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
                     for (var i = 0; i < courseAttendants.length; i++) {
                       if (courseAttendants[i].id) {
                         var nameArray = courseAttendants[i].attendance[0].name.split(/[, ]+/);
-                        console.log("nameArray: "+nameArray);
 
                         //hardcoded exception for now...
                         if (courseAttendants[i].attendance[0].name === "Madison Jean Philippe") {
                           var lastName = nameArray.pop();
                           lastName = nameArray.pop() + " "+ lastName;
-                          console.log("lastName: "+lastName);
 
                           var firstName = nameArray.join(' ');
-                          console.log("firstName: "+firstName);
 
                         } else {
                           var lastName = nameArray.pop();
-                          console.log("lastName: "+lastName);
 
                           var firstName = nameArray.join(' ');
-                          console.log("firstName: "+firstName);
                         }
 
                         sheet.set(1, i+2, lastName);
