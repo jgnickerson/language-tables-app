@@ -11,7 +11,7 @@ var LanguageSelect = React.createClass({
 
   componentWillMount: function() {
     $.ajax({
-        url: 'http://basin.middlebury.edu:3000/languages',
+        url: 'http://localhost:3000/languages',
         datatype: 'json',
         success: (response) => {
           let options = response.map(function(item) {
@@ -43,7 +43,7 @@ var LanguageSelect = React.createClass({
           placeholder="Select a language..."
           value={this.props.language}
           options={this.state.languages}
-          onChange={this.props.onChange}
+          onChange={(language) => {this.props.onChange(language)}}
           clearable={true}
         />
       </div>

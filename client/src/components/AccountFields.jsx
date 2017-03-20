@@ -17,7 +17,7 @@ var AccountFields = React.createClass({
 
   componentWillMount: function() {
     $.ajax({
-        url: 'http://basin.middlebury.edu:3000/courses?lang='+this.props.language,
+        url: 'http://localhost:3000/courses?lang='+this.props.language,
         datatype: 'json',
         success: (response) => {
           let options = response.map(function(item) {
@@ -45,7 +45,7 @@ var AccountFields = React.createClass({
                         placeholder="Select a course..."
                         value={this.props.course}
                         options={this.state.courses}
-                        onChange={this.props.courseChange}
+                        onChange={(course) => {this.props.courseChange(course)}}
                         clearable={true}
                       />
                       <br />
@@ -55,7 +55,7 @@ var AccountFields = React.createClass({
     if (this.props.course !== "Middlebury College Guest") {
       middId = <div>
                 <label>Midd ID: </label>
-                <input type="text" onChange={this.props.setID} value={this.props.id}
+                <input type="text" onChange={(event) => {this.props.setID(event)}} value={this.props.id}
                 placeholder="00123456" maxLength="8"/>
                 </div>
     }
@@ -64,7 +64,7 @@ var AccountFields = React.createClass({
       <div>
         <form onSubmit={this.props.handleSubmit}>
             <label>Name: </label>
-            <input type="text" onChange={this.props.setName} value={this.props.name}
+            <input type="text" onChange={(event) => {this.props.setName(event)}} value={this.props.name}
               placeholder="First Last"/>
 
             {courseSelect}
@@ -72,7 +72,7 @@ var AccountFields = React.createClass({
             {middId}
 
             <label>Email: </label>
-            <input type="text" onChange={this.props.setEmail} value={this.props.email}
+            <input type="text" onChange={(event) => {this.props.setEmail(event)}} value={this.props.email}
               placeholder="example@middlebury.edu"/>
             <br />
             <input className="btn" type="submit" value="Submit" />

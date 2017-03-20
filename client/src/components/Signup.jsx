@@ -274,7 +274,7 @@ var Signup = React.createClass({
   checkRestrictions : function() {
     let information = this.formatData();
     $.ajax({
-        url: 'http://basin.middlebury.edu:3000/restrictions',
+        url: 'http://localhost:3000/restrictions',
         type: 'POST',
         datatype: 'json',
         data: JSON.stringify(information),
@@ -332,7 +332,7 @@ var Signup = React.createClass({
   postSubmission : function() {
     let submission = this.formatData();
     $.ajax({
-      url:'http://basin.middlebury.edu:3000/signup',
+      url:'http://localhost:3000/signup',
       type: 'POST',
       datatype: 'json',
       data: JSON.stringify(submission),
@@ -348,10 +348,6 @@ var Signup = React.createClass({
     })
   },
 
-  onHeaderClick : function() {
-    window.location.reload();
-  },
-
   render : function() {
     let calendar, information, confirmation, errorMessage;
 
@@ -359,10 +355,10 @@ var Signup = React.createClass({
     let warning, warningText;
 
     let header = <Header className='normal'
-                    onClick={this.onHeaderClick}/>;
+                    onClick={(event) => {window.location.reload()}}/>;
     let language = (<LanguageSelect
                       language={this.state.language}
-                      onChange={this.handleLanguageChange}
+                      onChange={(language) => {this.handleLanguageChange(language)}}
                     />);
 
     //If a language has been selected, show the calendar
@@ -370,7 +366,7 @@ var Signup = React.createClass({
       calendar = <Calendar
                     language={this.state.language}
                     date={this.state.date}
-                    onChange={this.handleDateChange}
+                    onChange={(date, seatsAvailable) => {this.handleDateChange(date, seatsAvailable)}}
                   />
     }
 
@@ -392,15 +388,15 @@ var Signup = React.createClass({
                       <h2>{message}</h2>
                       <AccountFields
                           name={this.state.name}
-                          setName={this.setName}
+                          setName={(event) => {this.setName(event)}}
                           email={this.state.email}
-                          setEmail={this.setEmail}
+                          setEmail={(event) => {this.setEmail(event)}}
                           id={this.state.id}
-                          setID={this.setID}
-                          handleSubmit={this.handleSubmit}
+                          setID={(event) => {this.setID(event)}}
+                          handleSubmit={(event) => {this.handleSubmit(event)}}
                           language={this.state.language}
                           course={this.state.course}
-                          courseChange={this.courseChange}
+                          courseChange={(course) => {this.courseChange(course)}}
                       />
                     </div>
     }

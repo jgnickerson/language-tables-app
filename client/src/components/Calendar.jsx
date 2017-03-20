@@ -137,7 +137,7 @@ var Calendar = React.createClass({
         <FullCalendar
           Select={Select}
           fullscreen={false}
-          onSelect={this.onDateChange}
+          onSelect={(date) => this.onDateChange(date)}
           dateCellRender={this.content}
         />
       </div>
