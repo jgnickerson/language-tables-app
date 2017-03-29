@@ -796,63 +796,66 @@ var sendDailyEmailToFacultyJob = new CronJob({
              return;
            }
 
-           var guestList = result[0].vacancy[object.language].guestlist;
-           var guestNamesList = [];
-           var emails = [];
+           // make sure to operate only on defined variables
+           if (result[0]) {
+             var guestList = result[0].vacancy[object.language].guestlist;
+             var guestNamesList = [];
+             var emails = [];
 
-           //get emails of TA's and Professors for this language
-           object.faculty.forEach((facultyMember, facultyMemberIndex) => {
-             if (facultyMember.daily === true) {
-               emails.push(facultyMember.email);
-             }
-           });
+             //get emails of TA's and Professors for this language
+             object.faculty.forEach((facultyMember, facultyMemberIndex) => {
+               if (facultyMember.daily === true) {
+                 emails.push(facultyMember.email);
+               }
+             });
 
-           //no need to go through this hell if no emails to send to
-           if (emails.length > 0) {
-             var reservedCount = _.countBy(guestList, _.identity)["RESERVED"];
-             var lengthToSend = guestList.length - reservedCount;
-             var alreadyAddedAllGuests = false;
-             var emailSent = false;
+             //no need to go through this hell if no emails to send to
+             if (emails.length > 0) {
+               var reservedCount = _.countBy(guestList, _.identity)["RESERVED"];
+               var lengthToSend = guestList.length - reservedCount;
+               var alreadyAddedAllGuests = false;
+               var emailSent = false;
 
-             var promises = [];
+               var promises = [];
 
-             //get the names of the attendants by their id
-             guestList.forEach((guestId, guestIndex) => {
-               promises.push(new Promise((resolve, reject) => {
-                   db.collection('attendants').find({id: guestId}).toArray((err, result) => {
-                     if (err) {
-                       console.log(err);
-                       return;
-                     }
-                     if (guestId !== "RESERVED") {
-
-                       if (guestId === "000GUEST") {
-                         if (!alreadyAddedAllGuests) {
-                           alreadyAddedAllGuests = true;
-                           var theMany = _.filter(result[0].attendance, {'date': today, 'language': object.language, 'checked':true});
-                           theMany.forEach((one) => {
-                             guestNamesList.push(one.name);
-                           });
-                         }
-                       } else {
-                         var theOne = _.find(result[0].attendance, {'date': today, 'language': object.language, 'checked':true});
-                         if (theOne !== undefined) {
-                           guestNamesList.push(theOne.name);
-                         }
+               //get the names of the attendants by their id
+               guestList.forEach((guestId, guestIndex) => {
+                 promises.push(new Promise((resolve, reject) => {
+                     db.collection('attendants').find({id: guestId}).toArray((err, result) => {
+                       if (err) {
+                         console.log(err);
+                         return;
                        }
-                    }
+                       if (guestId !== "RESERVED") {
 
-                    resolve();
+                         if (guestId === "000GUEST") {
+                           if (!alreadyAddedAllGuests) {
+                             alreadyAddedAllGuests = true;
+                             var theMany = _.filter(result[0].attendance, {'date': today, 'language': object.language, 'checked':true});
+                             theMany.forEach((one) => {
+                               guestNamesList.push(one.name);
+                             });
+                           }
+                         } else {
+                           var theOne = _.find(result[0].attendance, {'date': today, 'language': object.language, 'checked':true});
+                           if (theOne !== undefined) {
+                             guestNamesList.push(theOne.name);
+                           }
+                         }
+                      }
 
-                   });
+                      resolve();
 
-               }));
-             });
+                     });
 
-             Promise.all(promises).then(() => {
-               guestNamesList = _.sortBy(guestNamesList, [_.identity]);
-               mail.sendProfTA(object, guestNamesList, moment(today).format("dddd, MMMM Do"), emails);
-             });
+                 }));
+               });
+
+               Promise.all(promises).then(() => {
+                 guestNamesList = _.sortBy(guestNamesList, [_.identity]);
+                 mail.sendProfTA(object, guestNamesList, moment(today).format("dddd, MMMM Do"), emails);
+               });
+             }
            }
          });
        });
@@ -1172,30 +1175,34 @@ var sendReminderEmailsJob = new CronJob({
       if (err) {
         throw err;
       }
-      let alreadySentToGUESTS = false;
-      let guestlistsForTomorrow = result[0].vacancy;
-      guestlistsForTomorrow.forEach((langObj, langObjIndex) => {
-        langObj.guestlist.forEach((guest, guestIndex) => {
 
-          if (guest !== "RESERVED") {
-            if (guest === "000GUEST") {
-              if (alreadySentToGUESTS === false) {
-                // and don't send the email to guests again
-                alreadySentToGUESTS = true;
-                // send the reminder emails to all guests in one go
+      // make sure to only operate on defined values
+      if (result[0]) {
+        let alreadySentToGUESTS = false;
+        let guestlistsForTomorrow = result[0].vacancy;
+        guestlistsForTomorrow.forEach((langObj, langObjIndex) => {
+          langObj.guestlist.forEach((guest, guestIndex) => {
+
+            if (guest !== "RESERVED") {
+              if (guest === "000GUEST") {
+                if (alreadySentToGUESTS === false) {
+                  // and don't send the email to guests again
+                  alreadySentToGUESTS = true;
+                  // send the reminder emails to all guests in one go
+                  db.collection('attendants').find({id: guest}).toArray((err, result) => {
+                    mail.sendReminderEmail(result[0], tomorrow);
+                  });
+                }
+              } else {
                 db.collection('attendants').find({id: guest}).toArray((err, result) => {
                   mail.sendReminderEmail(result[0], tomorrow);
                 });
               }
-            } else {
-              db.collection('attendants').find({id: guest}).toArray((err, result) => {
-                mail.sendReminderEmail(result[0], tomorrow);
-              });
             }
-          }
 
+          });
         });
-      });
+      }
     });
   },
   start: false,
