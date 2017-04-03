@@ -99,13 +99,13 @@ var Calendar = React.createClass({
       selected = this.props.date.isSame(date, 'day') ? 'selected' : '';
     }
 
-    //can only sign up for waitlist before 7:55pm
-    let canSignupForWaitlist = moment().isBefore(moment(date).startOf('day').subtract(4,'hours').subtract(5, 'minutes'));
+    //can only sign up for waitlist before 7:55pm ** NOT ANYMORE
+    //let canSignupForWaitlist = moment().isBefore(moment(date).startOf('day').subtract(4,'hours').subtract(5, 'minutes'));
     //registration is only open until 1:45 pm
     let registrationIsOpen = moment().isBefore(moment(date).startOf('day').add(13, 'hours').add(45, 'minutes'));
 
     //waitlist
-    if (availability && availability.seats === 0 && canSignupForWaitlist && registrationIsOpen) {
+    if (availability && availability.seats === 0 && registrationIsOpen) {
       content = (
         <div className={'date-cell waitlist ' + selected}>
         {date.format("D")}

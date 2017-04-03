@@ -232,13 +232,13 @@ var Signup = React.createClass({
         return;
       }
 
-    } else if (this.state.language === 3 && moment(date).isAfter('2017-03-31')) {
-      //FRENCH
-
-      this.setState({
-        errorMessage: "Please choose an earlier date. For now, French department does not allow signing up for the dates after March 31st."
-      });
-      return;
+    // } else if (this.state.language === 3 && moment(date).isAfter('2017-03-31')) {
+    //   //FRENCH
+    //
+    //   this.setState({
+    //     errorMessage: "Please choose an earlier date. For now, French department does not allow signing up for the dates after March 31st."
+    //   });
+    //   return;
 
     } else if (this.state.language === 7 && this.state.id !== "000GUEST") {
       //JAPANESE
@@ -351,7 +351,7 @@ var Signup = React.createClass({
                 past1130am = true;
               }
 
-              if (today.add(1, 'day').startOf('day').isSame(this.state.date) && past1130am) {
+              if (today.startOf('day').isSame(this.state.date) && past1130am) {
                 // allow sign up after 11:30 for the given day
                 this.setState({
                   errorMessage: null
