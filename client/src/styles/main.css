@@ -23,6 +23,10 @@ body {
   width: 100%;
 }
 
+div[type="centered"] {
+  text-align: center;
+}
+
 input[type="text"] {
   font-size: 16px;
   padding: 8px;
@@ -59,6 +63,17 @@ input[type="checkbox"] {
 label.checkboxList {
   font-size: 18px;
 }
+
+label.checkboxListGuestlist {
+  font-size: 18px;
+  text-decoration: underline;
+}
+
+label.checkboxListWaitlist {
+  font-size: 18px;
+  text-decoration: underline;
+}
+
 
 .btn {
   border-radius: 3px;
@@ -132,6 +147,7 @@ label[type="errorMessage"] {
 
 label[type="tablesOf"] {
    font-weight: normal;
+   text-align: center;
 }
 
 select {
@@ -152,7 +168,12 @@ h2[type="warning"] {
 }
 
 h3 {
+  text-align: center;
   text-decoration: underline;
+}
+
+h4 {
+  text-align: center;
 }
 
 .rc-calendar-full {

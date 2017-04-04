@@ -634,6 +634,7 @@ app.post('/update', (req, res) => {
 app.get('/attendance', (req, res) => {
   var date = moment().startOf('day').utc().format();
   var attendants = [];
+  var waitlisters = [];
   var promises = [];
 
   let timeZoneString = date.substring(10, date.length);
@@ -700,10 +701,56 @@ app.get('/attendance', (req, res) => {
           reject();
         });
       }));
+
+      promises.push(new Promise((resolve, reject) => {
+        db.collection('attendants').find({ id: { $in: lang.waitlist }, 'waitlists.language': lang.language }).toArray()
+        .then((result) => {
+          if (result.length > 0) {
+            var alreadyCheckedGuest = false;
+            var langWaitlisters = [];
+            result.forEach((item) => {
+              if (item.id === "000GUEST" && !alreadyCheckedGuest) {
+                alreadyCheckedGuest = true;
+                var guests = _.filter(item.waitlists, (day) => {
+                  return moment(day.date).isSame(date, 'day') && day.language === lang.language
+                });
+                guests.forEach((guest) => {
+                  langWaitlisters.push({
+                    id: item.id,
+                    name: guest.name,
+                    language: guest.language
+                  })
+                })
+              } else {
+                var theOneWeNeed = _.find(item.waitlists, (day) => {
+                  return moment(day.date).isSame(date, 'day') && day.language === lang.language
+                });
+
+                if (theOneWeNeed !== undefined) {
+                  langWaitlisters.push({
+                    id: item.id,
+                    name: theOneWeNeed.name,
+                    language: theOneWeNeed.language,
+                    checked: theOneWeNeed.checked ? theOneWeNeed.checked : false
+                  });
+                }
+              }
+
+            });
+            waitlisters = waitlisters.concat(langWaitlisters);
+          }
+          resolve();
+        })
+        .catch((error) => {
+          console.log(error);
+          res.sendStatus(404);
+          reject();
+        });
+      }));
     });
 
     Promise.all(promises).then(() => {
-      res.json({date: date, attendants: attendants});
+      res.json({date: date, attendants: attendants, waitlisters: waitlisters});
     })
   })
   .catch((error) => {
@@ -723,22 +770,93 @@ app.patch('/attendance', (req, res) => {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
 
-  //finds the student and either "checks" or "unchecks" their attendance for today
-  attendants.update(
-    { id : student.id, attendance: {  $elemMatch : { date : date, language : student.language }}},
-    { $set : { "attendance.$.checked" : student.checked }},
-  (err, result) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(500);
+  if (student.waitlist) {
+    //finds the student, moves him from waitlist to guestlist and checks their attendance
+
+    // in attendants collection...
+    attendants.find({ id : student.id }).forEach(function(doc) {
+
+      // remove him/her from the waitlist in attendance collection
+      var removedItems = _.remove(doc.waitlists, function(object) {
+        return object.date === date && object.language === student.language
+      });
+
+      // add him/her to the guestlist in attendance collection
+      removedItems.forEach(function(item) {
+        item.checked = student.checked;
+        doc.attendance.push(item);
+      });
+
+      // save
+      attendants.save(doc).then(function(response) {
+        // if successful
+        if (response.result.ok) {
+          // make sure removedItems is not empty
+          if (removedItems[0]) {
+            // in dates collection...
+            let dates = db.collection('dates');
+            dates.find({date: date}).forEach(function(doc) {
+              // remove him/her from the waitlist in dates collection
+              var removed = _.remove(doc.vacancy[student.language].waitlist, function(id) {
+                return id === student.id
+              });
+
+              // add him/her to the guestlist in dates collection
+              removed.forEach(function(item) {
+                doc.vacancy[student.language].guestlist.push(item);
+
+                //increment seatsReserved and seatsAvailable
+                doc.vacancy[student.language].seatsReserved ++;
+                doc.vacancy[student.language].seatsAvailable ++;
+              });
+
+              // save
+              dates.save(doc).then(function(response) {
+                if (response.result.ok) {
+                  // make sure removed is not empty
+                  if (removed[0]) {
+                    res.sendStatus(200);
+                  } else {
+                    console.log("Error: no waitlist record in dates collection. Student ID: " + student.id);
+                    res.sendStatus(500);
+                  }
+                } else {
+                  console.log("Error saving the new guest info in dates collection. Student ID: " + student.id);
+                  res.sendStatus(500);
+                }
+              });
+            });
+
+          } else {
+            console.log("Error: no waitlist record in attendance collection. Student ID: " + student.id);
+            res.sendStatus(500);
+          }
+
+        } else {
+          console.log("Error saving the new guest info in attendance collection. Student ID: " + student.id);
+          res.sendStatus(500);
+        }
+      });
+    });
+
+  } else {
+    //finds the student and either "checks" or "unchecks" their attendance for today
+    attendants.update(
+      { id : student.id, attendance: {  $elemMatch : { date : date, language : student.language }}},
+      { $set : { "attendance.$.checked" : student.checked }},
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      }
+
+      //console.log(result);
+
+      res.sendStatus(200);
       return;
-    }
-
-    //console.log(result);
-
-    res.sendStatus(200);
-    return;
-  });
+    });
+  }
 });
 
 // **** FOR TESTING *****
@@ -752,13 +870,13 @@ var second = timeToRun.seconds();
 // for testing:
 // cronTime: second+" "+minute+" "+hour+" * * 0-4",
 var tableAllocationJob = new CronJob({
-  cronTime: "00 00 20 * * 0-4",
+  cronTime: "00 15 11 * * 1-5",
   onTick: function() {
     /*
-     * Runs Sunday through Thursday
-     * at 20:00:00 PM.
+     * Runs Monday through Friday
+     * at 11:15:00 AM.
      */
-     algorithm.run(db, moment);
+     algorithm.run(db, moment, _);
   },
   start: false,
   timeZone: 'America/New_York'
@@ -1209,9 +1327,7 @@ var sendReminderEmailsJob = new CronJob({
   timeZone: 'America/New_York'
 });
 
-// TODO: start the tableAllocationJob week 2
-// tableAllocationJob.start();
-
+tableAllocationJob.start();
 sendWeeklyEmailToFacultyJob.start()
 sendDailyEmailToFacultyJob.start();
 sendReminderEmailsJob.start();

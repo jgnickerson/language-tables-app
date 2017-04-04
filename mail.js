@@ -70,13 +70,14 @@ var send = function(reservationObj, waitlist) {
 }
 
 // send mail to newly added guests
-var sendNewGuests = function(email, language, date) {
+var sendNewGuests = function(email, language, date, name) {
   var languageString = languages[language][0];
   if (languageString !== "ASL") {
     languageString = _.capitalize(languageString);
   }
   // var languages = ["Spanish", "French", "Chinese", "German"];
-  var text = "You just got a spot at " + languageString + " Language Tables on "+date.format("dddd, MMMM Do")+"!";
+  var text = "Dear "+name+", </br></br>";
+  text += "You just got a spot at " + languageString + " Language Tables for today ("+date.format("dddd, MMMM Do")+")!";
   text += "</br>Please make sure to arrive to Redfield Proctor before the doors open at 12:30pm.</br>";
   text += "</br>Thank you, </br>";
   text += "Language Tables";
@@ -84,7 +85,7 @@ var sendNewGuests = function(email, language, date) {
   var mailOptions = {
     from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
     to: email, // list of receivers
-    subject: 'You got a spot at Language Tables', // Subject line
+    subject: 'You got a spot at Language Tables TODAY', // Subject line
     text: text, // plaintext body
     html: text // html body
   }

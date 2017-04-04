@@ -25,30 +25,34 @@ var findIndexByKeyValue = function(array, key, value) {
   return null;
 }
 
-var run = function(db, moment) {
+var run = function(db, moment, _) {
+
   // Global Variables
-  var spareTablesOf6 = 0,
-    spareTablesOf8 = 0,
-    seatLimit = 120,
+  var totalSpareTablesOf6 = 0,
+    totalSpareTablesOf8 = 0,
     waitlistQ = [],
     waitlistToGuests = [];
 
 
-  // Get today's date from MomentJS and find tomorrow
-  var today = moment();
-  var tomorrow = today.add(1, 'days').startOf('day');
-  console.log("tomorrow: " + tomorrow.utc().format() + "\n");
+  // Get today's date from MomentJS
+  var today = moment().startOf('day');
+  var todayString = today.utc().format();
+
+  // make sure we are in the correct timezone...
+  var timeZoneString = todayString.substring(10, todayString.length);
+  if (timeZoneString !== "T05:00:00Z") {
+    todayString = _.replace(todayString, timeZoneString, "T05:00:00Z")
+  }
 
   // Get tomorrow's object from database and run the algorithm
   var languages;
-  db.collection('dates').find({date: tomorrow.utc().format()})
+  db.collection('dates').find({date: todayString})
     .toArray(function(err, result) {
       if (err) {
         throw err;
       }
 
       languages = result[0].vacancy;
-      //console.log(languages);
 
       // For each language in the object
       languages.forEach(function(language, languageIndex) {
@@ -57,25 +61,35 @@ var run = function(db, moment) {
 
         // If the language's waitlist is empty
         if (language.waitlist.length === 0) {
-          for (var i = 0; i < numTablesOf8; i ++) {
-            // checks if any tables of size 8 can be removed from baseline allocation
-            if (language.seatsReserved <= (language.seatsAvailable - 8)) {
-              language.seatsAvailable -= 8;
-              spareTablesOf8 ++;
-              language.tablesOf8 --;
+          var bestSpareOf6 = 0,
+            bestSpareOf8 = 0;
+
+          // test all possible combinations of spare tables of 6 and 8
+          for (var i = 0; i <= numTablesOf8; i++) {
+            for (var j = 0; j <= numTablesOf6; j++) {
+              // if this arrangement of tables fits all guests
+              if (i * 8 + j * 6 - language.seatsReserved >= 0) {
+                var currentSpareOf8 = numTablesOf8 - i;
+                var currentSpareOf6 = numTablesOf6 - j;
+
+                // if this arrangement is better than previous best
+                if ((currentSpareOf6 * 6 + currentSpareOf8 * 8) > (bestSpareOf6 * 6 + bestSpareOf8 * 8)) {
+                  bestSpareOf8 = currentSpareOf8;
+                  bestSpareOf6 = currentSpareOf6;
+                }
+              }
             }
           }
 
-          for (var i = 0; i < numTablesOf6; i ++) {
-            // checks if any tables of size 6 can be removed from baseline allocation
-            if (language.seatsReserved <= (language.seatsAvailable - 6)) {
-              language.seatsAvailable -= 6;
-              spareTablesOf6 ++;
-              language.tablesOf6 --;
-            }
-          }
+          // add the best combination of spare tables to the total spare count
+          totalSpareTablesOf8 += bestSpareOf8;
+          totalSpareTablesOf6 += bestSpareOf6;
 
-          seatLimit -= language.seatsReserved;
+          // update the number of available seats and tables for this language
+          language.seatsAvailable -= (bestSpareOf8 * 8 + bestSpareOf6 * 6);
+          language.tablesOf8 -= bestSpareOf8;
+          language.tablesOf6 -= bestSpareOf6;
+
         } else {
           // If the language has a waitlist, wait to analyze its table allocation.
           waitlistQ.push(language);
@@ -86,9 +100,13 @@ var run = function(db, moment) {
       waitlistQ.sort(compare);
 
       while (waitlistQ.length > 0) {
-        if (spareTablesOf8 !== 0) {
+
+        // if there are spare tables of 8
+        if (totalSpareTablesOf8 !== 0) {
+
+          // give this table to the longest waitlist
           waitlistQ[0].tablesOf8 ++;
-          spareTablesOf8 --;
+          totalSpareTablesOf8 --;
           waitlistQ[0].seatsAvailable += 8;
 
           // Remove 8 people from waitlist
@@ -102,18 +120,24 @@ var run = function(db, moment) {
             }
           }
 
+          // if there are no more waitlisters for this language
           if (waitlistQ[0].waitlist.length === 0) {
-            // copy to languages array
+            // remove language from the queue
             var removed = waitlistQ.shift();
+            // and put it back into the languages array
             var index = findIndexByKeyValue(languages, "language", removed.language);
             languages[index] = removed;
           } else {
+            // otherwise reinsert back to the queue and sort
             waitlistQ.sort(compare);
           }
 
-        } else if (spareTablesOf6 !== 0) {
+        // else if there are spare tables of 6
+        } else if (totalSpareTablesOf6 !== 0) {
+
+          // give this table to the longest waitlist
           waitlistQ[0].tablesOf6 ++;
-          spareTablesOf6 --;
+          totalSpareTablesOf6 --;
           waitlistQ[0].seatsAvailable += 6;
 
           // Remove 6 people from waitlist
@@ -127,50 +151,68 @@ var run = function(db, moment) {
             }
           }
 
+          // if there are no more waitlisters for this language
           if (waitlistQ[0].waitlist.length === 0) {
-            // copy to languages array
+            // remove language from the queue
             var removed = waitlistQ.shift();
+            // and put it back into the languages array
             var index = findIndexByKeyValue(languages, "language", removed.language);
             languages[index] = removed;
           } else {
+            // otherwise reinsert back to the queue and sort
             waitlistQ.sort(compare);
           }
 
+        // if no spare tables to give out, just keep the remaining waitlisters
+        // for the headwaiters to figure out at the entrance
         } else {
           var removed = waitlistQ.shift();
           var index = findIndexByKeyValue(languages, "language", removed.language);
           languages[index] = removed;
         }
       }
-      // console.log();
-      // console.log(languages);
-      //TODO: delete these lines, they are just for testing waitlistToGuests functionality
-      //waitlistToGuests.push({guestId: "00666666", language: 0});
-      //console.log("new guests: "+ waitlistToGuests);
 
+      // update the dates collection
       db.collection('dates').update(
-        {date: tomorrow.utc().format()},
+        {date: todayString},
         {$set: {vacancy: languages}}
       );
 
       waitlistToGuests.forEach(function(newGuest, newGuestIndex) {
-        // update the waitlists for the news guests in attendants collection
-        db.collection('attendants').update(
-          { id: newGuest.guestId },
-          { $pull: { 'waitlists': { 'date' : tomorrow.utc().format(), 'language' : newGuest.language } }
-        });
-        // update the attendance for the news guests in attendants collection
-        db.collection('attendants').update(
-          { id: newGuest.guestId },
-          { $push: { 'attendance': { 'date' : tomorrow.utc().format(), 'language' : newGuest.language } }
-        });
+        // let the headwaiter figure out the guests...
+        if (newGuest.guestId !== "000GUEST") {
 
-        db.collection('attendants').find({id: newGuest.guestId}, {email: 1}).toArray(function(err, result) {
-          if (err) {
-            throw err;
-          }
-          mail.sendNewGuests(result[0].email, newGuest.language, tomorrow);
-        });
+          //find the new guest by id
+          db.collection('attendants').find({id: newGuest.guestId}).forEach(function(doc) {
+
+            // remove him/her from the waitlist in attendance collection
+            var removedItems = _.remove(doc.waitlists, function(object) {
+              return object.date === todayString && object.language === newGuest.language
+            });
+
+            // add him/her to the guestlist in attendance collection
+            removedItems.forEach(function(item) {
+              doc.attendance.push(item);
+            });
+
+            // save
+            db.collection('attendants').save(doc).then(function(response) {
+              // if successful
+              if (response.result.ok) {
+                // make sure removedItems is not empty
+                if (removedItems[0]) {
+                  mail.sendNewGuests(removedItems[0].email, removedItems[0].language, today, removedItems[0].name);
+                } else {
+                  console.log("Error: no waitlist record in attendance collection. Student ID: " + newGuest.guestId);
+                }
+
+              } else {
+                console.log("Error saving the new guest info. Did not send the email. Student ID: " + newGuest.guestId);
+              }
+            });
+          });
+
+        }
       });
   });
 }

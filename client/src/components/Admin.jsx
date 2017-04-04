@@ -13,6 +13,7 @@ var Admin = React.createClass({
     return ({
       date: "",
       checkboxItems: [],
+      checkboxWaitlist: [],
       languages: []
     })
   },
@@ -27,10 +28,12 @@ var Admin = React.createClass({
         //console.log(response);
 
         let checkboxItems = this.formatCheckboxItems(response.attendants);
+        let checkboxWaitlist = this.formatCheckboxItems(response.waitlisters);
 
         this.setState({
           date: response.date,
-          checkboxItems: checkboxItems
+          checkboxItems: checkboxItems,
+          checkboxWaitlist: checkboxWaitlist
         });
       }
     };
@@ -110,7 +113,34 @@ var Admin = React.createClass({
     request.send(JSON.stringify({
       id: key,
       language: language,
-      checked: value
+      checked: value,
+      waitlist: false
+    }))
+  },
+
+  handleWaitlistCheck: function(key, value, language) {
+    let request = new XMLHttpRequest();
+    request.open('PATCH', '/attendance', true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 400) {
+        //console.log("successful request");
+        //only actually change the state of the checkbox item if the request succeeds.
+        this.setState({
+          checkboxWaitlist: this.state.checkboxWaitlist.map((item) => {
+            if (item.key === key) {
+              item.isChecked = value;
+            }
+            return item;
+          })
+        });
+      }
+    }
+    request.send(JSON.stringify({
+      id: key,
+      language: language,
+      checked: value,
+      waitlist: true
     }))
   },
 
@@ -136,6 +166,11 @@ var Admin = React.createClass({
       });
       langAttendants = _.sortBy(langAttendants, [function(o) { return o.label; }]);
 
+      let waitlisters = _.filter(this.state.checkboxWaitlist, (person) => {
+        return person.language === lang.language;
+      });
+      // TODO: sort?
+
       let list;
       let languageString;
       if (lang.language_string !== "ASL") {
@@ -152,7 +187,11 @@ var Admin = React.createClass({
               <label type="tablesOf">{"Tables of 8: "+lang.tablesOf8}</label>
               <br/>
 
+              <label className="checkboxListGuestlist">{"Guestlist:"}</label>
               <CheckboxList items={langAttendants} onChange={this.handleCheck} />
+              <br/>
+              <label className="checkboxListWaitlist">{"Waitlist:"}</label>
+              <CheckboxList items={waitlisters} onChange={this.handleWaitlistCheck}/>
               <br/>
             </div>
           </Element>
@@ -189,9 +228,12 @@ var Admin = React.createClass({
         {navBar}
         <div className="admin-below-nav">
           <h2>{date}</h2>
-          {"TOTAL ATTENDANTS:       "}<b>{totalCheckedIn+" / "+totalAttendants}</b><br/>
-          {"TOTAL TABLES OF 6:      "}<b>{totalTablesOf6+" / 12"}</b><br/>
-          {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8+" / 6 "}</b><br/>
+          <div type="centered">
+            {"TOTAL ATTENDANTS:       "}<b>{totalCheckedIn+" / "+totalAttendants}</b><br/>
+            {"TOTAL TABLES OF 6:      "}<b>{totalTablesOf6+" / 12"}</b><br/>
+            {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8+" / 6 "}</b><br/>
+          </div>
+          <br/>
           <form onSubmit={this.handleSubmit}>
             {this.createCheckboxLists()}
           </form>
