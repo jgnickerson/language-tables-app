@@ -784,7 +784,11 @@ app.patch('/attendance', (req, res) => {
       // add him/her to the guestlist in attendance collection
       removedItems.forEach(function(item) {
         item.checked = student.checked;
-        doc.attendance.push(item);
+        if (doc.attendance) {
+          doc.attendance.push(item);
+        } else {
+          doc.attendance = [item];
+        }
       });
 
       // save
