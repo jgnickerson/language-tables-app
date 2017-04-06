@@ -168,8 +168,9 @@ h2[type="warning"] {
 }
 
 h3 {
-  text-align: center;
   text-decoration: underline;
+  display: inline-block;
+  margin-right: 20px;
 }
 
 h4 {

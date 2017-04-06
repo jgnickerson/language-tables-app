@@ -263,26 +263,30 @@ app.get('/languages', (req, res) => {
       if (err) {
         throw err;
       }
-      let tables, langObj, tablesOf6, tablesOf8;
-      if (result[0] !== undefined) {
+      let tables;
+      if (result[0]) {
         tables = result[0].vacancy;
       } else {
         tables = [];
       }
 
       languages = languages.map((lang) => {
-        langObj = _.find(tables, function(o) { return o.language === lang[1]; });
-        if (langObj !== undefined) {
+        let tablesOf6, tablesOf8, location,
+          langObj = _.find(tables, function(o) { return o.language === lang[1]; });
+        if (langObj) {
           tablesOf6 = langObj.tablesOf6;
           tablesOf8 = langObj.tablesOf8;
+          location = langObj.location;
         } else {
           tablesOf6 = 0;
           tablesOf8 = 0;
+          location = "inside";
         }
         return {language       : lang[1],
                 language_string: lang[0],
                 tablesOf6      : tablesOf6,
-                tablesOf8      : tablesOf8}
+                tablesOf8      : tablesOf8,
+                location       : location}
       });
       res.send(languages);
 
@@ -759,10 +763,10 @@ app.get('/attendance', (req, res) => {
 });
 
 app.patch('/attendance', (req, res) => {
-  let student = req.body; // {id: '00000000', language: '00'};
+  let body = req.body; // {id: '00000000', language: '00'};
   let date = moment().startOf('day').utc().format();
-  //console.log(date);
   let attendants = db.collection('attendants');
+  let dates = db.collection('dates');
 
   let timeZoneString = date.substring(10, date.length);
   // console.log(timeZoneString);
@@ -770,84 +774,11 @@ app.patch('/attendance', (req, res) => {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
 
-  if (student.waitlist) {
-    //finds the student, moves him from waitlist to guestlist and checks their attendance
-
-    // in attendants collection...
-    attendants.find({ id : student.id }).forEach(function(doc) {
-
-      // remove him/her from the waitlist in attendance collection
-      var removedItems = _.remove(doc.waitlists, function(object) {
-        return object.date === date && object.language === student.language
-      });
-
-      // add him/her to the guestlist in attendance collection
-      removedItems.forEach(function(item) {
-        item.checked = student.checked;
-        if (doc.attendance) {
-          doc.attendance.push(item);
-        } else {
-          doc.attendance = [item];
-        }
-      });
-
-      // save
-      attendants.save(doc).then(function(response) {
-        // if successful
-        if (response.result.ok) {
-          // make sure removedItems is not empty
-          if (removedItems[0]) {
-            // in dates collection...
-            let dates = db.collection('dates');
-            dates.find({date: date}).forEach(function(doc) {
-              // remove him/her from the waitlist in dates collection
-              var removed = _.remove(doc.vacancy[student.language].waitlist, function(id) {
-                return id === student.id
-              });
-
-              // add him/her to the guestlist in dates collection
-              removed.forEach(function(item) {
-                doc.vacancy[student.language].guestlist.push(item);
-
-                //increment seatsReserved and seatsAvailable
-                doc.vacancy[student.language].seatsReserved ++;
-                doc.vacancy[student.language].seatsAvailable ++;
-              });
-
-              // save
-              dates.save(doc).then(function(response) {
-                if (response.result.ok) {
-                  // make sure removed is not empty
-                  if (removed[0]) {
-                    res.sendStatus(200);
-                  } else {
-                    console.log("Error: no waitlist record in dates collection. Student ID: " + student.id);
-                    res.sendStatus(500);
-                  }
-                } else {
-                  console.log("Error saving the new guest info in dates collection. Student ID: " + student.id);
-                  res.sendStatus(500);
-                }
-              });
-            });
-
-          } else {
-            console.log("Error: no waitlist record in attendance collection. Student ID: " + student.id);
-            res.sendStatus(500);
-          }
-
-        } else {
-          console.log("Error saving the new guest info in attendance collection. Student ID: " + student.id);
-          res.sendStatus(500);
-        }
-      });
-    });
-
-  } else {
-    //finds the student and either "checks" or "unchecks" their attendance for today
-    attendants.update(
-      { id : student.id, attendance: {  $elemMatch : { date : date, language : student.language }}},
-      { $set : { "attendance.$.checked" : student.checked }},
+  // handle the change of location
+  if (body.locationChange) {
+    dates.update(
+      { date: date, "vacancy.language": body.language },
+      { $set: {"vacancy.$.location": body.location }},
     (err, result) => {
       if (err) {
         console.log(err);
@@ -855,11 +786,105 @@ app.patch('/attendance', (req, res) => {
         return;
       }
 
-      //console.log(result);
-
       res.sendStatus(200);
       return;
     });
+
+  // handle checking off
+  } else {
+    if (body.waitlist) {
+      // finds the student, moves him from waitlist to guestlist and checks their attendance
+
+      // in attendants collection...
+      attendants.find({ id : body.id }).forEach(function(doc) {
+
+        // remove him/her from the waitlist in attendance collection
+        var removedItems = _.remove(doc.waitlists, function(object) {
+          return object.date === date && object.language === body.language
+        });
+
+        // add him/her to the guestlist in attendance collection
+        removedItems.forEach(function(item) {
+          item.checked = body.checked;
+          if (doc.attendance) {
+            doc.attendance.push(item);
+          } else {
+            doc.attendance = [item];
+          }
+        });
+
+        // save
+        attendants.save(doc).then(function(response) {
+          // if successful
+          if (response.result.ok) {
+            // make sure removedItems is not empty
+            if (removedItems[0]) {
+              // update the dates collection...
+              dates.find({date: date}).forEach(function(doc) {
+                // find index of the language we need
+                var index = doc.vacancy.findIndex((element) => {
+                  return element.language === body.language;
+                });
+
+                // remove student from the waitlist in dates collection
+                var removed = _.remove(doc.vacancy[index].waitlist, function(id) {
+                  return id === body.id
+                });
+
+                // add him/her to the guestlist in dates collection
+                removed.forEach(function(item) {
+                  doc.vacancy[index].guestlist.push(item);
+
+                  //increment seatsReserved and seatsAvailable
+                  doc.vacancy[index].seatsReserved ++;
+                  doc.vacancy[index].seatsAvailable ++;
+                });
+
+                // save
+                dates.save(doc).then(function(response) {
+                  if (response.result.ok) {
+                    // make sure removed is not empty
+                    if (removed[0]) {
+                      res.sendStatus(200);
+                    } else {
+                      console.log("Error: no waitlist record in dates collection. Student ID: " + body.id);
+                      res.sendStatus(500);
+                    }
+                  } else {
+                    console.log("Error saving the new guest info in dates collection. Student ID: " + body.id);
+                    res.sendStatus(500);
+                  }
+                });
+              });
+
+            } else {
+              console.log("Error: no waitlist record in attendance collection. Student ID: " + body.id);
+              res.sendStatus(500);
+            }
+
+          } else {
+            console.log("Error saving the new guest info in attendance collection. Student ID: " + body.id);
+            res.sendStatus(500);
+          }
+        });
+      });
+
+    } else {
+      //finds the student and either "checks" or "unchecks" their attendance for today
+      attendants.update(
+        { id : body.id, attendance: {  $elemMatch : { date : date, language : body.language }}},
+        { $set : { "attendance.$.checked" : body.checked }},
+      (err, result) => {
+        if (err) {
+          console.log(err);
+          res.sendStatus(500);
+          return;
+        }
+
+        res.sendStatus(200);
+        return;
+      });
+    }
   }
 });
 

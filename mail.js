@@ -132,7 +132,7 @@ var sendProfTA = function(faculty, guestlist, date, emails) {
         }
         return console.log(error);
       }
-      console.log(language+' "Weekly attendance" message sent: ' + info.response);
+      console.log(language+' "Daily attendance" message sent: ' + info.response);
     });
   }
 
@@ -228,7 +228,7 @@ var sendWeeklyReport = function(emailObj) {
     language = _.capitalize(language);
   }
 
-  var text = "Plese find the weekly report attached."
+  var text = "Please find the weekly report attached."
 
   var mailOptions = {
     from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address

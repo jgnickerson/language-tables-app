@@ -115,7 +115,7 @@ var Admin = React.createClass({
       language: language,
       checked: value,
       waitlist: false
-    }))
+    }));
   },
 
   handleWaitlistCheck: function(key, value, language) {
@@ -141,7 +141,33 @@ var Admin = React.createClass({
       language: language,
       checked: value,
       waitlist: true
-    }))
+    }));
+  },
+
+  handleLocationChange: function(language, location) {
+    let request = new XMLHttpRequest();
+    request.open('PATCH', '/attendance', true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 400) {
+        // if the request succeeds.
+        // set the location of the given language's tables (inside vs outside)
+        this.setState({
+          languages: this.state.languages.map((item) => {
+          // change the location of the given lang
+          if (item.language === language) {
+            item.location = location;
+          }
+          return item;
+          })
+        });
+      }
+    }
+    request.send(JSON.stringify({
+      locationChange: true,
+      language: language,
+      location: location
+    }));
   },
 
   createNavBar: function() {
@@ -178,11 +204,18 @@ var Admin = React.createClass({
       } else {
 	       languageString = lang.language_string;
       }
-      //if (langAttendants.length > 0) {
-        list = (
+
+      list = (
           <Element id={lang.language_string}>
             <div key={lang.language_string}>
-              <h3>{languageString}</h3>
+              <div type="centered">
+                <h3>{languageString}</h3>
+                <select value={lang.location} onChange={(event)=>{this.handleLocationChange(lang.language, event.target.value)}}>
+                  <option value="inside">inside</option>
+                  <option value="outside">outside</option>
+                </select>
+              </div>
+
               <label type="tablesOf">{"Tables of 6: "+lang.tablesOf6}</label>
               <label type="tablesOf">{"Tables of 8: "+lang.tablesOf8}</label>
               <br/>
@@ -196,8 +229,8 @@ var Admin = React.createClass({
             </div>
           </Element>
 
-        )
-      //}
+      );
+
       lists.push(list);
     });
 
@@ -209,12 +242,28 @@ var Admin = React.createClass({
     let totalCheckedIn = 0,
       totalAttendants = 0,
       totalTablesOf6 = 0,
-      totalTablesOf8 = 0;
+      totalTablesOf8 = 0,
+      insideCheckedIn = 0,
+      insideAttendants = 0,
+      outsideCheckedIn = 0,
+      outsideAttendants = 0;
     this.state.checkboxItems.forEach((item) => {
+      let location = this.state.languages.find((lang) => lang.language === item.language).location;
       if (item.isChecked) {
         totalCheckedIn += 1;
+        if (location === "inside") {
+          insideCheckedIn += 1;
+        } else {
+          outsideCheckedIn += 1;
+        }
       }
+
       totalAttendants += 1;
+      if (location === "inside") {
+        insideAttendants += 1;
+      } else {
+        outsideAttendants +=1;
+      }
     });
 
     let navBar = this.createNavBar();
@@ -229,9 +278,11 @@ var Admin = React.createClass({
         <div className="admin-below-nav">
           <h2>{date}</h2>
           <div type="centered">
-            {"TOTAL ATTENDANTS:       "}<b>{totalCheckedIn+" / "+totalAttendants}</b><br/>
-            {"TOTAL TABLES OF 6:      "}<b>{totalTablesOf6+" / 12"}</b><br/>
-            {"TOTAL TABLES OF 8:      "}<b>{totalTablesOf8+" / 6 "}</b><br/>
+          {"TOTAL ATTENDANTS: "}<b>{totalCheckedIn+" / "+totalAttendants}</b><br/>
+          {"(inside: "}<b>{insideCheckedIn+" / "+insideAttendants}</b>{", outside: "}<b>{outsideCheckedIn+" / "+outsideAttendants}</b>{")"}<br/>
+          <br/>
+          {"TOTAL TABLES OF 6: "}<b>{totalTablesOf6+" / 12"}</b><br/>
+          {"TOTAL TABLES OF 8: "}<b>{totalTablesOf8+" / 6 "}</b><br/>
           </div>
           <br/>
           <form onSubmit={this.handleSubmit}>
