@@ -47,6 +47,18 @@ input[type="text"]:focus {
   border-bottom-color: #757575;
 }
 
+input[type="password"] {
+  font-size: 16px;
+  padding: 8px;
+  width: 96.4%;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  background: #F5F5F5;
+  border-top: 0px;
+  border-right: 0px;
+  border-left: 0px;
+}
+
 input[type="submit"] {
 
 }
@@ -82,10 +94,11 @@ label.checkboxListWaitlist {
   color: #fff;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 15px;
+  margin: 15px 4px 0px 4px;
   padding: 8px;
   width: 25%;
   float: left;
+  text-decoration: none;
   text-align: center;
 }
 
