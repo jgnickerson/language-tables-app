@@ -333,26 +333,28 @@ var Signup = React.createClass({
             //   });
             // }
             if (this.state.language === 7) {
-              let past1130am = false,
+              let past7pm = false,
                 today = moment();
 
+              // helper function
               let minutesOfDay = function(m){
                 return m.minutes() + m.hours() * 60;
               }
 
-              if (minutesOfDay(today) > 690) {
-                past1130am = true;
+              // check what time it is right now
+              if (minutesOfDay(today) > 1140) {
+                past7pm = true;
               }
 
-              if (today.startOf('day').isSame(this.state.date) && past1130am) {
-                // allow sign up after 11:30 for the given day
+              if (today.add(1, 'day').startOf('day').isSame(this.state.date) && past7pm) {
+                // allow sign up after 7pm the night before the given day
                 this.setState({
                   errorMessage: null
                 });
                 this.postSubmission();
               } else {
                 this.setState({
-                  errorMessage: "Please choose a different date. Japanese department only allows 3 sign-ups every 2-week period."
+                  errorMessage: "Please choose a different date. Japanese department only allows 3 sign-ups every 2-week period. If you need to attend at this particular date, try signing up after 7pm the night before this date."
                 });
               }
 
