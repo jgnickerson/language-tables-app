@@ -346,7 +346,9 @@ var Signup = React.createClass({
                 past7pm = true;
               }
 
-              if (today.add(1, 'day').startOf('day').isSame(this.state.date) && past7pm) {
+              let tomorrow = moment().add(1, 'day');
+
+              if (today.startOf('day').isSame(this.state.date) || (tomorrow.startOf('day').isSame(this.state.date) && past7pm)) {
                 // allow sign up after 7pm the night before the given day
                 this.setState({
                   errorMessage: null
