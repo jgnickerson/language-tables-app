@@ -48,32 +48,35 @@ app.get('/courses', (req, res) => {
   });
 });
 
-app.post('/restrictions', (req, res) => {
-  const date = req.body.date;
-  const language = req.body.language;
-  const id = req.body.id;
+//returns an array of language objects a list of dates
+function getLanguageDate(dates, language) {
+  if (typeof dates === 'string') {
+    dates = [dates];
+  }
+  return new Promise((resolve, reject)=> {
+    db.collection('dates').find({date: { $in: dates }, 'vacancy.language': language})
+    .toArray((err, result) => {
+      if (err) {
+        reject(err);
+      }
 
-  //check if they've signed up for that day already;
-  db.collection('dates').find({date: date, 'vacancy.language': language})
-  .toArray((err, result) => {
-    if (err) {
-      console.log(err);
-      res.sendStatus(500);
-      return;
-    }
-
-    const langObj = _.find(result[0].vacancy, {'language': language});
-    if (langObj.guestlist.includes(id)) {
-      res.send({ maySignup: false, message: "You have already signed up for this day."});
-      return;
-    }
+      const langObjects = result.map(dateObject => _.find(dateObject.vacancy, {'language': language}));
+      resolve(langObjects);
+    })
   });
+}
 
+function handleError(response, reason) {
+  console.log(reason);
+  response.sendStatus(500);
+}
+
+function getLanguageRestrictions(language) {
   let RESTRICTIONS = [
     { //chinese
       "language": 2,
       "signupsAllowed": 2,
-      "errorMessage": "This department only allows 2 signups every 2-week period.",
+      "errorMessage": "This department only allows 2 signups every period.",
       "periods": [{"signupErrorMessage": "Signup for this period begins April 07",
                     "signupStartDate": "2017-04-07T05:00:00Z",
                     "dates": ["2017-04-10T05:00:00Z", "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z",
@@ -90,7 +93,7 @@ app.post('/restrictions', (req, res) => {
     },{ //japanese
       "language": 7,
       "signupsAllowed": 3,
-      "errorMessage": "This department only allows 3 signups every 2-week period.",
+      "errorMessage": "This department only allows 3 signups every period.",
       "periods": [{"signupErrorMessage": "Signup for this period begins March 23",
                     "signupStartDate": "2017-03-23T05:00:00Z",
                     "dates": ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
@@ -111,42 +114,70 @@ app.post('/restrictions', (req, res) => {
                               "2017-05-12T05:00:00Z"]}]
     }
   ]
-
   //this will change to Mongo lookup
-  const langRestrictions = RESTRICTIONS.find(x => x.language === req.body.language);
+  const langRestrictions = RESTRICTIONS.find(x => x.language === language);
 
-  if (langRestrictions) {
-    const period = langRestrictions.periods.find(period => period.dates.includes(date));
+  return new Promise((resolve, reject) => {
+    resolve(langRestrictions);
+  })
+}
 
-    //don't let them signup before the start of the period.
-    if (moment().isBefore(period.signupStartDate)) {
-      res.send({maySignup: false, message: period.signupErrorMessage});
+app.post('/restrictions', (req, res) => {
+  const date = req.body.date;
+  const language = req.body.language;
+  const id = req.body.id;
+
+
+  //check if they've signed up for that day already, and if they have not, get language restrictions
+  const languageRestrictions = getLanguageDate(date, language).then(langObjects =>{
+    if (langObjects[0].guestlist.includes(id)) {
+      res.send({ maySignup: false, message: "You have already signed up for this day."});
       return;
+    } else {
+      return getLanguageRestrictions(language);
     }
+  }, reason => {handleError(res, reason)});
 
-    db.collection('dates').find({date: { $in: period.dates }, 'vacancy.language': language})
-    .toArray((err,result) => {
-      if (err) {
-        console.log(err);
-        res.sendStatus(500);
+
+  // check if there are language restrictions
+  const periodDates = languageRestrictions.then(langRestrictions => {
+    if (langRestrictions) {
+      const period = langRestrictions.periods.find(period => period.dates.includes(date));
+
+      if (moment().isBefore(period.signupStartDate)) {
+        res.send({maySignup: false, message: period.signupErrorMessage});
         return;
       }
 
-      let count = 0;
-      result.forEach(obj => {
-        const langObj = _.find(obj.vacancy, { 'language': language });
-        if (langObj.guestlist.includes(req.body.id)) {
-          count++;
-          if (count >= langRestrictions.signupsAllowed) {
-            res.send({ maySignup: false, message: "You have already signed up for " + langRestrictions.signupsAllowed + " this period."})
-            return;
-          }
+      return getLanguageDate(period.dates, language);
+
+    } else {
+      res.send({maySignup: true, message: ""});
+    }
+  }, reason => {handleError(res, reason)});
+
+
+  Promise.all([languageRestrictions, periodDates]).then(results => {
+    const langRestrictions = results[0];
+    const periodDates = results[1];
+
+    //we haven't yet sent a response, meaning we have to check period
+    if (!res.headersSent) {
+      let count = langRestrictions.signupsAllowed;
+      periodDates.forEach(date => {
+        if (date.guestlist.includes(id)) {
+          count--;
         }
       });
-    });
-  }
 
-  res.send({maySignup: true, message: ""});
+      if (count <= 0) {
+        res.send({maySignup: false, message: langRestrictions.errorMessage});
+      } else {
+        res.send({maySignup: true, message: ""});
+      }
+    }
+  }, reason=> {handleError(res, reason)});
+
 
   // // check Japanese restrictions
   // if (req.body.language === 7) {

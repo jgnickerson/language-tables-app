@@ -18,7 +18,7 @@ var Signup = React.createClass({
       date           : '',
       seatsAvailable : null,
       submitSuccess  : null,
-      errorMessage   : null,
+      errorMessages   : [],
     };
   },
 
@@ -122,197 +122,201 @@ var Signup = React.createClass({
       date = _.replace(date, timeZoneString, "T05:00:00Z")
     }
 
-    // start off with no error message...
-    this.setState({
-      errorMessage: null
-    });
+    let errors = [];
 
     // check basic info is valid
     if (this.state.name === '') {
-      this.setState({
-        errorMessage: "Please, enter a name."
-      });
-      return;
+      errors.push("Name required.");
+      // this.setState({
+      //   errorMessage: "Please, enter a name."
+      // });
     }
 
     if (this.state.course === '') {
-      this.setState({
-        errorMessage: "Please, select a course enrollment status."
-      });
-      return;
+      errors.push("Courses Selection Required.");
+      // this.setState({
+      //   errorMessage: "Please, select a course enrollment status."
+      // });
     }
 
     if (this.state.id.length !== 8 && this.state.id !== "000GUEST") {
-      this.setState({
-        errorMessage: "ID number has to be 8 digits."
-      });
-      return;
+      errors.push("Valid 8-digit ID Required.");
+      // this.setState({
+      //   errorMessage: "ID number has to be 8 digits."
+      // });
     }
 
     if (this.state.email === '') {
-      this.setState({
-        errorMessage: "Please, enter an email address."
-      });
-      return;
+      errors.push("Email Required.")
+      // this.setState({
+      //   errorMessage: "Please, enter an email address."
+      // });
     }
 
     if (!this.validEmail(this.state.email)) {
-      this.setState({
-        errorMessage: "Please, enter a valid email address."
+      errors.push("Valid Email Required.")
+      // this.setState({
+      //   errorMessage: "Please, enter a valid email address."
+      // });
+    }
+
+    if (errors.length === 0) {
+      this.checkRestrictions((response)=> {
+        if (response.maySignup) {
+          this.postSubmission();
+        } else {
+          errors.push(response.message);
+          this.setState({errorMessages: errors});
+        }
       });
-      return;
+    } else {
+      this.setState({errorMessages: errors});
     }
 
-    // check specific department restrictions
-    // TODO: CHANGE THIS HARDCODED MESS
-    if (this.state.language === 2 && this.state.id !== "000GUEST") {
-      //CHINESE
 
-      let period1 = ["2017-02-27T05:00:00Z", "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z",
-        "2017-03-02T05:00:00Z", "2017-03-03T05:00:00Z", "2017-03-06T05:00:00Z",
-        "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z", "2017-03-09T05:00:00Z",
-        "2017-03-10T05:00:00Z", "2017-03-13T05:00:00Z", "2017-03-14T05:00:00Z",
-        "2017-03-15T05:00:00Z", "2017-03-16T05:00:00Z", "2017-03-17T05:00:00Z"];
-
-      let period2 = ["2017-03-20T05:00:00Z", "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z",
-      "2017-03-23T05:00:00Z", "2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
-      "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z"];
-
-      let period3 = ["2017-04-10T05:00:00Z", "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z",
-      "2017-04-13T05:00:00Z", "2017-04-14T05:00:00Z", "2017-04-17T05:00:00Z",
-      "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z", "2017-04-20T05:00:00Z",
-      "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z", "2017-04-25T05:00:00Z",
-      "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z", "2017-04-28T05:00:00Z"];
-
-      let period4 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
-        "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
-        "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
-        "2017-05-12T05:00:00Z"];
-
-      // make sure the sign up for the given date is open
-      if (date === "2017-02-24T05:00:00Z") {
-        this.setState({
-          errorMessage: "Sign-up for the week 2/20-2/24 is not required."
-        });
-        return;
-      } else if (period1.includes(date) && moment().isBefore(moment('2017-02-24T05:00:00Z'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 2/27-3/17 will open on Friday, February 24th."
-        });
-        return;
-      } else if (period2.includes(date) && moment().isBefore(moment('2017-03-17T05:00:00Z'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 3/20-4/7 will open on Friday, March 17th."
-        });
-        return;
-      } else if (period3.includes(date) && moment().isBefore(moment('2017-04-07T05:00:00Z'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 4/10-4/28 will open on Friday, April 7th."
-        });
-        return;
-      } else if (period4.includes(date) && moment().isBefore(moment('2017-04-28T05:00:00Z'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 5/1-5/12 will open on Friday, April 28th."
-        });
-        return;
-      } else {
-        // if sign up is open, check the max of 2 restrictions per week
-
-        this.setState({
-          errorMessage: "Pending..."
-        });
-        this.checkRestrictions();
-        return;
-      }
-
-    // } else if (this.state.language === 3 && moment(date).isAfter('2017-03-31')) {
-    //   //FRENCH
+    // // check specific department restrictions
+    // // TODO: CHANGE THIS HARDCODED MESS
+    // if (this.state.language === 2 && this.state.id !== "000GUEST") {
+    //   //CHINESE
     //
-    //   this.setState({
-    //     errorMessage: "Please choose an earlier date. For now, French department does not allow signing up for the dates after March 31st."
-    //   });
-    //   return;
-
-    } else if (this.state.language === 7 && this.state.id !== "000GUEST") {
-      //JAPANESE
-
-      let period1 = ["2017-02-27T05:00:00Z", "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z",
-        "2017-03-02T05:00:00Z", "2017-03-03T05:00:00Z", "2017-03-06T05:00:00Z",
-        "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z", "2017-03-09T05:00:00Z",
-        "2017-03-10T05:00:00Z"];
-
-      let period2 = ["2017-03-13T05:00:00Z", "2017-03-14T05:00:00Z", "2017-03-15T05:00:00Z",
-      "2017-03-16T05:00:00Z", "2017-03-17T05:00:00Z", "2017-03-20T05:00:00Z",
-      "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z", "2017-03-23T05:00:00Z"];
-
-      let period3 = ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
-      "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z", "2017-04-10T05:00:00Z",
-      "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z", "2017-04-13T05:00:00Z",
-      "2017-04-14T05:00:00Z"];
-
-      let period4 = ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
-        "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z",
-        "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z",
-        "2017-04-28T05:00:00Z"];
-
-      let period5 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
-        "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
-        "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
-        "2017-05-12T05:00:00Z"];
-
-      // make sure the sign up for the given date is open
-      if (date === "2017-02-24T05:00:00Z") {
-        this.setState({
-          errorMessage: "Sign-up for the week 2/20-2/24 is not required."
-        });
-        return;
-      } else if (period1.includes(date) && moment().isBefore(moment('2017-02-23T05:00:00Z').add(19, 'hours'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 2/27-3/10 will open at 7pm on Thursday, February 23rd."
-        });
-        return;
-      } else if (period2.includes(date) && moment().isBefore(moment('2017-03-09T05:00:00Z').add(19, 'hours'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 3/13-3/23 will open at 7pm on Thursday, March 9th."
-        });
-        return;
-      } else if (period3.includes(date) && moment().isBefore(moment('2017-03-23T05:00:00Z').add(19, 'hours'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 4/3-4/14 will open at 7pm on Thursday, March 23rd."
-        });
-        return;
-      } else if (period4.includes(date) && moment().isBefore(moment('2017-04-13T05:00:00Z').add(19, 'hours'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 4/17-4/28 will open at 7pm on Thursday, April 13th."
-        });
-        return;
-      } else if (period5.includes(date) && moment().isBefore(moment('2017-04-27T05:00:00Z').add(19, 'hours'))) {
-        this.setState({
-          errorMessage: "Sign-up for the period 5/1-5/12 will open at 7pm on Thursday, April 27th."
-        });
-        return;
-      } else {
-
-        // if signup is open, check the max of 3 restrictions
-        this.setState({
-          errorMessage: "Pending..."
-        });
-        this.checkRestrictions();
-        return;
-      }
-    }
+    //   let period1 = ["2017-02-27T05:00:00Z", "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z",
+    //     "2017-03-02T05:00:00Z", "2017-03-03T05:00:00Z", "2017-03-06T05:00:00Z",
+    //     "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z", "2017-03-09T05:00:00Z",
+    //     "2017-03-10T05:00:00Z", "2017-03-13T05:00:00Z", "2017-03-14T05:00:00Z",
+    //     "2017-03-15T05:00:00Z", "2017-03-16T05:00:00Z", "2017-03-17T05:00:00Z"];
+    //
+    //   let period2 = ["2017-03-20T05:00:00Z", "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z",
+    //   "2017-03-23T05:00:00Z", "2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
+    //   "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z"];
+    //
+    //   let period3 = ["2017-04-10T05:00:00Z", "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z",
+    //   "2017-04-13T05:00:00Z", "2017-04-14T05:00:00Z", "2017-04-17T05:00:00Z",
+    //   "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z", "2017-04-20T05:00:00Z",
+    //   "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z", "2017-04-25T05:00:00Z",
+    //   "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z", "2017-04-28T05:00:00Z"];
+    //
+    //   let period4 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
+    //     "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
+    //     "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
+    //     "2017-05-12T05:00:00Z"];
+    //
+    //   // make sure the sign up for the given date is open
+    //   if (date === "2017-02-24T05:00:00Z") {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the week 2/20-2/24 is not required."
+    //     });
+    //     return;
+    //   } else if (period1.includes(date) && moment().isBefore(moment('2017-02-24T05:00:00Z'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 2/27-3/17 will open on Friday, February 24th."
+    //     });
+    //     return;
+    //   } else if (period2.includes(date) && moment().isBefore(moment('2017-03-17T05:00:00Z'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 3/20-4/7 will open on Friday, March 17th."
+    //     });
+    //     return;
+    //   } else if (period3.includes(date) && moment().isBefore(moment('2017-04-07T05:00:00Z'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 4/10-4/28 will open on Friday, April 7th."
+    //     });
+    //     return;
+    //   } else if (period4.includes(date) && moment().isBefore(moment('2017-04-28T05:00:00Z'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 5/1-5/12 will open on Friday, April 28th."
+    //     });
+    //     return;
+    //   } else {
+    //     // if sign up is open, check the max of 2 restrictions per week
+    //
+    //     this.setState({
+    //       errorMessage: "Pending..."
+    //     });
+    //     this.checkRestrictions();
+    //     return;
+    //   }
+    //
+    //
+    // } else if (this.state.language === 7 && this.state.id !== "000GUEST") {
+    //   //JAPANESE
+    //
+    //   let period1 = ["2017-02-27T05:00:00Z", "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z",
+    //     "2017-03-02T05:00:00Z", "2017-03-03T05:00:00Z", "2017-03-06T05:00:00Z",
+    //     "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z", "2017-03-09T05:00:00Z",
+    //     "2017-03-10T05:00:00Z"];
+    //
+    //   let period2 = ["2017-03-13T05:00:00Z", "2017-03-14T05:00:00Z", "2017-03-15T05:00:00Z",
+    //   "2017-03-16T05:00:00Z", "2017-03-17T05:00:00Z", "2017-03-20T05:00:00Z",
+    //   "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z", "2017-03-23T05:00:00Z"];
+    //
+    //   let period3 = ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
+    //   "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z", "2017-04-10T05:00:00Z",
+    //   "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z", "2017-04-13T05:00:00Z",
+    //   "2017-04-14T05:00:00Z"];
+    //
+    //   let period4 = ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
+    //     "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z",
+    //     "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z",
+    //     "2017-04-28T05:00:00Z"];
+    //
+    //   let period5 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
+    //     "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
+    //     "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
+    //     "2017-05-12T05:00:00Z"];
+    //
+    //   // make sure the sign up for the given date is open
+    //   if (date === "2017-02-24T05:00:00Z") {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the week 2/20-2/24 is not required."
+    //     });
+    //     return;
+    //   } else if (period1.includes(date) && moment().isBefore(moment('2017-02-23T05:00:00Z').add(19, 'hours'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 2/27-3/10 will open at 7pm on Thursday, February 23rd."
+    //     });
+    //     return;
+    //   } else if (period2.includes(date) && moment().isBefore(moment('2017-03-09T05:00:00Z').add(19, 'hours'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 3/13-3/23 will open at 7pm on Thursday, March 9th."
+    //     });
+    //     return;
+    //   } else if (period3.includes(date) && moment().isBefore(moment('2017-03-23T05:00:00Z').add(19, 'hours'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 4/3-4/14 will open at 7pm on Thursday, March 23rd."
+    //     });
+    //     return;
+    //   } else if (period4.includes(date) && moment().isBefore(moment('2017-04-13T05:00:00Z').add(19, 'hours'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 4/17-4/28 will open at 7pm on Thursday, April 13th."
+    //     });
+    //     return;
+    //   } else if (period5.includes(date) && moment().isBefore(moment('2017-04-27T05:00:00Z').add(19, 'hours'))) {
+    //     this.setState({
+    //       errorMessage: "Sign-up for the period 5/1-5/12 will open at 7pm on Thursday, April 27th."
+    //     });
+    //     return;
+    //   } else {
+    //
+    //     // if signup is open, check the max of 3 restrictions
+    //     this.setState({
+    //       errorMessage: "Pending..."
+    //     });
+    //     this.checkRestrictions();
+    //     return;
+    //   }
+    // }
 
     // if (this.state.language === 10 && this.state.id !== "000GUEST") {
     //     this.checkRestrictions();
     // }
 
     // if no errors, go to postSubmission
-    if (!this.state.errorMessage) {
-      this.postSubmission();
-    }
+    // if (!this.state.errorMessage) {
+    //   this.postSubmission();
+    // }
   },
 
-  checkRestrictions : function() {
+  checkRestrictions : function(callback) {
     let information = this.formatData();
     $.ajax({
         url: 'http://basin.middlebury.edu:3000/restrictions',
@@ -320,54 +324,8 @@ var Signup = React.createClass({
         datatype: 'json',
         data: JSON.stringify(information),
         contentType: "application/json",
-        success: (response) => {
-          if (response) {
-            this.setState({
-              errorMessage: null
-            });
-            this.postSubmission();
-          } else {
-            // if (this.state.language === 10) {
-            //   this.setState({
-            //     errorMessage: "Please choose a different date. Spanish department only allows 1 sign-up every 2-week period."
-            //   });
-            // }
-            if (this.state.language === 7) {
-              let past7pm = false,
-                today = moment();
-
-              // helper function
-              let minutesOfDay = function(m){
-                return m.minutes() + m.hours() * 60;
-              }
-
-              // check what time it is right now
-              if (minutesOfDay(today) > 1140) {
-                past7pm = true;
-              }
-
-              let tomorrow = moment().add(1, 'day');
-
-              if (today.startOf('day').isSame(this.state.date) || (tomorrow.startOf('day').isSame(this.state.date) && past7pm)) {
-                // allow sign up after 7pm the night before the given day
-                this.setState({
-                  errorMessage: null
-                });
-                this.postSubmission();
-              } else {
-                this.setState({
-                  errorMessage: "Please choose a different date. Japanese department only allows 3 sign-ups every 2-week period. If you need to attend at this particular date, try signing up after 7pm the night before this date."
-                });
-              }
-
-            } else if (this.state.language === 2) {
-              this.setState({
-                errorMessage: "Please choose a different date. You have exceeded the maximum number of sign-ups for the week of "+moment(this.state.date).format("MMMM Do")+"."
-              });
-            }
-          }
-        },
-        error: function(error) {
+        success: callback,
+        error: (error) => {
           console.log(error);
         }
     });
@@ -413,10 +371,7 @@ var Signup = React.createClass({
   },
 
   render : function() {
-    let calendar, information, confirmation, errorMessage;
-
-    //TODO: POSSIBLY REMOVE THE TEMPORARY WARNING
-    let warning, warningText;
+    let calendar, information, confirmation, errorMessages, warningText;
 
     let header = <Header className='normal'
                     onClick={(event) => {window.location.reload()}}/>;
@@ -435,9 +390,8 @@ var Signup = React.createClass({
     }
 
     if (this.state.language === 2) {
-      warningText = "Please only sign up for the days that you are assigned by the Chinese Department."
+      warningText = <div><h2 type="warning">{"Please only sign up for the days that you are assigned by the Chinese Department."}</h2></div>
     }
-    warning = <div><h2 type="warning">{warningText}</h2></div>
 
 
 
@@ -465,12 +419,14 @@ var Signup = React.createClass({
                     </div>
     }
 
-    if (this.state.errorMessage !== null) {
-      errorMessage = <div><br/><label type="errorMessage">{this.state.errorMessage}</label></div>
+    if (this.state.errorMessages !== null) {
+      const labels = this.state.errorMessages.map((message, i) => <label key={i} type="errorMessage">{message}</label> );
+      errorMessages = <div><br/>{labels}</div>
     }
 
     if (this.state.submitSuccess !== null) {
       language = null;
+      warningText = null;
       calendar = null;
       information = null;
       confirmation = <Success
@@ -484,11 +440,11 @@ var Signup = React.createClass({
       <div>
         {header}
         {language}
-        {warning}
+        {warningText}
         {calendar}
         <br/>
+        {errorMessages}
         {information}
-        {errorMessage}
         {confirmation}
         <br/>
       </div>
