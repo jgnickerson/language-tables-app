@@ -127,56 +127,62 @@ app.post('/restrictions', (req, res) => {
   const language = req.body.language;
   const id = req.body.id;
 
-
-  //check if they've signed up for that day already, and if they have not, get language restrictions
-  const languageRestrictions = getLanguageDate(date, language).then(langObjects =>{
-    if (langObjects[0].guestlist.includes(id)) {
-      res.send({ maySignup: false, message: "You have already signed up for this day."});
-      return;
-    } else {
-      return getLanguageRestrictions(language);
-    }
-  }, reason => {handleError(res, reason)});
-
-
-  // check if there are language restrictions
-  const periodDates = languageRestrictions.then(langRestrictions => {
-    if (langRestrictions) {
-      const period = langRestrictions.periods.find(period => period.dates.includes(date));
-
-      if (moment().isBefore(period.signupStartDate)) {
-        res.send({maySignup: false, message: period.signupErrorMessage});
+  if (id !== "000GUEST") {
+    //check if they've signed up for that day already, and if they have not, get language restrictions
+    const languageRestrictions = getLanguageDate(date, language).then(langObjects =>{
+      if (langObjects[0].guestlist.includes(id)) {
+        res.send({ maySignup: false, message: "You have already signed up for this day."});
         return;
+      } else {
+        return getLanguageRestrictions(language);
       }
-
-      return getLanguageDate(period.dates, language);
-
-    } else {
-      res.send({maySignup: true, message: ""});
-    }
-  }, reason => {handleError(res, reason)});
+    }, reason => {handleError(res, reason)});
 
 
-  Promise.all([languageRestrictions, periodDates]).then(results => {
-    const langRestrictions = results[0];
-    const periodDates = results[1];
+    // check if there are language restrictions
+    const periodDates = languageRestrictions.then(langRestrictions => {
+      if (langRestrictions) {
+        const period = langRestrictions.periods.find(period => period.dates.includes(date));
 
-    //we haven't yet sent a response, meaning we have to check period
-    if (!res.headersSent) {
-      let count = langRestrictions.signupsAllowed;
-      periodDates.forEach(date => {
-        if (date.guestlist.includes(id)) {
-          count--;
+        if (moment().isBefore(period.signupStartDate)) {
+          res.send({maySignup: false, message: period.signupErrorMessage});
+          return;
         }
-      });
 
-      if (count <= 0) {
-        res.send({maySignup: false, message: langRestrictions.errorMessage});
+        return getLanguageDate(period.dates, language);
+
       } else {
         res.send({maySignup: true, message: ""});
       }
-    }
-  }, reason=> {handleError(res, reason)});
+    }, reason => {handleError(res, reason)});
+
+
+    Promise.all([languageRestrictions, periodDates]).then(results => {
+      const langRestrictions = results[0];
+      const periodDates = results[1];
+
+      //we haven't yet sent a response, meaning we have to check period
+      if (!res.headersSent) {
+        let count = langRestrictions.signupsAllowed;
+        periodDates.forEach(date => {
+          if (date.guestlist.includes(id)) {
+            count--;
+          }
+        });
+
+        if (count <= 0) {
+          res.send({maySignup: false, message: langRestrictions.errorMessage});
+        } else {
+          res.send({maySignup: true, message: ""});
+        }
+      }
+    }, reason=> {handleError(res, reason)});
+
+  //person is a Guest, and can signup
+  } else {
+    res.send({maySignup: true, message: ""});
+  }
+
 
 
   // // check Japanese restrictions
