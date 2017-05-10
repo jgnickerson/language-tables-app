@@ -46,7 +46,7 @@ var send = function(reservationObj, waitlist) {
   text += language + " Language Tables on " + moment(reservationObj.date).format("dddd, MMMM Do") + ". </br>";
 
   if (waitlist) {
-    text += "You will receive another email if a spot opens up. Thank you for your patience. </br>";
+    text += "You will receive another email if a spot opens up. If you do not receive another email, you may still arrive to Redfield Proctor at 12:40pm to see if Language Tables can accommodate you. Thank you for your patience. </br>";
   } else {
     text += "Please make sure to arrive to Redfield Proctor before the doors open at 12:30pm.</br>";
   }
