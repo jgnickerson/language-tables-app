@@ -155,6 +155,12 @@ var sendReminderEmail = function(guestObj, tomorrow) {
       var text = "Dear "+tomorrowObj.name+", <br/><br/>This is a reminder that you are signed up for the ";
       text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
 
+      var decodedString = languageString + tomorrowObj.id + tomorrowObj.date + tomorrowObj.name;
+      var encodedString = new Buffer(decodedString).toString('base64');
+      var cancelLink = 'http://localhost:3000/cancel?reservation=' + encodedString;
+
+      text += "If you are no longer planning to attend, please <a href= '"+cancelLink+"'>click here</a> to cancel your reservation. </br></br>"
+
       if (laterThanTomorrow.length > 0) {
         text += "<br/>You are also signed up for the following dates: <br/><br/>";
         laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
