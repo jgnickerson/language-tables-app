@@ -16,7 +16,7 @@
                             "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
                             "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
                             "2017-05-12T05:00:00Z"]}]
-  },{ 
+  },{
     "language": 7,
     "signupsAllowed": 3,
     "errorMessage": "This department only allows 3 signups every period.",

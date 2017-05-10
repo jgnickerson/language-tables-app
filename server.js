@@ -71,56 +71,56 @@ function handleError(response, reason) {
   response.sendStatus(500);
 }
 
-function getLanguageRestrictions(language) {
-  let RESTRICTIONS = [
-    { //chinese
-      "language": 2,
-      "signupsAllowed": 2,
-      "errorMessage": "This department only allows 2 signups every period.",
-      "periods": [{"signupErrorMessage": "Signup for this period begins April 07",
-                    "signupStartDate": "2017-04-07T05:00:00Z",
-                    "dates": ["2017-04-10T05:00:00Z", "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z",
-                              "2017-04-13T05:00:00Z", "2017-04-14T05:00:00Z", "2017-04-17T05:00:00Z",
-                              "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z", "2017-04-20T05:00:00Z",
-                              "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z", "2017-04-25T05:00:00Z",
-                              "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z", "2017-04-28T05:00:00Z"]},
-                  {"signupErrorMessage": "Signup for this period begins April 27",
-                    "signupStartDate" : "2017-04-27T05:00:00Z",
-                    "dates": ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
-                              "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
-                              "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
-                              "2017-05-12T05:00:00Z"]}]
-    },{ //japanese
-      "language": 7,
-      "signupsAllowed": 3,
-      "errorMessage": "This department only allows 3 signups every period.",
-      "periods": [{"signupErrorMessage": "Signup for this period begins March 23",
-                    "signupStartDate": "2017-03-23T05:00:00Z",
-                    "dates": ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
-                              "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z", "2017-04-10T05:00:00Z",
-                              "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z", "2017-04-13T05:00:00Z",
-                              "2017-04-14T05:00:00Z"]},
-                  {"signupErrorMessage": "Signup for this period begins April 14",
-                    "signupStartDate" : "2017-04-14T05:00:00Z",
-                    "dates": ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
-                              "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z",
-                              "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z",
-                              "2017-04-28T05:00:00Z"]},
-                  {"signupErrorMessage": "Signup for this period begins April 28",
-                    "signupStartDate" : "2017-04-28T05:00:00Z",
-                    "dates": ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
-                              "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
-                              "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
-                              "2017-05-12T05:00:00Z"]}]
-    }
-  ]
-  //this will change to Mongo lookup
-  const langRestrictions = RESTRICTIONS.find(x => x.language === language);
-
-  return new Promise((resolve, reject) => {
-    resolve(langRestrictions);
-  })
-}
+// function getLanguageRestrictions(language) {
+//   let RESTRICTIONS = [
+//     { //chinese
+//       "language": 2,
+//       "signupsAllowed": 2,
+//       "errorMessage": "This department only allows 2 signups every period.",
+//       "periods": [{"signupErrorMessage": "Signup for this period begins April 07",
+//                     "signupStartDate": "2017-04-07T05:00:00Z",
+//                     "dates": ["2017-04-10T05:00:00Z", "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z",
+//                               "2017-04-13T05:00:00Z", "2017-04-14T05:00:00Z", "2017-04-17T05:00:00Z",
+//                               "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z", "2017-04-20T05:00:00Z",
+//                               "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z", "2017-04-25T05:00:00Z",
+//                               "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z", "2017-04-28T05:00:00Z"]},
+//                   {"signupErrorMessage": "Signup for this period begins April 27",
+//                     "signupStartDate" : "2017-04-27T05:00:00Z",
+//                     "dates": ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
+//                               "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
+//                               "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
+//                               "2017-05-12T05:00:00Z"]}]
+//     },{ //japanese
+//       "language": 7,
+//       "signupsAllowed": 3,
+//       "errorMessage": "This department only allows 3 signups every period.",
+//       "periods": [{"signupErrorMessage": "Signup for this period begins March 23",
+//                     "signupStartDate": "2017-03-23T05:00:00Z",
+//                     "dates": ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
+//                               "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z", "2017-04-10T05:00:00Z",
+//                               "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z", "2017-04-13T05:00:00Z",
+//                               "2017-04-14T05:00:00Z"]},
+//                   {"signupErrorMessage": "Signup for this period begins April 14",
+//                     "signupStartDate" : "2017-04-14T05:00:00Z",
+//                     "dates": ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
+//                               "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z",
+//                               "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z",
+//                               "2017-04-28T05:00:00Z"]},
+//                   {"signupErrorMessage": "Signup for this period begins April 28",
+//                     "signupStartDate" : "2017-04-28T05:00:00Z",
+//                     "dates": ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
+//                               "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
+//                               "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
+//                               "2017-05-12T05:00:00Z"]}]
+//     }
+//   ]
+//   //this will change to Mongo lookup
+//   const langRestrictions = RESTRICTIONS.find(x => x.language === language);
+//
+//   return new Promise((resolve, reject) => {
+//     db.collection('restrictions').findOne({language: language});
+//   })
+// }
 
 app.post('/restrictions', (req, res) => {
   const date = req.body.date;
@@ -134,7 +134,7 @@ app.post('/restrictions', (req, res) => {
         res.send({ maySignup: false, message: "You have already signed up for this day."});
         return;
       } else {
-        return getLanguageRestrictions(language);
+        return db.collection('restrictions').findOne({language: language});
       }
     }, reason => {handleError(res, reason)});
 
