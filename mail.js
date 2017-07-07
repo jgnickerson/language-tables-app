@@ -157,7 +157,7 @@ var sendReminderEmail = function(guestObj, tomorrow) {
 
       var decodedString = languageString + tomorrowObj.id + tomorrowObj.date + tomorrowObj.name;
       var encodedString = new Buffer(decodedString).toString('base64');
-      var cancelLink = 'http://localhost:3000/cancel?reservation=' + encodedString;
+      var cancelLink = 'http://basin.middlebury.edu:3000/cancel?reservation=' + encodedString;
 
       text += "If you are no longer planning to attend, please <a href= '"+cancelLink+"'>click here</a> to cancel your reservation. </br></br>"
 

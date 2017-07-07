@@ -51,7 +51,7 @@ var run = function(db, moment, _) {
       if (err) {
         throw err;
       }
-      if (result) {
+      if (result[0]) {
         languages = result[0].vacancy;
 
         // For each language in the object
