@@ -26,9 +26,6 @@ var authResult = db.auth("languagetableapp", "centurybarrenfortysnake");
 if (authResult) {
   print("Successful authentication to the database. \n");
 
-  // need to know info for each date by weekday
-  var baseline = db.baseline.find();
-
   // user's input
   var startDate = new Date(start);
   var endDate = new Date(end);
@@ -53,14 +50,33 @@ if (authResult) {
       var weekday = numToWeekday(startDate.getDay());
 
       // craft the document
-      var obj = {
+      var dateObj = {
         date: dateString,
         weekday: weekday,
         vacancy: []
       };
 
+      db.baseline.find().forEach((o) => {
+
+        var weekdayInfo = o.baseline.find((day) => {
+          return day.weekday === dateObj.weekday;
+        });
+
+        dateObj.vacancy.push({
+          language: o.language,
+          seatsReserved: weekdayInfo.reserved,
+          seatsAvailable: weekdayInfo.tablesOf6 * 6 + weekdayInfo.tablesOf8 * 8,
+          tablesOf6: weekdayInfo.tablesOf6,
+          tablesOf8: weekdayInfo.tablesOf8,
+          waitlist: [],
+          guestlist: Array(weekdayInfo.reserved).fill("RESERVED"),
+          location: "inside"
+        });
+
+      });
+
       // push the document
-      dateArray.push(obj);
+      dateArray.push(dateObj);
     }
 
     // increment to the next day
@@ -78,103 +94,3 @@ if (authResult) {
 } else {
   print("Error authenticating to the database. Please try again. \n");
 }
-
-
-// {"date": "2017-02-20T05:00:00Z",
-//  "weekday": "Monday",
-//  "vacancy": [
-//     {"language": 0,
-//     "seatsReserved": 2,
-//     "seatsAvailable": 12,
-//     "tablesOf6": 2,
-//     "tablesOf8": 0,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED", "RESERVED"]},
-//     {"language": 1,
-//     "seatsReserved": 0,
-//     "seatsAvailable": 0,
-//     "tablesOf6": 0,
-//     "tablesOf8": 0,
-//     "waitlist": [],
-//     "guestlist": []},
-//     {"language": 2,
-//     "seatsReserved": 18,
-//     "seatsAvailable": 18,
-//     "tablesOf6": 3,
-//     "tablesOf8": 0,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED","RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED"]},
-//     {"language": 3,
-//     "seatsReserved": 2,
-//     "seatsAvailable": 18,
-//     "tablesOf6": 3,
-//     "tablesOf8": 0,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED", "RESERVED"]},
-//     {"language": 4,
-//     "seatsReserved": 2,
-//     "seatsAvailable": 8,
-//     "tablesOf6": 0,
-//     "tablesOf8": 1,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED", "RESERVED"]},
-//     {"language": 5,
-//     "seatsReserved": 0,
-//     "seatsAvailable": 0,
-//     "tablesOf6": 0,
-//     "tablesOf8": 0,
-//     "waitlist": [],
-//     "guestlist": []},
-//     {"language": 6,
-//     "seatsReserved": 2,
-//     "seatsAvailable": 12,
-//     "tablesOf6": 2,
-//     "tablesOf8": 0,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED", "RESERVED"]},
-//     {"language": 7,
-//     "seatsReserved": 8,
-//     "seatsAvailable": 8,
-//     "tablesOf6": 0,
-//     "tablesOf8": 1,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED", "RESERVED"]},
-//     {"language": 8,
-//     "seatsReserved": 1,
-//     "seatsAvailable": 6,
-//     "tablesOf6": 1,
-//     "tablesOf8": 0,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED"]},
-//     {"language": 9,
-//     "seatsReserved": 2,
-//     "seatsAvailable": 16,
-//     "tablesOf6": 0,
-//     "tablesOf8": 2,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED", "RESERVED"]},
-//     {"language": 10,
-//     "seatsReserved": 2,
-//     "seatsAvailable": 16,
-//     "tablesOf6": 0,
-//     "tablesOf8": 2,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED", "RESERVED"]},
-//     {"language": 11,
-//     "seatsReserved": 1,
-//     "seatsAvailable": 6,
-//     "tablesOf6": 1,
-//     "tablesOf8": 0,
-//     "waitlist": [],
-//     "guestlist": ["RESERVED"]}
-//   ]
-// }
-//
-// print(cursor);
-// while ( cursor.hasNext() ) {
-//    printjson( cursor.next() );
-// }
-
-
-// result = db.auth("languagetableapp", "centurybarrenfortysnake");
-// print("success? : "+result);
