@@ -1022,7 +1022,6 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
      * at 16:00:00 PM.
      */
     var today = moment().startOf('day').utc().format();
-    //console.log(today);
 
     var timeZoneString = today.substring(10, today.length);
     // console.log(timeZoneString);
@@ -1039,262 +1038,276 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
       }
       thisWeek.push(day);
     }
-    //console.log(thisWeek);
 
-    //get the faculty collection
-    db.collection('baseline').find().toArray((err, baselineResult) => {
+    //check if there were any language tables this week
+    //if not, do not send the weekly report
+    db.collection('dates').find({date: {$in: thisWeek}}).toArray((err, yestables) => {
       if (err) {
         console.log(err);
-        //return;
       }
-      db.collection('attendants').find(
-        {id: {$nin: ["000GUEST", "RESERVED"]}}
-      ).toArray((err, attendantsResult) => {
-        if (err) {
-          console.log(err);
-          //return;
-        }
 
-        baselineResult.forEach(function(langObj) {
-          // Create a new workbook file in current working-path
-          var fileName = langObj.language_string+".xlsx";
-          var dir = './weekly-reports/'+moment().startOf('day').utc().format().substring(0,10);
+      // if there were tables this week
+      if (yestables[0]) {
 
-          if (!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
+        //get the faculty collection
+        db.collection('baseline').find().toArray((err, baselineResult) => {
+          if (err) {
+            console.log(err);
+            //return;
           }
-          var workbook = excelbuilder.createWorkbook(dir, fileName)
-          var coursePromises = [];
+          db.collection('attendants').find(
+            {id: {$nin: ["000GUEST", "RESERVED"]}}
+          ).toArray((err, attendantsResult) => {
+            if (err) {
+              console.log(err);
+              //return;
+            }
 
-          /*JAPANESE DEPARTMENT WANTS LASTNAMES TOO, LATER INCORPORATE FOR ALL LANGS*/
-          if (langObj.language === 7) {
-            langObj.courses.forEach(function(courseVal) {
-              //Faculty/Staff causes error?.. don't need their info anyway
-              if (courseVal !== "Faculty/Staff") {
-                coursePromises.push(new Promise((resolve, reject) => {
+            baselineResult.forEach(function(langObj) {
+              // Create a new workbook file in current working-path
+              var fileName = langObj.language_string+".xlsx";
+              var dir = './weekly-reports/'+moment().startOf('day').utc().format().substring(0,10);
 
-                  var sheet = workbook.createSheet(courseVal, 10, 100);
-                  // format the cells
-                  sheet.width(1, 20);
-                  sheet.width(2, 20);
-                  sheet.width(3, 20);
-                  sheet.width(4, 10);
-                  sheet.width(5, 10);
-                  sheet.width(6, 10);
-                  sheet.width(7, 10);
-                  sheet.width(8, 10);
-                  sheet.width(9, 20);
-                  sheet.width(10, 20);
+              if (!fs.existsSync(dir)){
+                fs.mkdirSync(dir);
+              }
+              var workbook = excelbuilder.createWorkbook(dir, fileName)
+              var coursePromises = [];
 
-                  // put in the data
-                  sheet.set(1, 1, 'Last Name');
-                  sheet.set(2, 1, 'First Name');
-                  sheet.set(3, 1, 'ID');
-                  sheet.set(4, 1, 'Monday');
-                  sheet.set(5, 1, 'Tuesday');
-                  sheet.set(6, 1, 'Wednesday');
-                  sheet.set(7, 1, 'Thursday');
-                  sheet.set(8, 1, 'Friday');
-                  sheet.set(9, 1, 'THIS WEEK [TOTAL]');
-                  sheet.set(10, 1, 'THIS SEMESTER [TOTAL]');
+              /*JAPANESE DEPARTMENT WANTS LASTNAMES TOO, LATER INCORPORATE FOR ALL LANGS*/
+              if (langObj.language === 7) {
+                langObj.courses.forEach(function(courseVal) {
+                  //Faculty/Staff causes error?.. don't need their info anyway
+                  if (courseVal !== "Faculty/Staff") {
+                    coursePromises.push(new Promise((resolve, reject) => {
 
-                  // make the first row bold
-                  for (var i = 1; i < 11; i++) {
-                    sheet.font(i, 1, {bold:'true'});
-                  }
+                      var sheet = workbook.createSheet(courseVal, 10, 100);
+                      // format the cells
+                      sheet.width(1, 20);
+                      sheet.width(2, 20);
+                      sheet.width(3, 20);
+                      sheet.width(4, 10);
+                      sheet.width(5, 10);
+                      sheet.width(6, 10);
+                      sheet.width(7, 10);
+                      sheet.width(8, 10);
+                      sheet.width(9, 20);
+                      sheet.width(10, 20);
 
-                  var courseAttendants = _.filter(attendantsResult,
-                    { attendance: [ {
-                        course: courseVal,
-                        language: langObj.language
-                    } ]});
-                  //console.log(courseAttendants);
-                  if (courseAttendants) {
-                    for (var i = 0; i < courseAttendants.length; i++) {
-                      if (courseAttendants[i].id) {
-                        var nameArray = courseAttendants[i].attendance[0].name.split(/[, ]+/);
+                      // put in the data
+                      sheet.set(1, 1, 'Last Name');
+                      sheet.set(2, 1, 'First Name');
+                      sheet.set(3, 1, 'ID');
+                      sheet.set(4, 1, 'Monday');
+                      sheet.set(5, 1, 'Tuesday');
+                      sheet.set(6, 1, 'Wednesday');
+                      sheet.set(7, 1, 'Thursday');
+                      sheet.set(8, 1, 'Friday');
+                      sheet.set(9, 1, 'THIS WEEK [TOTAL]');
+                      sheet.set(10, 1, 'THIS SEMESTER [TOTAL]');
 
-                        //hardcoded exception for now...
-                        if (courseAttendants[i].attendance[0].name === "Madison Jean Philippe") {
-                          var lastName = nameArray.pop();
-                          lastName = nameArray.pop() + " "+ lastName;
+                      // make the first row bold
+                      for (var i = 1; i < 11; i++) {
+                        sheet.font(i, 1, {bold:'true'});
+                      }
 
-                          var firstName = nameArray.join(' ');
+                      var courseAttendants = _.filter(attendantsResult,
+                        { attendance: [ {
+                            course: courseVal,
+                            language: langObj.language
+                        } ]});
+                      //console.log(courseAttendants);
+                      if (courseAttendants) {
+                        for (var i = 0; i < courseAttendants.length; i++) {
+                          if (courseAttendants[i].id) {
+                            var nameArray = courseAttendants[i].attendance[0].name.split(/[, ]+/);
 
-                        } else {
-                          var lastName = nameArray.pop();
+                            //hardcoded exception for now...
+                            if (courseAttendants[i].attendance[0].name === "Madison Jean Philippe") {
+                              var lastName = nameArray.pop();
+                              lastName = nameArray.pop() + " "+ lastName;
 
-                          var firstName = nameArray.join(' ');
+                              var firstName = nameArray.join(' ');
+
+                            } else {
+                              var lastName = nameArray.pop();
+
+                              var firstName = nameArray.join(' ');
+                            }
+
+                            sheet.set(1, i+2, lastName);
+                            sheet.set(2, i+2, firstName);
+                            sheet.set(3, i+2, courseAttendants[i].id);
+
+                            var totalVisits = _.remove(courseAttendants[i].attendance, {course: courseVal, checked: true});
+                            sheet.set(10, i+2, totalVisits.length);
+
+                            var thisWeekVisits = _(totalVisits).keyBy('date').at(thisWeek).filter().value();
+                            var monday = 0;
+                            var tuesday = 0;
+                            var wednesday = 0;
+                            var thursday = 0;
+                            var friday = 0;
+
+                            thisWeekVisits.forEach((visit) => {
+                              if (moment(visit.date).day() == 1) {
+                                monday++;
+                              } else if(moment(visit.date).day() == 2) {
+                                tuesday++;
+                              } else if(moment(visit.date).day() == 3) {
+                                wednesday++;
+                              } else if(moment(visit.date).day() == 4) {
+                                thursday++;
+                              } else if(moment(visit.date).day() == 5) {
+                                friday++;
+                              }
+                            });
+
+                            sheet.set(4, i+2, monday);
+                            sheet.set(5, i+2, tuesday);
+                            sheet.set(6, i+2, wednesday);
+                            sheet.set(7, i+2, thursday);
+                            sheet.set(8, i+2, friday);
+
+                            sheet.set(9, i+2, thisWeekVisits.length);
+                          }
                         }
-
-                        sheet.set(1, i+2, lastName);
-                        sheet.set(2, i+2, firstName);
-                        sheet.set(3, i+2, courseAttendants[i].id);
-
-                        var totalVisits = _.remove(courseAttendants[i].attendance, {course: courseVal, checked: true});
-                        sheet.set(10, i+2, totalVisits.length);
-
-                        var thisWeekVisits = _(totalVisits).keyBy('date').at(thisWeek).filter().value();
-                        var monday = 0;
-                        var tuesday = 0;
-                        var wednesday = 0;
-                        var thursday = 0;
-                        var friday = 0;
-
-                        thisWeekVisits.forEach((visit) => {
-                          if (moment(visit.date).day() == 1) {
-                            monday++;
-                          } else if(moment(visit.date).day() == 2) {
-                            tuesday++;
-                          } else if(moment(visit.date).day() == 3) {
-                            wednesday++;
-                          } else if(moment(visit.date).day() == 4) {
-                            thursday++;
-                          } else if(moment(visit.date).day() == 5) {
-                            friday++;
-                          }
-                        });
-
-                        sheet.set(4, i+2, monday);
-                        sheet.set(5, i+2, tuesday);
-                        sheet.set(6, i+2, wednesday);
-                        sheet.set(7, i+2, thursday);
-                        sheet.set(8, i+2, friday);
-
-                        sheet.set(9, i+2, thisWeekVisits.length);
                       }
-                    }
+
+                      resolve();
+
+                    }));
                   }
-
-                  resolve();
-
-                }));
-              }
-            });
-          } else {
-            langObj.courses.forEach(function(courseVal) {
-              //Faculty/Staff causes error?.. don't need their info anyway
-              if (courseVal !== "Faculty/Staff") {
-                coursePromises.push(new Promise((resolve, reject) => {
-
-                  var sheet = workbook.createSheet(courseVal, 9, 100);
-                  // format the cells
-                  sheet.width(1, 20);
-                  sheet.width(2, 20);
-                  sheet.width(3, 10);
-                  sheet.width(4, 10);
-                  sheet.width(5, 10);
-                  sheet.width(6, 10);
-                  sheet.width(7, 10);
-                  sheet.width(8, 20);
-                  sheet.width(9, 20);
-
-                  // put in the data
-                  sheet.set(1, 1, 'Name');
-                  sheet.set(2, 1, 'ID');
-                  sheet.set(3, 1, 'Monday');
-                  sheet.set(4, 1, 'Tuesday');
-                  sheet.set(5, 1, 'Wednesday');
-                  sheet.set(6, 1, 'Thursday');
-                  sheet.set(7, 1, 'Friday');
-                  sheet.set(8, 1, 'THIS WEEK [TOTAL]');
-                  sheet.set(9, 1, 'THIS SEMESTER [TOTAL]');
-
-                  // make the first row bold
-                  for (var i = 1; i < 10; i++) {
-                    sheet.font(i, 1, {bold:'true'});
-                  }
-
-                  var courseAttendants = _.filter(attendantsResult,
-                    { attendance: [ {
-                        course: courseVal,
-                        language: langObj.language
-                    } ]});
-                  //console.log(courseAttendants);
-                  if (courseAttendants) {
-                    for (var i = 0; i < courseAttendants.length; i++) {
-                      if (courseAttendants[i].id) {
-                        sheet.set(1, i+2, courseAttendants[i].attendance[0].name);
-                        sheet.set(2, i+2, courseAttendants[i].id);
-
-                        var totalVisits = _.remove(courseAttendants[i].attendance, {course: courseVal, checked: true});
-                        sheet.set(9, i+2, totalVisits.length);
-
-                        var thisWeekVisits = _(totalVisits).keyBy('date').at(thisWeek).filter().value();
-                        var monday = 0;
-                        var tuesday = 0;
-                        var wednesday = 0;
-                        var thursday = 0;
-                        var friday = 0;
-
-                        thisWeekVisits.forEach((visit) => {
-                          if (moment(visit.date).day() == 1) {
-                            monday++;
-                          } else if(moment(visit.date).day() == 2) {
-                            tuesday++;
-                          } else if(moment(visit.date).day() == 3) {
-                            wednesday++;
-                          } else if(moment(visit.date).day() == 4) {
-                            thursday++;
-                          } else if(moment(visit.date).day() == 5) {
-                            friday++;
-                          }
-                        });
-
-                        sheet.set(3, i+2, monday);
-                        sheet.set(4, i+2, tuesday);
-                        sheet.set(5, i+2, wednesday);
-                        sheet.set(6, i+2, thursday);
-                        sheet.set(7, i+2, friday);
-
-                        sheet.set(8, i+2, thisWeekVisits.length);
-                      }
-                    }
-                  }
-
-                  resolve();
-
-                }));
-              }
-            });
-          }
-
-          Promise.all(coursePromises).then(() => {
-            workbook.save(function(err) {
-              if (err) {
-                console.log("ERROR creating workbook for "+ langObj.language_string);
-                console.log(err);
-                workbook.cancel();
+                });
               } else {
-                console.log('The workbook for '+langObj.language_string+' was created.');
+                langObj.courses.forEach(function(courseVal) {
+                  //Faculty/Staff causes error?.. don't need their info anyway
+                  if (courseVal !== "Faculty/Staff") {
+                    coursePromises.push(new Promise((resolve, reject) => {
 
-                //send the email here
-                db.collection('faculty').find({language: langObj.language}).toArray((err, facultyResult) => {
-                  if (err) {
-                    console.log(err);
-                    //return;
+                      var sheet = workbook.createSheet(courseVal, 9, 100);
+                      // format the cells
+                      sheet.width(1, 20);
+                      sheet.width(2, 20);
+                      sheet.width(3, 10);
+                      sheet.width(4, 10);
+                      sheet.width(5, 10);
+                      sheet.width(6, 10);
+                      sheet.width(7, 10);
+                      sheet.width(8, 20);
+                      sheet.width(9, 20);
+
+                      // put in the data
+                      sheet.set(1, 1, 'Name');
+                      sheet.set(2, 1, 'ID');
+                      sheet.set(3, 1, 'Monday');
+                      sheet.set(4, 1, 'Tuesday');
+                      sheet.set(5, 1, 'Wednesday');
+                      sheet.set(6, 1, 'Thursday');
+                      sheet.set(7, 1, 'Friday');
+                      sheet.set(8, 1, 'THIS WEEK [TOTAL]');
+                      sheet.set(9, 1, 'THIS SEMESTER [TOTAL]');
+
+                      // make the first row bold
+                      for (var i = 1; i < 10; i++) {
+                        sheet.font(i, 1, {bold:'true'});
+                      }
+
+                      var courseAttendants = _.filter(attendantsResult,
+                        { attendance: [ {
+                            course: courseVal,
+                            language: langObj.language
+                        } ]});
+                      //console.log(courseAttendants);
+                      if (courseAttendants) {
+                        for (var i = 0; i < courseAttendants.length; i++) {
+                          if (courseAttendants[i].id) {
+                            sheet.set(1, i+2, courseAttendants[i].attendance[0].name);
+                            sheet.set(2, i+2, courseAttendants[i].id);
+
+                            var totalVisits = _.remove(courseAttendants[i].attendance, {course: courseVal, checked: true});
+                            sheet.set(9, i+2, totalVisits.length);
+
+                            var thisWeekVisits = _(totalVisits).keyBy('date').at(thisWeek).filter().value();
+                            var monday = 0;
+                            var tuesday = 0;
+                            var wednesday = 0;
+                            var thursday = 0;
+                            var friday = 0;
+
+                            thisWeekVisits.forEach((visit) => {
+                              if (moment(visit.date).day() == 1) {
+                                monday++;
+                              } else if(moment(visit.date).day() == 2) {
+                                tuesday++;
+                              } else if(moment(visit.date).day() == 3) {
+                                wednesday++;
+                              } else if(moment(visit.date).day() == 4) {
+                                thursday++;
+                              } else if(moment(visit.date).day() == 5) {
+                                friday++;
+                              }
+                            });
+
+                            sheet.set(3, i+2, monday);
+                            sheet.set(4, i+2, tuesday);
+                            sheet.set(5, i+2, wednesday);
+                            sheet.set(6, i+2, thursday);
+                            sheet.set(7, i+2, friday);
+
+                            sheet.set(8, i+2, thisWeekVisits.length);
+                          }
+                        }
+                      }
+
+                      resolve();
+
+                    }));
                   }
-
-                  var emails = _.filter(facultyResult[0].faculty, {weekly: true});
-                  emails = emails.map((emailObj) => {
-                    return emailObj.email;
-                  });
-
-                  var emailObj = {
-                    language: langObj.language,
-                    language_string: langObj.language_string,
-                    folder: moment().startOf('day').utc().format().substring(0,10),
-                    emails: emails
-                  };
-
-                  mail.sendWeeklyReport(emailObj);
                 });
               }
+
+              Promise.all(coursePromises).then(() => {
+                workbook.save(function(err) {
+                  if (err) {
+                    console.log("ERROR creating workbook for "+ langObj.language_string);
+                    console.log(err);
+                    workbook.cancel();
+                  } else {
+                    console.log('The workbook for '+langObj.language_string+' was created.');
+
+                    //send the email here
+                    db.collection('faculty').find({language: langObj.language}).toArray((err, facultyResult) => {
+                      if (err) {
+                        console.log(err);
+                        //return;
+                      }
+
+                      var emails = _.filter(facultyResult[0].faculty, {weekly: true});
+                      emails = emails.map((emailObj) => {
+                        return emailObj.email;
+                      });
+
+                      var emailObj = {
+                        language: langObj.language,
+                        language_string: langObj.language_string,
+                        folder: moment().startOf('day').utc().format().substring(0,10),
+                        emails: emails
+                      };
+
+                      mail.sendWeeklyReport(emailObj);
+                    });
+                  }
+                });
+              });
             });
           });
-
         });
-      });
+
+      // if there were no tables this week
+      } else {
+        console.log("\n Did not generate weekly report -- no language tables this week.\n");
+      }
     });
   },
   start: false,
