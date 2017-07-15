@@ -3,14 +3,23 @@
 
 
 #helper function to validate the input dates (must be in format YYYY-MM-DD)
+#if valid returns 1, if invalid returns 0
 function validate {
 
+  #originally valid
   isvalid=1
 
-  if ! perl -mTime::Piece -e "Time::Piece->strptime(\"$1\", \"%Y-%m-%d\")" 2> /dev/null
+  #first check if this day exists in time + format
+  date "+%Y-%m-%d" -d "$1" > /dev/null  2>&1
+    is_valid_date=$?
+
+  #in Mac OS line 18 (i.e. the next if statement) should look like this:
+  #if ! perl -mTime::Piece -e "Time::Piece->strptime(\"$1\", \"%Y-%m-%d\")" 2> /dev/null
+  if [[ $is_valid_date -ne 0 ]]
     then isvalid=0
   fi
 
+  #check the length just in case
   if [[ ${#1} -ne 10 ]]
     then isvalid=0
   fi
