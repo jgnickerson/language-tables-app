@@ -52,6 +52,8 @@ if (authResult) {
   // user's input
   var startDate = new Date(start);
   var endDate = new Date(end);
+  print(start);
+  print(startDate);
 
   // endDate + 1 day just for the while loop
   var lastDate = new Date(endDate.getTime() + 1*24*60*60000)
@@ -70,9 +72,8 @@ if (authResult) {
       }
 
       // get the weekday string
-      print(startDate);
       var weekday = numToWeekday(startDate.getDay());
-      print(weekday+"\n");
+
       // craft the document
       var dateObj = {
         date: dateString,
