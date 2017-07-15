@@ -9,8 +9,8 @@ var breaksArray = breaks.match(/.{1,10}/g);
 function notBreak(date) {
   if (breaksArray) {
     for (var j = 0; j < breaksArray.length; j=j+2) {
-      var endBreak = new Date(breaksArray[j+1]);
-      var startBreak = new Date(breaksArray[j]);
+      var endBreak = new Date(breaksArray[j+1].replace(/-/g, '\/'));
+      var startBreak = new Date(breaksArray[j].replace(/-/g, '\/'));
 
       if (date.getTime() <= endBreak.getTime() && date.getTime() >= startBreak.getTime()) {
         // this date is during the break!
@@ -50,10 +50,8 @@ if (authResult) {
   print("Successful authentication to the database. \n");
 
   // user's input
-  var startDate = new Date(start);
-  var endDate = new Date(end);
-  print(start);
-  print(startDate);
+  var startDate = new Date(start.replace(/-/g, '\/'));
+  var endDate = new Date(end.replace(/-/g, '\/'));
 
   // endDate + 1 day just for the while loop
   var lastDate = new Date(endDate.getTime() + 1*24*60*60000)
