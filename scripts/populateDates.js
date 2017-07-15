@@ -1,5 +1,28 @@
+// helper file for the populateDates.sh script
 // populating the dates collection in the db
 // to be done at the beginning of each semester
+
+// convert the break periods from string to array
+var breaksArray = breaks.match(/.{1,10}/g);
+
+//helper method to check if a given date is in a break
+function notBreak(date) {
+  if (breaksArray) {
+    for (var j = 0; j < breaksArray.length; j=j+2) {
+      var endBreak = new Date(breaksArray[j+1]);
+      var startBreak = new Date(breaksArray[j]);
+
+      if (date.getTime() <= endBreak.getTime() && date.getTime() >= startBreak.getTime()) {
+        // this date is during the break!
+        return false;
+      }
+    }
+  }
+
+  // otherwise this date is outside of the break!
+  return true;
+}
+
 
 // helper method to convert weekday int to string
 function numToWeekday(x) {
@@ -36,8 +59,8 @@ if (authResult) {
   var dateArray = [];
 
   while(startDate.getTime() !== lastDate.getTime()) {
-    // make sure the day is not saturday or sunday
-    if (startDate.getDay() !== 6 && startDate.getDay() !== 0) {
+    // make sure the day is not saturday or sunday and not during academic break!
+    if (startDate.getDay() !== 6 && startDate.getDay() !== 0 && notBreak(startDate)) {
 
       // convert the date to the standardized string in db
       var dateString = startDate.toJSON();
@@ -83,14 +106,11 @@ if (authResult) {
     startDate = new Date(startDate.getTime() + 1*24*60*60000);
   }
 
-  // printing to check just for now
-  dateArray.forEach((obj) => {
-    printjson(obj);
-  });
+  // insert all new docs into the db
+  var insertResult = db.dates.insertMany(dateArray);
 
-  // insert all docs into the db
-  //db.dates.insertMany();
+  print("Finished populating the db. Thanks! :) \n\n\n");
 
 } else {
-  print("Error authenticating to the database. Please try again. \n");
+  print("Error authenticating to the database. Please try again. \n\n\n");
 }
