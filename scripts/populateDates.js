@@ -70,8 +70,9 @@ if (authResult) {
       }
 
       // get the weekday string
+      print(startDate);
       var weekday = numToWeekday(startDate.getDay());
-
+      print(weekday+"\n");
       // craft the document
       var dateObj = {
         date: dateString,
