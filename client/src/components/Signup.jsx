@@ -62,35 +62,6 @@ var Signup = React.createClass({
     }
   },
 
-  setName : function(event) {
-    this.setState({
-      name : event.target.value
-    });
-  },
-
-  setID : function(event) {
-     // restricting the user to only type in digits
-     let text = event.target.value;
-     let newText = '';
-     let numbers = '0123456789';
-
-      if (text.length < 1) {
-        this.setState({ id: ''});
-      }
-      for (var i=0; i < text.length; i++) {
-        if (numbers.indexOf(text[i]) > -1 ) {
-          newText = newText + text[i];
-        }
-        this.setState({ id: newText });
-      }
-  },
-
-  setEmail : function(event) {
-    this.setState({
-      email : event.target.value
-    });
-  },
-
   validEmail : function(email) {
     if (this.state.id !== "000GUEST" && email.indexOf("@middlebury.edu") === -1) {
       return false;
@@ -254,11 +225,11 @@ var Signup = React.createClass({
                       <h2>{message}</h2>
                       <AccountFields
                           name={this.state.name}
-                          setName={(event) => {this.setName(event)}}
+                          setName={(name) => {this.setState({name: name})}}
                           email={this.state.email}
-                          setEmail={(event) => {this.setEmail(event)}}
+                          setEmail={(email) => {this.setState({email: email})}}
                           id={this.state.id}
-                          setID={(event) => {this.setID(event)}}
+                          setID={(id) => {this.setState({id: id})}}
                           handleSubmit={(event) => {this.handleSubmit(event)}}
                           language={this.state.language}
                           course={this.state.course}

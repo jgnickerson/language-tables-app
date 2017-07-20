@@ -12,7 +12,12 @@ import _ from 'lodash';
 var AccountFields = React.createClass({
 
   getInitialState: function() {
-    return { courses: [] }
+    return {
+      courses: [],
+      name: "",
+      id: "",
+      email: ""
+    }
   },
 
   componentWillMount: function() {
@@ -32,6 +37,39 @@ var AccountFields = React.createClass({
           console.log(error);
         }
     });
+  },
+
+  checkID: function(id) {
+    // restricting the user to only type in digits
+    let text = id;
+    let newText = '';
+    let numbers = '0123456789';
+
+     if (text.length < 1) {
+       this.setState({ id: ''});
+     }
+     for (var i=0; i < text.length; i++) {
+       if (numbers.indexOf(text[i]) > -1 ) {
+         newText = newText + text[i];
+       }
+       this.setState({ id: newText });
+     }
+  },
+
+  checkForEnter: function(e, field) {
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if(code == 13) {
+      console.log("enter pressed");
+      if (field === 'name') {
+        this.props.setName(this.state.name);
+      }
+      if (field === 'id') {
+        this.props.setID(this.state.id);
+      }
+      if (field === 'email') {
+        this.props.setEmail(this.state.email);
+      }
+    }
   },
 
   render : function() {
@@ -55,7 +93,11 @@ var AccountFields = React.createClass({
     if (this.props.course !== "Middlebury College Guest") {
       middId = <div>
                 <label>Midd ID: </label>
-                <input type="text" onChange={(event) => {this.props.setID(event)}} value={this.props.id}
+                <input type="text"
+                  onBlur={() => {this.props.setID(this.state.id)}}
+                  value={this.state.id}
+                  onKeyDown={(event) => {this.checkForEnter(event, 'id')}}
+                  onChange={(event) => {this.checkID(event.target.value)}}
                 placeholder="00123456" maxLength="8"/>
                 </div>
     }
@@ -64,7 +106,11 @@ var AccountFields = React.createClass({
       <div>
         <form onSubmit={this.props.handleSubmit}>
             <label>Name: </label>
-            <input type="text" onChange={(event) => {this.props.setName(event)}} value={this.props.name}
+            <input type="text"
+              onBlur={() => {this.props.setName(this.state.name)}}
+              onKeyDown={(event) => {this.checkForEnter(event, 'name')}}
+              onChange={(event) => {this.setState({name: event.target.value})}}
+              value={this.state.name}
               placeholder="First Last"/>
 
             {courseSelect}
@@ -72,7 +118,11 @@ var AccountFields = React.createClass({
             {middId}
 
             <label>Email: </label>
-            <input type="text" onChange={(event) => {this.props.setEmail(event)}} value={this.props.email}
+            <input type="text"
+              onBlur={() => {this.props.setEmail(this.state.email)}}
+              onKeyDown={(event) => {this.checkForEnter(event, 'email')}}
+              onChange={(event) => {this.setState({email: event.target.value})}}
+              value={this.state.email}
               placeholder="example@middlebury.edu"/>
             <br />
             <input className="btn" type="submit" value="Submit" />
