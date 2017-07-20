@@ -29,7 +29,9 @@ const App = React.createClass({
     let Child;
     switch (this.state.route) {
         case 'admin': Child = this.state.isAuthenticated ? <Admin/> : <Login authenticate={authenticate}/>; break;
-        case 'update': Child = <Update/>; break;
+        //'Update' was an attempt to add / change table allocation, feel free to try it again.
+        // just be careful with how information changes in the db.
+        //case 'update': Child = <Update/>; break;
         default: Child = <Signup/>;
     }
     return (
