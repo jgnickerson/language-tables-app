@@ -71,57 +71,6 @@ function handleError(response, reason) {
   response.sendStatus(500);
 }
 
-// function getLanguageRestrictions(language) {
-//   let RESTRICTIONS = [
-//     { //chinese
-//       "language": 2,
-//       "signupsAllowed": 2,
-//       "errorMessage": "This department only allows 2 signups every period.",
-//       "periods": [{"signupErrorMessage": "Signup for this period begins April 07",
-//                     "signupStartDate": "2017-04-07T05:00:00Z",
-//                     "dates": ["2017-04-10T05:00:00Z", "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z",
-//                               "2017-04-13T05:00:00Z", "2017-04-14T05:00:00Z", "2017-04-17T05:00:00Z",
-//                               "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z", "2017-04-20T05:00:00Z",
-//                               "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z", "2017-04-25T05:00:00Z",
-//                               "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z", "2017-04-28T05:00:00Z"]},
-//                   {"signupErrorMessage": "Signup for this period begins April 27",
-//                     "signupStartDate" : "2017-04-27T05:00:00Z",
-//                     "dates": ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
-//                               "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
-//                               "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
-//                               "2017-05-12T05:00:00Z"]}]
-//     },{ //japanese
-//       "language": 7,
-//       "signupsAllowed": 3,
-//       "errorMessage": "This department only allows 3 signups every period.",
-//       "periods": [{"signupErrorMessage": "Signup for this period begins March 23",
-//                     "signupStartDate": "2017-03-23T05:00:00Z",
-//                     "dates": ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
-//                               "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z", "2017-04-10T05:00:00Z",
-//                               "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z", "2017-04-13T05:00:00Z",
-//                               "2017-04-14T05:00:00Z"]},
-//                   {"signupErrorMessage": "Signup for this period begins April 14",
-//                     "signupStartDate" : "2017-04-14T05:00:00Z",
-//                     "dates": ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
-//                               "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z",
-//                               "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z",
-//                               "2017-04-28T05:00:00Z"]},
-//                   {"signupErrorMessage": "Signup for this period begins April 28",
-//                     "signupStartDate" : "2017-04-28T05:00:00Z",
-//                     "dates": ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
-//                               "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
-//                               "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
-//                               "2017-05-12T05:00:00Z"]}]
-//     }
-//   ]
-//   //this will change to Mongo lookup
-//   const langRestrictions = RESTRICTIONS.find(x => x.language === language);
-//
-//   return new Promise((resolve, reject) => {
-//     db.collection('restrictions').findOne({language: language});
-//   })
-// }
-
 app.post('/restrictions', (req, res) => {
   const date = req.body.date;
   const language = req.body.language;
@@ -153,6 +102,7 @@ app.post('/restrictions', (req, res) => {
 
       } else {
         res.send({maySignup: true, message: ""});
+        return;
       }
     }, reason => {handleError(res, reason)});
 
@@ -182,136 +132,6 @@ app.post('/restrictions', (req, res) => {
   } else {
     res.send({maySignup: true, message: ""});
   }
-
-
-
-  // // check Japanese restrictions
-  // if (req.body.language === 7) {
-  //   let period1 = ["2017-02-27T05:00:00Z", "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z",
-  //     "2017-03-02T05:00:00Z", "2017-03-03T05:00:00Z", "2017-03-06T05:00:00Z",
-  //     "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z", "2017-03-09T05:00:00Z",
-  //     "2017-03-10T05:00:00Z"];
-  //
-  //   let period2 = ["2017-03-13T05:00:00Z", "2017-03-14T05:00:00Z", "2017-03-15T05:00:00Z",
-  //   "2017-03-16T05:00:00Z", "2017-03-17T05:00:00Z", "2017-03-20T05:00:00Z",
-  //   "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z", "2017-03-23T05:00:00Z"];
-  //
-  //   let period3 = ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
-  //   "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z", "2017-04-10T05:00:00Z",
-  //   "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z", "2017-04-13T05:00:00Z",
-  //   "2017-04-14T05:00:00Z"];
-  //
-  //   let period4 = ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
-  //     "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z", "2017-04-24T05:00:00Z",
-  //     "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z", "2017-04-27T05:00:00Z",
-  //     "2017-04-28T05:00:00Z"];
-  //
-  //   let period5 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
-  //     "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z", "2017-05-08T05:00:00Z",
-  //     "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z", "2017-05-11T05:00:00Z",
-  //     "2017-05-12T05:00:00Z"];
-  //
-  //   let maySignUp = true;
-  //   let dates = [];
-  //
-  //   if (period1.includes(req.body.date)) {
-  //     dates = period1;
-  //   } else if (period2.includes(req.body.date)) {
-  //     dates = period2;
-  //   } else if (period3.includes(req.body.date)) {
-  //     dates = period3;
-  //   } else if (period4.includes(req.body.date)) {
-  //     dates = period4;
-  //   } else if (period5.includes(req.body.date)) {
-  //     dates = period5;
-  //   }
-  //
-  //   db.collection('dates').find({date: { $in: dates }, 'vacancy.language': req.body.language})
-  //     .toArray(function(err,result) {
-  //       if (err) {
-  //         throw err;
-  //       }
-  //       let count = 0;
-  //       result.forEach((obj) => {
-  //         let langObj = _.find(obj.vacancy, { 'language': req.body.language });
-  //         //console.log(langObj);
-  //         if (langObj.guestlist.includes(req.body.id)) {
-  //           count++;
-  //           if (count === 3) {
-  //             maySignUp = false;
-  //           }
-  //         }
-  //       });
-  //       res.send(maySignUp);
-  //   });
-  //
-  // // check Chinese restrictions
-  // } else if (req.body.language === 2) {
-  //   let week1 = ["2017-02-27T05:00:00Z", "2017-02-28T05:00:00Z", "2017-03-01T05:00:00Z",
-  //     "2017-03-02T05:00:00Z", "2017-03-03T05:00:00Z"];
-  //   let week2 = ["2017-03-06T05:00:00Z", "2017-03-07T05:00:00Z", "2017-03-08T05:00:00Z",
-  //     "2017-03-09T05:00:00Z", "2017-03-10T05:00:00Z"]
-  //   let week3 = ["2017-03-13T05:00:00Z", "2017-03-14T05:00:00Z", "2017-03-15T05:00:00Z",
-  //     "2017-03-16T05:00:00Z", "2017-03-17T05:00:00Z"];
-  //   let week4 = ["2017-03-20T05:00:00Z", "2017-03-21T05:00:00Z", "2017-03-22T05:00:00Z",
-  //     "2017-03-23T05:00:00Z"];
-  //   let week5 = ["2017-04-03T05:00:00Z", "2017-04-04T05:00:00Z", "2017-04-05T05:00:00Z",
-  //     "2017-04-06T05:00:00Z", "2017-04-07T05:00:00Z"];
-  //   let week6 = ["2017-04-10T05:00:00Z", "2017-04-11T05:00:00Z", "2017-04-12T05:00:00Z",
-  //     "2017-04-13T05:00:00Z", "2017-04-14T05:00:00Z"];
-  //   let week7 = ["2017-04-17T05:00:00Z", "2017-04-18T05:00:00Z", "2017-04-19T05:00:00Z",
-  //     "2017-04-20T05:00:00Z", "2017-04-21T05:00:00Z"];
-  //   let week8 = ["2017-04-24T05:00:00Z", "2017-04-25T05:00:00Z", "2017-04-26T05:00:00Z",
-  //     "2017-04-27T05:00:00Z", "2017-04-28T05:00:00Z"];
-  //   let week9 = ["2017-05-01T05:00:00Z", "2017-05-02T05:00:00Z", "2017-05-03T05:00:00Z",
-  //     "2017-05-04T05:00:00Z", "2017-05-05T05:00:00Z"];
-  //   let week10 = ["2017-05-08T05:00:00Z", "2017-05-09T05:00:00Z", "2017-05-10T05:00:00Z",
-  //     "2017-05-11T05:00:00Z", "2017-05-12T05:00:00Z"];
-  //
-  //   let maySignUp = true;
-  //   let dates = [];
-  //
-  //   if (week1.includes(req.body.date)) {
-  //     dates = week1;
-  //   } else if (week2.includes(req.body.date)) {
-  //     dates = week2;
-  //   } else if (week3.includes(req.body.date)) {
-  //     dates = week3;
-  //   } else if (week4.includes(req.body.date)) {
-  //     dates = week4;
-  //   } else if (week5.includes(req.body.date)) {
-  //     dates = week5;
-  //   } else if (week6.includes(req.body.date)) {
-  //     dates = week6;
-  //   } else if (week7.includes(req.body.date)) {
-  //     dates = week7;
-  //   } else if (week8.includes(req.body.date)) {
-  //     dates = week8;
-  //   } else if (week9.includes(req.body.date)) {
-  //     dates = week9;
-  //   } else if (week10.includes(req.body.date)) {
-  //     dates = week10;
-  //   }
-  //
-  //   db.collection('dates').find({date: { $in: dates }, 'vacancy.language': req.body.language})
-  //     .toArray(function(err,result) {
-  //       if (err) {
-  //         throw err;
-  //       }
-  //       let count = 0;
-  //       result.forEach((obj) => {
-  //         let langObj = _.find(obj.vacancy, { 'language': req.body.language });
-  //         //console.log(langObj);
-  //         if (langObj.guestlist.includes(req.body.id)) {
-  //           count++;
-  //           if (count === 2) {
-  //             maySignUp = false;
-  //           }
-  //         }
-  //       });
-  //       res.send(maySignUp);
-  //   });
-  // }
 });
 
 
