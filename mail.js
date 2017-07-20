@@ -46,7 +46,7 @@ var send = function(reservationObj, waitlist) {
   text += language + " Language Tables on " + moment(reservationObj.date).format("dddd, MMMM Do") + ". </br>";
 
   if (waitlist) {
-    text += "You will receive another email if a spot opens up. Thank you for your patience. </br>";
+    text += "You will receive another email if a spot opens up. If you do not receive another email, you may still arrive to Redfield Proctor at 12:40pm to see if Language Tables can accommodate you. Thank you for your patience. </br>";
   } else {
     text += "Please make sure to arrive to Redfield Proctor before the doors open at 12:30pm.</br>";
   }
@@ -155,6 +155,12 @@ var sendReminderEmail = function(guestObj, tomorrow) {
       var text = "Dear "+tomorrowObj.name+", <br/><br/>This is a reminder that you are signed up for the ";
       text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
 
+      var decodedString = languageString + tomorrowObj.id + tomorrowObj.date + tomorrowObj.name;
+      var encodedString = new Buffer(decodedString).toString('base64');
+      var cancelLink = 'http://basin.middlebury.edu:3000/cancel?reservation=' + encodedString;
+
+      text += "If you are no longer planning to attend, please <a href= '"+cancelLink+"'>click here</a> to cancel your reservation. </br></br>"
+
       if (laterThanTomorrow.length > 0) {
         text += "<br/>You are also signed up for the following dates: <br/><br/>";
         laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
@@ -192,31 +198,33 @@ var sendReminderEmail = function(guestObj, tomorrow) {
     });
     //console.log(laterThanTomorrow);
 
-    var languageString = languages[tomorrowObj.language][0];
-    var text = "Dear "+tomorrowObj.name+", <br/><br/>This is a reminder that you are signed up for the ";
-    text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
+    if (tomorrowObj) {
+      var languageString = languages[tomorrowObj.language][0];
+      var text = "Dear "+tomorrowObj.name+", <br/><br/>This is a reminder that you are signed up for the ";
+      text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
 
-    if (laterThanTomorrow.length > 0) {
-      text += "<br/>You are also signed up for the following dates: <br/><br/>";
-      laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
-        text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+"<br/>";
+      if (laterThanTomorrow.length > 0) {
+        text += "<br/>You are also signed up for the following dates: <br/><br/>";
+        laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
+          text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+"<br/>";
+        });
+      }
+      text += "<br/>Thank you, <br/>Language Tables";
+
+      var mailOptions = {
+        from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
+        to: tomorrowObj.email, // list of receivers
+        subject: 'Language Tables Reminder', // Subject line
+        text: text, // plaintext body
+        html: text // html body
+      }
+      return transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+          return console.log(error);
+        }
+        console.log('"Non-guest Reminder" message sent: ' + info.response);
       });
     }
-    text += "<br/>Thank you, <br/>Language Tables";
-
-    var mailOptions = {
-      from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
-      to: tomorrowObj.email, // list of receivers
-      subject: 'Language Tables Reminder', // Subject line
-      text: text, // plaintext body
-      html: text // html body
-    }
-    return transporter.sendMail(mailOptions, function(error, info){
-      if(error){
-        return console.log(error);
-      }
-      console.log('"Non-guest Reminder" message sent: ' + info.response);
-    });
   }
 }
 
