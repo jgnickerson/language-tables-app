@@ -14,7 +14,8 @@ var AccountFields = React.createClass({
   getInitialState: function() {
     return {
       courses: [],
-      name: "",
+      firstName: "",
+      lastName: "",
       id: "",
       email: ""
     }
@@ -59,9 +60,11 @@ var AccountFields = React.createClass({
   checkForEnter: function(e, field) {
     var code = (e.keyCode ? e.keyCode : e.which);
     if(code == 13) {
-      console.log("enter pressed");
-      if (field === 'name') {
-        this.props.setName(this.state.name);
+      if (field === 'firstName') {
+        this.props.setFirstName(this.state.firstName);
+      }
+      if (field === 'lastName') {
+        this.props.setLastName(this.state.lastName);
       }
       if (field === 'id') {
         this.props.setID(this.state.id);
@@ -106,12 +109,21 @@ var AccountFields = React.createClass({
       <div>
         <form onSubmit={this.props.handleSubmit}>
             <label>Name: </label>
-            <input type="text"
-              onBlur={() => {this.props.setName(this.state.name)}}
-              onKeyDown={(event) => {this.checkForEnter(event, 'name')}}
-              onChange={(event) => {this.setState({name: event.target.value})}}
-              value={this.state.name}
-              placeholder="First Last"/>
+            <div style={{display: "inline", width: "450px"}}>
+              <input type="text-name-left"
+                onBlur={() => {this.props.setFirstName(this.state.firstName)}}
+                onKeyDown={(event) => {this.checkForEnter(event, 'firstName')}}
+                onChange={(event) => {this.setState({firstName: event.target.value})}}
+                value={this.state.firstName}
+                placeholder="First"/>
+
+              <input type="text-name-right"
+                onBlur={() => {this.props.setLastName(this.state.lastName)}}
+                onKeyDown={(event) => {this.checkForEnter(event, 'lastName')}}
+                onChange={(event) => {this.setState({lastName: event.target.value})}}
+                value={this.state.lastName}
+                placeholder="Last"/>
+            </div>
 
             {courseSelect}
 

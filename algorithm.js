@@ -203,7 +203,7 @@ var run = function(db, moment, _) {
                 if (response.result.ok) {
                   // make sure removedItems is not empty
                   if (removedItems[0]) {
-                    mail.sendNewGuests(removedItems[0].email, removedItems[0].language, today, removedItems[0].name);
+                    mail.sendNewGuests(removedItems[0].email, removedItems[0].language, today, removedItems[0].firstName, removedItems[0].lastName);
                   } else {
                     console.log("Error: no waitlist record in attendance collection. Student ID: " + newGuest.guestId);
                   }

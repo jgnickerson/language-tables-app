@@ -82,6 +82,9 @@ app.post('/restrictions', (req, res) => {
       if (langObjects[0].guestlist.includes(id)) {
         res.send({ maySignup: false, message: "You have already signed up for this day."});
         return;
+      } else if (langObjects[0].waitlist.includes(id)) {
+        res.send({ maySignup: false, message: "You are already waitlisted for this day."});
+        return;
       } else {
         return db.collection('restrictions').findOne({language: language});
       }
@@ -239,7 +242,8 @@ app.post('/signup', (req, res) => {
          $push: { waitlists: { date: date,
                                language: req.body.language,
                                course: req.body.course,
-                               name: req.body.name,
+                               firstName: req.body.firstName,
+                               lastName: req.body.lastName,
                                email: req.body.email } }
         },
         { upsert: true },
@@ -280,7 +284,8 @@ app.post('/signup', (req, res) => {
          $push: { attendance: { date: date,
                                language: req.body.language,
                                course: req.body.course,
-                               name: req.body.name,
+                               firstName: req.body.firstName,
+                               lastName: req.body.lastName,
                                email: req.body.email } }
         },
         { upsert: true },
@@ -316,30 +321,53 @@ app.post('/signup', (req, res) => {
   });
 });
 
+function isNumeric(n) {
+  return !Number.isNaN(parseFloat(n)) && isFinite(n);
+}
+
 // '/cancel' or '/cancel?reservation=x' routes
 app.get('/cancel', (req, res) => {
 
   console.log("canceling a reservation...")
-  //uncomment below for actual implementation
   var encodedString = req.query.reservation;
-
   var decodedString = new Buffer(encodedString, 'base64').toString('ascii');
 
   var language = Number.parseInt(decodedString.substring(0, 2), 10);
   var id = decodedString.substring(2, 10);
   var date = decodedString.substring(10, 30);
-  var name = decodedString.substring(30, decodedString.length);
+  //var name = decodedString.substring(30, decodedString.length);
+
+  var firstNameLen;
+  var firstNameFirstChar;
+  //assume first names lengths are no longer than 2 digits
+  //we also know definitely that 30th char is a number
+  var condition = isNumeric(decodedString.substring(30, 32))
+  if (condition) {
+    firstNameLen = Number.parseInt(decodedString.substring(30, 32), 10);
+    firstNameFirstChar = 32;
+  } else {
+    firstNameLen = Number.parseInt(decodedString.substring(30, 31), 10);
+    firstNameFirstChar = 31;
+  }
+
+  var lastNameFirstChar = firstNameFirstChar + firstNameLen;
+
+  var firstName = decodedString.substring(firstNameFirstChar, lastNameFirstChar);
+  var lastName = decodedString.substring(lastNameFirstChar, decodedString.length);
+
 
   let timeZoneString = date.substring(10, date.length);
   // console.log(timeZoneString);
   if (timeZoneString !== "T05:00:00Z") {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
-
-  console.log("language: "+language +"\n");
-  console.log("id: "+id +"\n");
-  console.log("date: "+date +"\n");
-  console.log("name: "+name +"\n");
+  // console.log(decodedString);
+  // console.log("firstNameLen: "+ firstNameLen +"\n")
+  // console.log("language: "+language +"\n");
+  // console.log("id: "+id +"\n");
+  // console.log("date: "+date +"\n");
+  // console.log("firstName: "+firstName +"\n");
+  // console.log("lastName: "+lastName +"\n");
 
   // remove the reservation from dates collection
   db.collection('dates').find(
@@ -366,7 +394,7 @@ app.get('/cancel', (req, res) => {
       // update the waitlist in attendants collection
       db.collection('attendants').update(
         { id: id },
-        { $pull: { 'waitlists': { 'date' : date, 'language' : language, 'name' : name } } },
+        { $pull: { 'waitlists': { 'date' : date, 'language' : language, 'firstName' : firstName, 'lastName' : lastName } } },
         function(err, results) {
           if (err) {
             console.log(err);
@@ -480,7 +508,7 @@ app.get('/cancel', (req, res) => {
           // update the attendance in attendants collection
           db.collection('attendants').update(
             { id: id },
-            { $pull: { 'attendance': { 'date' : date, 'language' : language, 'name' : name } }
+            { $pull: { 'attendance': { 'date' : date, 'language' : language, 'firstName' : firstName, 'lastName' : lastName } }
           }, function(err, result) {
             if (err) {
               console.log(err);
@@ -490,7 +518,7 @@ app.get('/cancel', (req, res) => {
           });
 
           if (luckyID && luckyAttendant) {
-            mail.sendNewGuests(luckyAttendant.email, language, moment(date));
+            mail.sendNewGuests(luckyAttendant.email, language, moment(date), luckyAttendant.firstName, luckyAttendant.lastName);
           }
 
           //successfully removed the attendant from all necessary places in the db, so send a success message
@@ -558,7 +586,7 @@ app.get('/attendance', (req, res) => {
                 guests.forEach((guest) => {
                   langAttendants.push({
                     id: item.id,
-                    name: guest.name,
+                    name: guest.firstName+" "+guest.lastName,
                     language: guest.language
                   })
                 })
@@ -578,7 +606,7 @@ app.get('/attendance', (req, res) => {
                 if (theOneWeNeed !== undefined) {
                   langAttendants.push({
                     id: item.id,
-                    name: theOneWeNeed.name,
+                    name: theOneWeNeed.firstName+" "+theOneWeNeed.lastName,
                     language: theOneWeNeed.language,
                     checked: theOneWeNeed.checked ? theOneWeNeed.checked : false
                   });
@@ -612,7 +640,7 @@ app.get('/attendance', (req, res) => {
                 guests.forEach((guest) => {
                   langWaitlisters.push({
                     id: item.id,
-                    name: guest.name,
+                    name: guest.firstName+" "+guest.lastName,
                     language: guest.language
                   })
                 })
@@ -624,7 +652,7 @@ app.get('/attendance', (req, res) => {
                 if (theOneWeNeed !== undefined) {
                   langWaitlisters.push({
                     id: item.id,
-                    name: theOneWeNeed.name,
+                    name: theOneWeNeed.firstName+" "+theOneWeNeed.lastName,
                     language: theOneWeNeed.language,
                     checked: theOneWeNeed.checked ? theOneWeNeed.checked : false
                   });
@@ -871,13 +899,13 @@ var sendDailyEmailToFacultyJob = new CronJob({
                              alreadyAddedAllGuests = true;
                              var theMany = _.filter(result[0].attendance, {'date': today, 'language': object.language, 'checked':true});
                              theMany.forEach((one) => {
-                               guestNamesList.push(one.name);
+                               guestNamesList.push(one.firstName+" "+one.lastName);
                              });
                            }
                          } else {
                            var theOne = _.find(result[0].attendance, {'date': today, 'language': object.language, 'checked':true});
                            if (theOne !== undefined) {
-                             guestNamesList.push(theOne.name);
+                             guestNamesList.push(theOne.firstName+" "+theOne.lastName);
                            }
                          }
                       }
@@ -930,43 +958,51 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
       thisWeek.push(day);
     }
 
-    //check if there were any language tables this week
-    //if not, do not send the weekly report
-    db.collection('dates').find({date: {$in: thisWeek}}).toArray((err, yestables) => {
+    //find the largest value i.e. the most recent semester
+    db.collection('semesters').find({}).toArray((err, semestersResult) => {
       if (err) {
         console.log(err);
       }
+      //sort in descending order (first item == most recent)
+      var allSemesters = semestersResult.sort(function(a, b){return b.semester-a.semester});
+      //get the current semester dates
+      var thisSemester = allSemesters[0].dates;
 
-      // if there were tables this week
-      if (yestables[0]) {
+      //check if there were any language tables this week
+      //if not, do not send the weekly report
+      db.collection('dates').find({date: {$in: thisWeek}}).toArray((err, yestables) => {
+        if (err) {
+          console.log(err);
+        }
 
-        //get the faculty collection
-        db.collection('baseline').find().toArray((err, baselineResult) => {
-          if (err) {
-            console.log(err);
-            //return;
-          }
-          db.collection('attendants').find(
-            {id: {$nin: ["000GUEST", "RESERVED"]}}
-          ).toArray((err, attendantsResult) => {
+        // if there were tables this week
+        if (yestables[0]) {
+
+          //get the faculty collection
+          db.collection('baseline').find().toArray((err, baselineResult) => {
             if (err) {
               console.log(err);
               //return;
             }
-
-            baselineResult.forEach(function(langObj) {
-              // Create a new workbook file in current working-path
-              var fileName = langObj.language_string+".xlsx";
-              var dir = './weekly-reports/'+moment().startOf('day').utc().format().substring(0,10);
-
-              if (!fs.existsSync(dir)){
-                fs.mkdirSync(dir);
+            db.collection('attendants').find(
+              {id: {$nin: ["000GUEST", "RESERVED"]}}
+            ).toArray((err, attendantsResult) => {
+              if (err) {
+                console.log(err);
+                //return;
               }
-              var workbook = excelbuilder.createWorkbook(dir, fileName)
-              var coursePromises = [];
 
-              /*JAPANESE DEPARTMENT WANTS LASTNAMES TOO, LATER INCORPORATE FOR ALL LANGS*/
-              if (langObj.language === 7) {
+              baselineResult.forEach(function(langObj) {
+                // Create a new workbook file in current working-path
+                var fileName = langObj.language_string+".xlsx";
+                var dir = './weekly-reports/'+moment().startOf('day').utc().format().substring(0,10);
+
+                if (!fs.existsSync(dir)){
+                  fs.mkdirSync(dir);
+                }
+                var workbook = excelbuilder.createWorkbook(dir, fileName)
+                var coursePromises = [];
+
                 langObj.courses.forEach(function(courseVal) {
                   //Faculty/Staff causes error?.. don't need their info anyway
                   if (courseVal !== "Faculty/Staff") {
@@ -1011,27 +1047,18 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
                       if (courseAttendants) {
                         for (var i = 0; i < courseAttendants.length; i++) {
                           if (courseAttendants[i].id) {
-                            var nameArray = courseAttendants[i].attendance[0].name.split(/[, ]+/);
-
-                            //hardcoded exception for now...
-                            if (courseAttendants[i].attendance[0].name === "Madison Jean Philippe") {
-                              var lastName = nameArray.pop();
-                              lastName = nameArray.pop() + " "+ lastName;
-
-                              var firstName = nameArray.join(' ');
-
-                            } else {
-                              var lastName = nameArray.pop();
-
-                              var firstName = nameArray.join(' ');
-                            }
+                            var firstName = courseAttendants[i].attendance[0].firstName;
+                            var lastName = courseAttendants[i].attendance[0].lastName;
 
                             sheet.set(1, i+2, lastName);
                             sheet.set(2, i+2, firstName);
                             sheet.set(3, i+2, courseAttendants[i].id);
 
                             var totalVisits = _.remove(courseAttendants[i].attendance, {course: courseVal, checked: true});
-                            sheet.set(10, i+2, totalVisits.length);
+                            //sheet.set(10, i+2, totalVisits.length);
+
+                            var thisSemesterVisits = _(totalVisits).keyBy('date').at(thisSemester).filter().value();
+                            sheet.set(10, i+2, thisSemesterVisits.length);
 
                             var thisWeekVisits = _(totalVisits).keyBy('date').at(thisWeek).filter().value();
                             var monday = 0;
@@ -1070,136 +1097,52 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
                     }));
                   }
                 });
-              } else {
-                langObj.courses.forEach(function(courseVal) {
-                  //Faculty/Staff causes error?.. don't need their info anyway
-                  if (courseVal !== "Faculty/Staff") {
-                    coursePromises.push(new Promise((resolve, reject) => {
 
-                      var sheet = workbook.createSheet(courseVal, 9, 100);
-                      // format the cells
-                      sheet.width(1, 20);
-                      sheet.width(2, 20);
-                      sheet.width(3, 10);
-                      sheet.width(4, 10);
-                      sheet.width(5, 10);
-                      sheet.width(6, 10);
-                      sheet.width(7, 10);
-                      sheet.width(8, 20);
-                      sheet.width(9, 20);
+                Promise.all(coursePromises).then(() => {
+                  workbook.save(function(err) {
+                    if (err) {
+                      console.log("ERROR creating workbook for "+ langObj.language_string);
+                      console.log(err);
+                      workbook.cancel();
+                    } else {
+                      console.log('The workbook for '+langObj.language_string+' was created.');
 
-                      // put in the data
-                      sheet.set(1, 1, 'Name');
-                      sheet.set(2, 1, 'ID');
-                      sheet.set(3, 1, 'Monday');
-                      sheet.set(4, 1, 'Tuesday');
-                      sheet.set(5, 1, 'Wednesday');
-                      sheet.set(6, 1, 'Thursday');
-                      sheet.set(7, 1, 'Friday');
-                      sheet.set(8, 1, 'THIS WEEK [TOTAL]');
-                      sheet.set(9, 1, 'THIS SEMESTER [TOTAL]');
-
-                      // make the first row bold
-                      for (var i = 1; i < 10; i++) {
-                        sheet.font(i, 1, {bold:'true'});
-                      }
-
-                      var courseAttendants = _.filter(attendantsResult,
-                        { attendance: [ {
-                            course: courseVal,
-                            language: langObj.language
-                        } ]});
-                      //console.log(courseAttendants);
-                      if (courseAttendants) {
-                        for (var i = 0; i < courseAttendants.length; i++) {
-                          if (courseAttendants[i].id) {
-                            sheet.set(1, i+2, courseAttendants[i].attendance[0].name);
-                            sheet.set(2, i+2, courseAttendants[i].id);
-
-                            var totalVisits = _.remove(courseAttendants[i].attendance, {course: courseVal, checked: true});
-                            sheet.set(9, i+2, totalVisits.length);
-
-                            var thisWeekVisits = _(totalVisits).keyBy('date').at(thisWeek).filter().value();
-                            var monday = 0;
-                            var tuesday = 0;
-                            var wednesday = 0;
-                            var thursday = 0;
-                            var friday = 0;
-
-                            thisWeekVisits.forEach((visit) => {
-                              if (moment(visit.date).day() == 1) {
-                                monday++;
-                              } else if(moment(visit.date).day() == 2) {
-                                tuesday++;
-                              } else if(moment(visit.date).day() == 3) {
-                                wednesday++;
-                              } else if(moment(visit.date).day() == 4) {
-                                thursday++;
-                              } else if(moment(visit.date).day() == 5) {
-                                friday++;
-                              }
-                            });
-
-                            sheet.set(3, i+2, monday);
-                            sheet.set(4, i+2, tuesday);
-                            sheet.set(5, i+2, wednesday);
-                            sheet.set(6, i+2, thursday);
-                            sheet.set(7, i+2, friday);
-
-                            sheet.set(8, i+2, thisWeekVisits.length);
-                          }
+                      //send the email here
+                      db.collection('faculty').find({language: langObj.language}).toArray((err, facultyResult) => {
+                        if (err) {
+                          console.log(err);
+                          //return;
                         }
-                      }
 
-                      resolve();
+                        var emails = _.filter(facultyResult[0].faculty, {weekly: true});
+                        emails = emails.map((emailObj) => {
+                          return emailObj.email;
+                        });
 
-                    }));
-                  }
-                });
-              }
+                        var emailObj = {
+                          language: langObj.language,
+                          language_string: langObj.language_string,
+                          folder: moment().startOf('day').utc().format().substring(0,10),
+                          emails: emails
+                        };
 
-              Promise.all(coursePromises).then(() => {
-                workbook.save(function(err) {
-                  if (err) {
-                    console.log("ERROR creating workbook for "+ langObj.language_string);
-                    console.log(err);
-                    workbook.cancel();
-                  } else {
-                    console.log('The workbook for '+langObj.language_string+' was created.');
-
-                    //send the email here
-                    db.collection('faculty').find({language: langObj.language}).toArray((err, facultyResult) => {
-                      if (err) {
-                        console.log(err);
-                        //return;
-                      }
-
-                      var emails = _.filter(facultyResult[0].faculty, {weekly: true});
-                      emails = emails.map((emailObj) => {
-                        return emailObj.email;
+                        mail.sendWeeklyReport(emailObj);
                       });
-
-                      var emailObj = {
-                        language: langObj.language,
-                        language_string: langObj.language_string,
-                        folder: moment().startOf('day').utc().format().substring(0,10),
-                        emails: emails
-                      };
-
-                      mail.sendWeeklyReport(emailObj);
-                    });
-                  }
+                    }
+                  });
                 });
               });
             });
           });
-        });
 
-      // if there were no tables this week
-      } else {
-        console.log("\n Did not generate weekly report -- no language tables this week.\n");
-      }
+        // if there were no tables this week
+        } else {
+          console.log("\n Did not generate weekly report -- no language tables this week.\n");
+        }
+      });
+
     });
+
   },
   start: false,
   timeZone: 'America/New_York'

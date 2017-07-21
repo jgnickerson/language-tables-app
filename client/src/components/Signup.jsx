@@ -10,7 +10,8 @@ import Header from '../svg/header.svg';
 var Signup = React.createClass({
   getInitialState: function() {
     return {
-      name           : '',
+      firstName      : '',
+      lastName       : '',
       course         : '',
       id             : '',
       email          : '',
@@ -96,24 +97,24 @@ var Signup = React.createClass({
     let errors = [];
 
     // check basic info is valid
-    if (this.state.name === '') {
-      errors.push("Name required.");
+    if (this.state.firstName === '') {
+      errors.push("First name required.");
+    }
 
+    if (this.state.lastName === '') {
+      errors.push("Last name required.");
     }
 
     if (this.state.course === '') {
       errors.push("Courses Selection Required.");
-
     }
 
     if (this.state.id.length !== 8 && this.state.id !== "000GUEST") {
       errors.push("Valid 8-digit ID Required.");
-
     }
 
     if (this.state.email === '') {
       errors.push("Email Required.")
-
     }
 
     if (!this.validEmail(this.state.email)) {
@@ -159,7 +160,8 @@ var Signup = React.createClass({
 
 
     var reservation = {
-      name : this.state.name,
+      firstName : _.capitalize(_.trim(this.state.firstName)),
+      lastName : _.capitalize(_.trim(this.state.lastName)),
       course: this.state.course,
       id : this.state.id,
       email : this.state.email,
@@ -224,8 +226,10 @@ var Signup = React.createClass({
       information = <div>
                       <h2>{message}</h2>
                       <AccountFields
-                          name={this.state.name}
-                          setName={(name) => {this.setState({name: name})}}
+                          firstName={this.state.firstName}
+                          lastName={this.state.lastName}
+                          setFirstName={(firstName) => {this.setState({firstName: firstName})}}
+                          setLastName={(lastName) => {this.setState({lastName: lastName})}}
                           email={this.state.email}
                           setEmail={(email) => {this.setState({email: email})}}
                           id={this.state.id}
