@@ -57,6 +57,7 @@ if (authResult) {
   var lastDate = new Date(endDate.getTime() + 1*24*60*60000)
 
   var dateArray = [];
+  var semesterDates = [];
 
   while(startDate.getTime() !== lastDate.getTime()) {
     // make sure the day is not saturday or sunday and not during academic break!
@@ -68,6 +69,9 @@ if (authResult) {
       if (timeZone !== "T05:00:00Z") {
         dateString = dateString.replace(timeZone, "T05:00:00Z")
       }
+
+      // insert the date in the array for semesters collection
+      semesterDates.push(dateString);
 
       // get the weekday string
       var weekday = numToWeekday(startDate.getDay());
@@ -106,8 +110,15 @@ if (authResult) {
     startDate = new Date(startDate.getTime() + 1*24*60*60000);
   }
 
-  // insert all new docs into the db
+  // insert all new docs into the dates collection
   var insertResult = db.dates.insertMany(dateArray);
+
+  // and the semesters collection
+  var allSemesters = db.semesters.find().sort({semester: -1});
+  var insertResult2 = db.semesters.insert({
+    semester: allSemesters[0].semester + 1,
+    dates: semesterDates
+  });
 
   print("Finished populating the db. Thanks! :) \n\n\n");
 
