@@ -362,12 +362,12 @@ app.get('/cancel', (req, res) => {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
   // console.log(decodedString);
-  // console.log("firstNameLen: "+ firstNameLen +"\n")
-  // console.log("language: "+language +"\n");
-  // console.log("id: "+id +"\n");
-  // console.log("date: "+date +"\n");
-  // console.log("firstName: "+firstName +"\n");
-  // console.log("lastName: "+lastName +"\n");
+  //console.log("firstNameLen: "+ firstNameLen +"\n")
+  console.log("language: "+language);
+  console.log("id: "+id);
+  console.log("date: "+date);
+  console.log("firstName: "+firstName);
+  console.log("lastName: "+lastName +"\n");
 
   // remove the reservation from dates collection
   db.collection('dates').find(
@@ -1152,6 +1152,8 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
   timeZone: 'America/New_York'
 });
 
+// for testing:
+// second+" "+minute+" "+hour+" * * 1-5"
 var sendReminderEmailsJob = new CronJob({
   cronTime: "00 00 15 * * 0-4",
   onTick: function() {

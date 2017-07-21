@@ -160,7 +160,11 @@ var sendReminderEmail = function(guestObj, tomorrow) {
       var text = "Dear "+tomorrowObj.firstName+" "+tomorrowObj.lastName+", <br/><br/>This is a reminder that you are signed up for the ";
       text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
 
-      var decodedString = languageString + tomorrowObj.id + tomorrowObj.date + tomorrowObj.firstName.length + tomorrowObj.firstName + tomorrowObj.lastName;
+      var languageCode = tomorrowObj.language.toString();
+      if (languageCode.length === 1) {
+        languageCode = "0"+languageCode;
+      }
+      var decodedString = languageCode + guestObj.id + tomorrowObj.date + tomorrowObj.firstName.length + tomorrowObj.firstName + tomorrowObj.lastName;
       var encodedString = new Buffer(decodedString).toString('base64');
       var cancelLink = 'http://basin.middlebury.edu:3000/cancel?reservation=' + encodedString;
 
@@ -169,7 +173,14 @@ var sendReminderEmail = function(guestObj, tomorrow) {
       if (laterThanTomorrow.length > 0) {
         text += "<br/>You are also signed up for the following dates: <br/><br/>";
         laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
-          text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+"<br/>";
+          var languageCode1 = dateObj.language.toString();
+          if (languageCode1.length === 1) {
+            languageCode1 = "0"+languageCode1;
+          }
+          var string1 = languageCode1 + guestObj.id + dateObj.date + dateObj.firstName.length + dateObj.firstName + dateObj.lastName;
+          var string2 = new Buffer(string1).toString('base64');
+          var nextCancel = 'http://basin.middlebury.edu:3000/cancel?reservation=' + string2;
+          text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+" (<a href= '"+nextCancel+"'>cancel</a>)<br/>";
         });
       }
       text += "<br/>Thank you, <br/>Language Tables";
@@ -201,17 +212,33 @@ var sendReminderEmail = function(guestObj, tomorrow) {
     var laterThanTomorrow = _.filter(guestObj.attendance, function(o) {
       return moment(o.date).isAfter(tomorrow);
     });
-    //console.log(laterThanTomorrow);
 
     if (tomorrowObj) {
       var languageString = languages[tomorrowObj.language][0];
-      var text = "Dear "+tomorrowObj.firstName+""+tomorrowObj.lastName+", <br/><br/>This is a reminder that you are signed up for the ";
+      var text = "Dear "+tomorrowObj.firstName+" "+tomorrowObj.lastName+", <br/><br/>This is a reminder that you are signed up for the ";
       text += languageString+" Language Tables <u>tomorrow, "+moment(tomorrow).format("MMMM Do")+"</u>. <br/>";
+
+      var languageCode = tomorrowObj.language.toString();
+      if (languageCode.length === 1) {
+        languageCode = "0"+languageCode;
+      }
+      var decodedString = languageCode + guestObj.id + tomorrowObj.date + tomorrowObj.firstName.length + tomorrowObj.firstName + tomorrowObj.lastName;
+      var encodedString = new Buffer(decodedString).toString('base64');
+      var cancelLink = 'http://basin.middlebury.edu:3000/cancel?reservation=' + encodedString;
+
+      text += "If you are no longer planning to attend, please <a href= '"+cancelLink+"'>click here</a> to cancel your reservation. </br></br>";
 
       if (laterThanTomorrow.length > 0) {
         text += "<br/>You are also signed up for the following dates: <br/><br/>";
         laterThanTomorrow.forEach(function(dateObj, dateObjIndex) {
-          text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+"<br/>";
+          var languageCode1 = dateObj.language.toString();
+          if (languageCode1.length === 1) {
+            languageCode1 = "0"+languageCode1;
+          }
+          var string1 = languageCode1 + guestObj.id + dateObj.date + dateObj.firstName.length + dateObj.firstName + dateObj.lastName;
+          var string2 = new Buffer(string1).toString('base64');
+          var nextCancel = 'http://basin.middlebury.edu:3000/cancel?reservation=' + string2;
+          text += moment(dateObj.date).format("MMMM Do")+ " -- "+languages[dateObj.language][0]+" (<a href= '"+nextCancel+"'>cancel</a>)<br/>";
         });
       }
       text += "<br/>Thank you, <br/>Language Tables";
