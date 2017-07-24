@@ -25,6 +25,16 @@ var findIndexByKeyValue = function(array, key, value) {
   return null;
 }
 
+function getAllIndexes(arr, langID, date) {
+    var indexes = [], i;
+    for(i = 0; i < arr.length; i++) {
+      if (parseInt(arr[i].language) === parseInt(langID) && arr[i].date === date) {
+        indexes.push(i);
+      }
+    }
+    return indexes;
+}
+
 var run = function(db, moment, _) {
 
   // Global Variables
@@ -178,32 +188,87 @@ var run = function(db, moment, _) {
           {$set: {vacancy: languages}}
         );
 
-        waitlistToGuests.forEach(function(newGuest, newGuestIndex) {
-          // let the headwaiter figure out the guests...
-          if (newGuest.guestId !== "000GUEST") {
+        var guestGuests = [];
+        guestGuests = _.remove(waitlistToGuests, (element) => {
+          return element.guestId === "000GUEST";
+        });
 
-            //find the new guest by id
-            db.collection('attendants').find({id: newGuest.guestId}).forEach(function(doc) {
+        var guestGuestsByLang = {};
 
-              // remove him/her from the waitlist in attendance collection
-              var removedItems = _.remove(doc.waitlists, function(object) {
-                return object.date === todayString && object.language === newGuest.language
-              });
+        guestGuests.forEach((obj) => {
+          if (guestGuestsByLang.hasOwnProperty(obj.language)) {
+            guestGuestsByLang[JSON.stringify(obj.language)]++;
+          } else {
+            guestGuestsByLang[JSON.stringify(obj.language)] = 1;
+          }
+        });
 
-              // add him/her to the guestlist in attendance collection
-              removedItems.forEach(function(item) {
-                if (doc.attendance) {
-                  doc.attendance.push(item);
+        // deal with "000GUEST"s first (its ok if the call does not finish
+        // before the next calls start)
+        if (guestGuests.length > 0) {
+          //find the guest attendant object
+          db.collection('attendants').find({id: "000GUEST"}).toArray((err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            if (result[0]) {
+              var doc = result[0];
+              var allRemovedGuestItems = [];
+
+              // treat each language separately
+              for (var lang in guestGuestsByLang) {
+                if (guestGuestsByLang.hasOwnProperty(lang)) {
+
+                  // console.log("removing all guests in language "+lang+"...")
+                  // console.log(JSON.stringify(doc, null, 4));
+
+                  // remove new guests from the waitlist in attendance collection
+                  var guestIndexes = getAllIndexes(doc.waitlists, lang, todayString);
+                  // augment indexes since the number of elements will be decreasing
+                  // each iteration
+                  for (var j = 0; j < guestIndexes.length; j++) {
+                    guestIndexes[j] = guestIndexes[j]-j;
+                  }
+
+                  var removedGuestItems = [];
+                  var count = parseInt(guestGuestsByLang[lang]);
+
+                  while(count > 0) {
+
+                    var temp = doc.waitlists.splice(guestIndexes[0], 1);
+                    removedGuestItems.push(temp[0]);
+
+                    guestIndexes.splice(0,1);
+                    count--;
+
+                  }
+
+                  // add them to the guestlist in attendance collection
+                  if (doc.attendance) {
+                    doc.attendance = doc.attendance.concat(removedGuestItems);
+                  } else {
+                    doc.attendance = removedGuestItems;
+                  }
+
+                  // console.log(JSON.stringify(doc, null, 4));
+
+                  allRemovedGuestItems = allRemovedGuestItems.concat(removedGuestItems);
                 }
-              });
+              }
 
               // save
               db.collection('attendants').save(doc).then(function(response) {
                 // if successful
                 if (response.result.ok) {
                   // make sure removedItems is not empty
-                  if (removedItems[0]) {
-                    mail.sendNewGuests(removedItems[0].email, removedItems[0].language, today, removedItems[0].firstName, removedItems[0].lastName);
+                  if (allRemovedGuestItems.length > 0) {
+
+                    allRemovedGuestItems.forEach((newGuest) => {
+                      console.log("\nSeat given to 000GUEST for language "+newGuest.language+" on "+today.format("dddd, MMMM Do"));
+                      mail.sendNewGuests(newGuest.email, newGuest.language, today, newGuest.firstName, newGuest.lastName, "000GUEST");
+
+                    });
+
                   } else {
                     console.log("Error: no waitlist record in attendance collection. Student ID: " + newGuest.guestId);
                   }
@@ -212,9 +277,54 @@ var run = function(db, moment, _) {
                   console.log("Error saving the new guest info. Did not send the email. Student ID: " + newGuest.guestId);
                 }
               });
-            });
+            }
+          });
+        }
 
-          }
+        // there are all non-"000GUEST"s
+        waitlistToGuests.forEach((newGuest, newGuestIndex) => {
+          //find the new attendant by id
+          db.collection('attendants').find({id: newGuest.guestId}).toArray((err, result) => {
+            if (err) {
+              console.log(err);
+            }
+            if (result[0]) {
+              var doc1 = result[0];
+
+              // console.log("removing an attendant...")
+              // console.log(JSON.stringify(doc1, null, 4));
+              // remove him/her from the waitlist in attendance collection
+              var removedItems = _.remove(doc1.waitlists, (object) => {
+                return object.date === todayString && object.language === newGuest.language;
+              });
+
+              // add him/her to the guestlist in attendance collection
+              if (doc1.attendance) {
+                doc1.attendance.push(removedItems[0]);
+              } else {
+                doc1.attendance = [removedItems[0]];
+              }
+
+              // console.log(JSON.stringify(doc1, null, 4));
+
+              // save
+              db.collection('attendants').save(doc1).then(function(response) {
+                // if successful
+                if (response.result.ok) {
+                  // make sure removedItems is not empty
+                  if (removedItems[0]) {
+                    console.log("\nSeat given to "+newGuest.guestId+" for language "+removedItems[0].language+" on "+today);
+                    mail.sendNewGuests(removedItems[0].email, removedItems[0].language, today, removedItems[0].firstName, removedItems[0].lastName, newGuest.guestId);
+                  } else {
+                    console.log("Error: no waitlist record in attendance collection. Student ID: " + newGuest.guestId);
+                  }
+
+                } else {
+                  console.log("Error saving the new guest info. Did not send the email. Student ID: " + newGuest.guestId);
+                }
+              });
+            }
+          });
         });
       }
   });

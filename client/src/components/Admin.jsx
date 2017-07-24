@@ -66,33 +66,38 @@ var Admin = React.createClass({
     let i = 0;
     let checklistItems = attendants.map((attendant) => {
       let isChecked, key,
-        label = attendant.name + " - " + attendant.id,
-        language = attendant.language;
+        label = attendant.firstName +" "+ attendant.lastName + " - " + attendant.id,
+        language = attendant.language,
+        firstName = attendant.firstName,
+        lastName = attendant.lastName,
+        id = attendant.id,
+        index = attendant.index;
 
-        if (attendant.id === "RESERVED"){
+        if (id === "RESERVED"){
           key = i++;
-          key = attendant.id+key;
-          isChecked = true;
-        } else if (attendant.id ==="000GUEST") {
-          key = attendant.id+attendant.name;
+          key = id+key;
           isChecked = true;
         } else {
-          key = attendant.id;
+          key = i++;
+          key = id+firstName+lastName+language+key;
           isChecked = attendant.checked;
         }
 
       return {
         label: label,
         key: key,
+        firstName: firstName,
+        lastName: lastName,
         language: language,
-        isChecked: isChecked
+        isChecked: isChecked,
+        index: index
       }
     });
 
     return checklistItems;
   },
 
-  handleCheck: function(key, value, language) {
+  handleCheck: function(key, value, language, firstName, lastName) {
     let request = new XMLHttpRequest();
     request.open('PATCH', '/attendance', true);
     request.setRequestHeader('Content-Type', 'application/json');
@@ -111,14 +116,16 @@ var Admin = React.createClass({
       }
     }
     request.send(JSON.stringify({
-      id: key,
+      key: key,
       language: language,
+      firstName: firstName,
+      lastName: lastName,
       checked: value,
       waitlist: false
     }));
   },
 
-  handleWaitlistCheck: function(key, value, language) {
+  handleWaitlistCheck: function(key, value, language, firstName, lastName) {
     let request = new XMLHttpRequest();
     request.open('PATCH', '/attendance', true);
     request.setRequestHeader('Content-Type', 'application/json');
@@ -137,8 +144,10 @@ var Admin = React.createClass({
       }
     }
     request.send(JSON.stringify({
-      id: key,
+      key: key,
       language: language,
+      firstName: firstName,
+      lastName: lastName,
       checked: value,
       waitlist: true
     }));
@@ -195,7 +204,7 @@ var Admin = React.createClass({
       let waitlisters = _.filter(this.state.checkboxWaitlist, (person) => {
         return person.language === lang.language;
       });
-      // TODO: sort?
+      waitlisters = _.sortBy(waitlisters, [function(o) { return o.index; }]);
 
       let list;
       let languageString;

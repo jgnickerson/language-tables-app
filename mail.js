@@ -75,22 +75,52 @@ var send = function(reservationObj, waitlist) {
 }
 
 // send mail to newly added guests
-var sendNewGuests = function(email, language, date, firstName, lastName) {
+var sendNewGuests = function(email, language, date, firstName, lastName, id) {
   var languageString = languages[language][0];
   if (languageString !== "ASL") {
     languageString = _.capitalize(languageString);
   }
+
+  var dateString = date.utc().format();
+
+  // make sure we are in the correct timezone...
+  var timeZoneString = dateString.substring(10, dateString.length);
+  if (timeZoneString !== "T05:00:00Z") {
+    dateString = _.replace(dateString, timeZoneString, "T05:00:00Z")
+  }
+
   // var languages = ["Spanish", "French", "Chinese", "German"];
   var text = "Dear "+firstName+" "+lastName+", </br></br>";
-  text += "You just got a spot at " + languageString + " Language Tables for today ("+date.format("dddd, MMMM Do")+")!";
+  text += "You just got a spot at " + languageString + " Language Tables for ";
+  var subject;
+  if (moment().startOf('day').isSame(date)) {
+    subject = "You got a spot at Language Tables [TODAY]";
+    text += "today,";
+  } else {
+    subject = "You got a spot at Language Tables"
+  }
+  text += " "+date.format("dddd, MMMM Do")+"!";
   text += "</br>Please make sure to arrive to Redfield Proctor before the doors open at 12:30pm.</br>";
+
+  var languageCode = language.toString();
+  if (languageCode.length === 1) {
+    languageCode = "0"+languageCode;
+  }
+  var decodedString = languageCode + id + dateString + firstName.length + firstName + lastName;
+  var encodedString = new Buffer(decodedString).toString('base64');
+  var cancelLink = 'http://basin.middlebury.edu:3000/cancel?reservation=' + encodedString;
+
+  text += "If you are no longer planning to attend, please <a href= '"+cancelLink+"'>click here</a> to cancel your reservation. </br></br>"
+
+
   text += "</br>Thank you, </br>";
   text += "Language Tables";
+
 
   var mailOptions = {
     from: '"Language Tables" <LanguageTables@middlebury.edu>', // sender address
     to: email, // list of receivers
-    subject: 'You got a spot at Language Tables TODAY', // Subject line
+    subject: subject, // Subject line
     text: text, // plaintext body
     html: text // html body
   }

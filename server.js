@@ -9,6 +9,7 @@ const XLSX = require('xlsx');
 const express = require('express');
 const moment = require('moment');
 var CronJob = require('cron').CronJob;
+var ObjectID = require('mongodb').ObjectID;
 
 const app = express();
 
@@ -361,170 +362,271 @@ app.get('/cancel', (req, res) => {
   if (timeZoneString !== "T05:00:00Z") {
     date = _.replace(date, timeZoneString, "T05:00:00Z")
   }
-  // console.log(decodedString);
-  //console.log("firstNameLen: "+ firstNameLen +"\n")
+  //console.log(decodedString);
+  console.log("firstNameLen: "+ firstNameLen);
   console.log("language: "+language);
   console.log("id: "+id);
   console.log("date: "+date);
   console.log("firstName: "+firstName);
   console.log("lastName: "+lastName +"\n");
 
-  // remove the reservation from dates collection
-  db.collection('dates').find(
-    {'date': date},
-    {'vacancy': {$elemMatch: {'language': language}}}).toArray((err, result) => {
+  // in attendants collection...
+  db.collection('attendants').find({ id : id }).toArray((err, result) => {
     if (err) {
       console.log(err);
-      res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+      //send the error message to the user
+      res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
       return;
     }
 
-    //for convenience
-    var waitlist = result[0].vacancy[0].waitlist;
-    var guestlist = result[0].vacancy[0].guestlist;
-    var seatsReserved = result[0].vacancy[0].seatsReserved;
+    var doc1 = result[0];
 
-    // if the attendant is on the waitlist for that language on that day
-    if (waitlist.includes(id)) {
+    // console.log("\nATTENDANTS DOC FOR THE ONE WHO IS CANCELLING [BEFORE]:");
+    // console.log(JSON.stringify(doc1, null, 4));
 
-      // remove him from wailtlist
-      var index = waitlist.indexOf(id);
-      waitlist.splice(index, 1);
+    // find the record in both guestlist and waitlist (if exists)
+    var indexGuest = doc1.attendance.findIndex((object) => {
+      return object.date === date && object.language === language && object.firstName === firstName && object.lastName === lastName;
+    });
 
-      // update the waitlist in attendants collection
-      db.collection('attendants').update(
-        { id: id },
-        { $pull: { 'waitlists': { 'date' : date, 'language' : language, 'firstName' : firstName, 'lastName' : lastName } } },
-        function(err, results) {
-          if (err) {
-            console.log(err);
-            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+    var indexWait = doc1.waitlists.findIndex((object) => {
+      return object.date === date && object.language === language && object.firstName === firstName && object.lastName === lastName;
+    });
+
+    if (indexGuest === -1 && indexWait === -1){
+      // no record exists in attendance collection
+      console.log("Error finding the guest info in attendants collection (for cancellation). Student ID: " + id)
+      res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">No record of this reservation exists. It is likely that you have already cancelled this reservation.</p>');
+      return;
+
+    } else {
+
+      // if appear both on guestlist and waitlist, prioritize guestlist
+      // so that next on the line gets a seat -- guests can be figured out by the
+      // headwaiter at the entrance.
+      // (may happen with guests, since they are not restricted in signups)
+      if (indexGuest > -1 && indexWait > -1) {
+        indexWait = -1;
+      }
+
+      if (indexGuest > -1) {
+        // remove from guestlist
+        var removedItem = doc1.attendance.splice(indexGuest, 1);
+      }
+
+      if (indexWait > -1) {
+        // remove from waitlist
+        var removedItem = doc1.waitlists.splice(indexWait, 1);
+      }
+
+      // update the dates collection...
+      db.collection('dates').find({date: date}).toArray((err, result) => {
+        if (err) {
+          console.log(err);
+          //send the error message to the user
+          res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
+          return;
+        }
+
+        var doc2 = result[0];
+        // console.log("\nDATES DOC [BEFORE]:");
+        // console.log(JSON.stringify(doc2, null, 4));
+
+        var indexLang = doc2.vacancy.findIndex((object) => {
+          return object.language === language;
+        });
+
+        if (indexLang > -1) {
+
+          var indexWaitInDates = doc2.vacancy[indexLang].waitlist.findIndex((element) => {
+            return element === id;
+          });
+          var indexGuestInDates = doc2.vacancy[indexLang].guestlist.findIndex((element) => {
+            return element === id;
+          });
+
+          if (indexGuestInDates === -1 && indexWaitInDates === -1){
+            // no record exists in attendance collection
+            console.log("Error finding the guest info in dates collection (for cancellation). Student ID: " + id)
+            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">No record of this reservation exists. It is likely that you have already cancelled this reservation.</p>');
             return;
-          }
 
-          // update the waitlist in dates collection
-          db.collection('dates').update(
-            {'date': date, 'vacancy.language': language},
-            {$set: {'vacancy.$.waitlist': waitlist}},
-            function(err, result) {
-              if (err) {
-                console.log(err);
-                res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
-                return;
+          } else {
+
+            // if appear both on guestlist and waitlist, prioritize guestlist
+            // so that next on the line gets a seat -- guests can be figured out by the
+            // headwaiter at the entrance.
+            // (may happen with guests, since they are not restricted in signups)
+            if (indexGuestInDates > -1 && indexWaitInDates > -1) {
+              indexWaitInDates = -1;
+            }
+
+            // person who would get a seat as a result
+            var luckyID;
+
+            if (indexWaitInDates > -1) {
+              // remove from waitlist
+              var removedItemInDates = doc2.vacancy[indexLang].waitlist.splice(indexWaitInDates, 1);
+
+            }
+
+            if (indexGuestInDates > -1) {
+              // remove from guestlist
+              var removedItemInDates = doc2.vacancy[indexLang].guestlist.splice(indexGuestInDates, 1);
+              doc2.vacancy[indexLang].seatsReserved--;
+
+              // if waitlist is not empty
+              if (doc2.vacancy[indexLang].waitlist.length > 0) {
+                // give the lucky person what he/she wants (a seat :D)
+                luckyID = doc2.vacancy[indexLang].waitlist.splice(0, 1);
+
+                // push waitlist[0] to guestlist
+                doc2.vacancy[indexLang].guestlist.push(luckyID[0]);
+
+                // increment the number of seats reserved
+                doc2.vacancy[indexLang].seatsReserved++;
+
               }
             }
-          );
-        }
-      );
+
+            //console.log("\nLuckyID: "+luckyID);
+
+            // then if all successful and if lucky person exists
+            if (luckyID) {
+              // now deal with the lucky person in attendants collection
+              db.collection('attendants').find({ id : luckyID[0] }).toArray((err, result) => {
+                if (err) {
+                  console.log(err);
+                  //send the error message to the user
+                  res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
+                  return;
+                }
+
+                var doc3;
+                // if the one who is cancelling is 000GUEST and the lucky person is
+                // 000GUEST too, then set to the already updated doc1
+                if (luckyID[0] === id) {
+                  doc3 = Object.assign({}, doc1);
+                } else {
+                  doc3 = result[0];
+                }
+
+                // console.log("\nATTENDANTS DOC FOR THE LUCKY PERSON [BEFORE]:");
+                // console.log(JSON.stringify(doc3, null, 4));
+
+                if (doc3.waitlists) {
+                  // remove him/her from the waitlist in attendance collection
+                  var indexLucky = doc3.waitlists.findIndex((object) => {
+                    return object.date === date && object.language === language;
+                  });
+
+                  //make sure the record actually exists
+                  if (indexLucky > -1) {
+
+                    var removedItem3 = doc3.waitlists.splice(indexLucky, 1);
+                    if (doc3.attendance) {
+                      doc3.attendance.push(removedItem3[0]);
+                    } else {
+                      doc3.attendance = [removedItem3[0]];
+                    }
+
+                    // then save all 3 docs and send an email if success
+                    db.collection('attendants').save(doc1).then((response) => {
+                      if (response.result.ok) {
+
+                        db.collection('dates').save(doc2).then((response) => {
+                          if (response.result.ok) {
+
+                            db.collection('attendants').save(doc3).then((response) => {
+                              if (response.result.ok) {
+
+                                mail.sendNewGuests(removedItem3[0].email, removedItem3[0].language, moment(date).startOf('day'), removedItem3[0].firstName, removedItem3[0].lastName, luckyID[0]);
+
+                                // send a SUCCESS message to the user!
+                                res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully canceled your reservation.</p>');
+                                return;
 
 
-    //if the attendant is on the guestlist for that language on that day
-    } else if (guestlist.includes(id)) {
 
-      // remove him from the guestlist
-      var index = guestlist.indexOf(id);
-      guestlist.splice(index, 1);
+                              } else {
+                                console.log("Error saving the lucky person's info in attendants collection (cancellation). Student ID: " + luckyID[0]);
+                                res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
+                                return;
+                              }
+                            });
 
-      // decrement the number of seats reserved
-      seatsReserved--;
+                          } else {
+                            console.log("Error saving the guest info in dates collection (cancellation). Student ID: " + id);
+                            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
+                            return;
+                          }
+                        });
 
-      //declare here, so we can check later
-      let luckyID, luckyAttendant;
+                      } else {
+                        console.log("Error saving the guest info in attendants collection (cancellation). Student ID: " + id);
+                        res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
+                        return;
+                      }
+                    });
 
-      // if waitlist is not empty
-      if (waitlist.length > 0) {
-
-        // remove waitlist[0]
-        luckyID = waitlist.splice(0, 1);
-        // push waitlist[0] to guestlist
-        guestlist.push(luckyID[0]);
-
-        // increment the number of seats reserved
-        seatsReserved++;
-
-        //send an email to the lucky person
-        db.collection('attendants').find( { id: luckyID[0] },
-          { 'waitlists': { $elemMatch: { 'date' : date, 'language' : language } } })
-          .toArray((err, result) => {
-          if (err) {
-            console.log(err);
-            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
-            return;
-          }
-
-          //used to send email after database is finished updating
-          luckyAttendant = result[0].waitlists[0];
-
-          // update the waitlists/attendance for the lucky person in attendants collection
-          db.collection('attendants').bulkWrite([
-            { updateOne: {
-              filter: { id: luckyID[0] },
-              update: { $pull: { 'waitlists': result[0].waitlists[0] } }
-            }},
-            { updateOne: {
-              filter: { id: luckyID[0] },
-              update: { $push: { 'attendance': result[0].waitlists[0] } }
-            }}], { ordered: true },
-            function(err, result) {
-              if (err) {
-                console.log(err);
-                res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
-                return;
-              }
-
-              // update the waitlist in dates collection
-              db.collection('dates').update(
-                {'date': date, 'vacancy.language': language},
-                {$set: {'vacancy.$.waitlist': waitlist}},
-                function(err, result) {
-                  if (err) {
-                    console.log(err);
-                    res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
+                  } else {
+                    // no record exists in attendance collection
+                    console.log("Error finding the lucky person's info in dates collection.");
+                    res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
                     return;
                   }
+
+                } else {
+                  console.log("Error finding the lucky person's record in attendants collection.");
+                  //send the error message to the user
+                  res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
+                  return;
                 }
-              );
-            });
-          });
-        }
 
-      // update the guestlist, number of seats in dates collection
-      db.collection('dates').bulkWrite([
-        { updateOne: {
-          filter: {'date': date, 'vacancy.language': language},
-          update: {$set: {'vacancy.$.guestlist': guestlist}}
-        }},
-        { updateOne: {
-          filter: {'date': date, 'vacancy.language': language},
-          update: {$set: {'vacancy.$.seatsReserved': seatsReserved}}
-        }}], { ordered: true },
-        function(err, result) {
-          if (err) {
-            console.log(err);
-            res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
-            return;
-          }
+              });
+            } else {
+              // just save the first 2 docs
+              db.collection('attendants').save(doc1).then((response) => {
+                if (response.result.ok) {
 
-          // update the attendance in attendants collection
-          db.collection('attendants').update(
-            { id: id },
-            { $pull: { 'attendance': { 'date' : date, 'language' : language, 'firstName' : firstName, 'lastName' : lastName } }
-          }, function(err, result) {
-            if (err) {
-              console.log(err);
-              res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again.</p>');
-              return;
+                  db.collection('dates').save(doc2).then((response) => {
+                    if (response.result.ok) {
+
+                      // send a SUCCESS message to the user!
+                      res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully canceled your reservation.</p>');
+                      return;
+
+
+
+                    } else {
+                      console.log("Error saving the guest info in dates collection (cancellation). Student ID: " + id);
+                      res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
+                      return;
+                    }
+                  });
+
+                } else {
+                  console.log("Error saving the guest info in attendants collection (cancellation). Student ID: " + id);
+                  res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">Something went wrong. Please try again later.</p>');
+                  return;
+                }
+              });
+
+              // console.log("\nATTENDANTS DOC FOR THE ONE WHO IS CANCELLING [AFTER]:");
+              // console.log(JSON.stringify(doc1, null, 4));
+              //
+              // console.log("\nDATES DOC [AFTER]:");
+              // console.log(JSON.stringify(doc2, null, 4));
+
             }
-          });
-
-          if (luckyID && luckyAttendant) {
-            mail.sendNewGuests(luckyAttendant.email, language, moment(date), luckyAttendant.firstName, luckyAttendant.lastName);
           }
-
-          //successfully removed the attendant from all necessary places in the db, so send a success message
-          res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">You have successfully canceled your reservation.</p>');
+        } else {
+          // no language record exists in dates collection
+          console.log("Error finding the language info in dates collection (for cancellation). Student ID: " + id)
+          res.send('<p align="center" style="font-size: 30;color: 616161;margin-top: 30;">No record of this reservation exists. It is likely that you have already cancelled this reservation.</p>');
+          return;
         }
-      );
+      });
     }
   });
 });
@@ -586,15 +688,18 @@ app.get('/attendance', (req, res) => {
                 guests.forEach((guest) => {
                   langAttendants.push({
                     id: item.id,
-                    name: guest.firstName+" "+guest.lastName,
-                    language: guest.language
+                    firstName: guest.firstName,
+                    lastName: guest.lastName,
+                    language: guest.language,
+                    checked: guest.checked ? guest.checked : false
                   })
                 })
               } else if (item.id === "RESERVED") {
                 for (var i = 0; i < countReserved; i++) {
                   langAttendants.push({
                     id: "RESERVED",
-                    name: "Teaching Assistant/Faculty",
+                    firstName: "Teaching Assistant",
+                    lastName: "/ Faculty",
                     language: lang.language
                   });
                 }
@@ -606,7 +711,8 @@ app.get('/attendance', (req, res) => {
                 if (theOneWeNeed !== undefined) {
                   langAttendants.push({
                     id: item.id,
-                    name: theOneWeNeed.firstName+" "+theOneWeNeed.lastName,
+                    firstName: theOneWeNeed.firstName,
+                    lastName: theOneWeNeed.lastName,
                     language: theOneWeNeed.language,
                     checked: theOneWeNeed.checked ? theOneWeNeed.checked : false
                   });
@@ -640,8 +746,10 @@ app.get('/attendance', (req, res) => {
                 guests.forEach((guest) => {
                   langWaitlisters.push({
                     id: item.id,
-                    name: guest.firstName+" "+guest.lastName,
-                    language: guest.language
+                    firstName: guest.firstName,
+                    lastName: guest.lastName,
+                    language: guest.language,
+                    index: lang.waitlist.indexOf(item.id)
                   })
                 })
               } else {
@@ -652,8 +760,10 @@ app.get('/attendance', (req, res) => {
                 if (theOneWeNeed !== undefined) {
                   langWaitlisters.push({
                     id: item.id,
-                    name: theOneWeNeed.firstName+" "+theOneWeNeed.lastName,
+                    firstName: theOneWeNeed.firstName,
+                    lastName: theOneWeNeed.lastName,
                     language: theOneWeNeed.language,
+                    index: lang.waitlist.indexOf(item.id),
                     checked: theOneWeNeed.checked ? theOneWeNeed.checked : false
                   });
                 }
@@ -684,8 +794,7 @@ app.get('/attendance', (req, res) => {
 app.patch('/attendance', (req, res) => {
   let body = req.body; // {id: '00000000', language: '00'};
   let date = moment().startOf('day').utc().format();
-  let attendants = db.collection('attendants');
-  let dates = db.collection('dates');
+  let id = body.key.substring(0, 8);
 
   let timeZoneString = date.substring(10, date.length);
   // console.log(timeZoneString);
@@ -695,7 +804,7 @@ app.patch('/attendance', (req, res) => {
 
   // handle the change of location
   if (body.locationChange) {
-    dates.update(
+    db.collection('dates').update(
       { date: date, "vacancy.language": body.language },
       { $set: {"vacancy.$.location": body.location }},
     (err, result) => {
@@ -711,98 +820,178 @@ app.patch('/attendance', (req, res) => {
 
   // handle checking off
   } else {
+    //waitlist
     if (body.waitlist) {
       // finds the student, moves him from waitlist to guestlist and checks their attendance
 
       // in attendants collection...
-      attendants.find({ id : body.id }).forEach(function(doc) {
-
-        // remove him/her from the waitlist in attendance collection
-        var removedItems = _.remove(doc.waitlists, function(object) {
-          return object.date === date && object.language === body.language
-        });
-
-        // add him/her to the guestlist in attendance collection
-        removedItems.forEach(function(item) {
-          item.checked = body.checked;
-          if (doc.attendance) {
-            doc.attendance.push(item);
-          } else {
-            doc.attendance = [item];
-          }
-        });
-
-        // save
-        attendants.save(doc).then(function(response) {
-          // if successful
-          if (response.result.ok) {
-            // make sure removedItems is not empty
-            if (removedItems[0]) {
-              // update the dates collection...
-              dates.find({date: date}).forEach(function(doc) {
-                // find index of the language we need
-                var index = doc.vacancy.findIndex((element) => {
-                  return element.language === body.language;
-                });
-
-                // remove student from the waitlist in dates collection
-                var removed = _.remove(doc.vacancy[index].waitlist, function(id) {
-                  return id === body.id
-                });
-
-                // add him/her to the guestlist in dates collection
-                removed.forEach(function(item) {
-                  doc.vacancy[index].guestlist.push(item);
-
-                  //increment seatsReserved and seatsAvailable
-                  doc.vacancy[index].seatsReserved ++;
-                  doc.vacancy[index].seatsAvailable ++;
-                });
-
-                // save
-                dates.save(doc).then(function(response) {
-                  if (response.result.ok) {
-                    // make sure removed is not empty
-                    if (removed[0]) {
-                      res.sendStatus(200);
-                    } else {
-                      console.log("Error: no waitlist record in dates collection. Student ID: " + body.id);
-                      res.sendStatus(500);
-                    }
-                  } else {
-                    console.log("Error saving the new guest info in dates collection. Student ID: " + body.id);
-                    res.sendStatus(500);
-                  }
-                });
-              });
-
-            } else {
-              console.log("Error: no waitlist record in attendance collection. Student ID: " + body.id);
-              res.sendStatus(500);
-            }
-
-          } else {
-            console.log("Error saving the new guest info in attendance collection. Student ID: " + body.id);
-            res.sendStatus(500);
-          }
-        });
-      });
-
-    } else {
-      //finds the student and either "checks" or "unchecks" their attendance for today
-      attendants.update(
-        { id : body.id, attendance: {  $elemMatch : { date : date, language : body.language }}},
-        { $set : { "attendance.$.checked" : body.checked }},
-      (err, result) => {
+      db.collection('attendants').find({ id : id }).toArray((err, result) => {
         if (err) {
           console.log(err);
           res.sendStatus(500);
-          return;
         }
 
-        res.sendStatus(200);
-        return;
+        var doc1 = result[0];
+        //console.log(JSON.stringify(doc1, null, 4));
+        //console.log("1");
+        if (doc1.waitlists) {
+          // remove him/her from the waitlist in attendance collection
+          var index = doc1.waitlists.findIndex((object) => {
+            return object.date === date && object.language === body.language && object.firstName === body.firstName && object.lastName === body.lastName;
+          });
+
+          //make sure the record actually exists
+          if (index > -1) {
+
+            var removedItem = doc1.waitlists.splice(index, 1);
+            removedItem[0].checked = body.checked;
+            if (doc1.attendance) {
+              doc1.attendance.push(removedItem[0]);
+            } else {
+              doc1.attendance = [removedItem[0]];
+            }
+
+            //console.log(JSON.stringify(doc1, null, 4));
+            //console.log("1");
+            //save
+            db.collection('attendants').save(doc1).then((response) => {
+              if (response.result.ok) {
+                // update the dates collection...
+                db.collection('dates').find({date: date}).toArray((err, result) => {
+                  if (err) {
+                    console.log(err);
+                    res.sendStatus(500);
+                  }
+
+                  var doc2 = result[0];
+                  //console.log(JSON.stringify(doc2, null, 4));
+                  //console.log("2");
+
+                  if (doc2.vacancy) {
+                    // find index of the language we need
+                    var langIndex = doc2.vacancy.findIndex((element) => {
+                      return element.language === body.language;
+                    });
+
+                    // remove student from the waitlist in dates collection
+                    var i = doc2.vacancy[langIndex].waitlist.indexOf(id);
+
+                    // make sure the record actually exists
+                    if (i > -1) {
+                      var removed = doc2.vacancy[langIndex].waitlist.splice(i, 1);
+
+                      // add him/her to the guestlist in dates collection
+                      doc2.vacancy[langIndex].guestlist.push(removed[0]);
+
+                      //increment seatsReserved and seatsAvailable
+                      doc2.vacancy[langIndex].seatsReserved ++;
+                      doc2.vacancy[langIndex].seatsAvailable ++;
+
+                      //console.log(JSON.stringify(doc2, null, 4));
+                      //console.log("2");
+
+                      // save
+                      db.collection('dates').save(doc2).then((response) => {
+                        if (response.result.ok) {
+                            // success!
+                            res.sendStatus(200);
+                        } else {
+                          console.log("Error saving the new guest info in dates collection. Student ID: " + id);
+                          res.sendStatus(500);
+                        }
+                      });
+                    } else {
+                      console.log("Error: no waitlist record in dates collection. Student ID: " + id);
+                      res.sendStatus(500);
+                    }
+                  } else {
+                    console.log("Error: no waitlist record in dates collection. Student ID: " + id);
+                    res.sendStatus(500);
+                  }
+                });
+              } else {
+                console.log("Error saving the new guest info in attendance collection. Student ID: " + id);
+                res.sendStatus(500);
+              }
+            });
+          } else {
+            console.log("Error: no waitlist record in attendance collection. Student ID: " + id);
+            res.sendStatus(500);
+          }
+        } else {
+          console.log("Error: no waitlist record in attendance collection. Student ID: " + id);
+          res.sendStatus(500);
+        }
       });
+
+
+    //guestlist
+    } else {
+      if (id !== "000GUEST") {
+        //finds the student and either "checks" or "unchecks" their attendance for today
+        db.collection('attendants').update(
+          { id : id, attendance: {  $elemMatch : { date : date, language : body.language, firstName: body.firstName, lastName: body.lastName }}},
+          { $set : { "attendance.$.checked" : body.checked }},
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            res.sendStatus(500);
+            return;
+          }
+
+          res.sendStatus(200);
+          return;
+        });
+      } else {
+        // guests have a weird situation where...
+        // if more than 1 guest have exactly the same name,
+        // it's possible that the above logic won't allow check one of them on/off
+        // since elemMatch looks only at the first item... hence:
+        db.collection('attendants').find({ id : id }).toArray((err, result) => {
+          if (err) {
+            console.log(err);
+            res.sendStatus(500);
+          }
+
+          var doc = result[0];
+          //console.log(JSON.stringify(doc, null, 4));
+          var didTheCheck = false;
+          if (doc.attendance) {
+            doc.attendance.forEach((object) => {
+              if (object.date === date && object.language === body.language && object.firstName === body.firstName && object.lastName === body.lastName) {
+                // if havent yet checked on/off the person
+                if (!didTheCheck) {
+                  if (typeof object.checked === 'undefined') {
+                    object.checked = body.checked;
+                    didTheCheck = true;
+                  } else {
+                    if (object.checked !== body.checked) {
+                      object.checked = body.checked;
+                      didTheCheck = true;
+                    }
+                  }
+                }
+              }
+            });
+            //console.log(JSON.stringify(doc, null, 4));
+
+            // save
+            db.collection('attendants').save(doc).then((response) => {
+              if (response.result.ok) {
+                  // success!
+                  res.sendStatus(200);
+              } else {
+                console.log("Error saving the new guest info in attendants collection. Student ID: " + id);
+                res.sendStatus(500);
+              }
+            });
+
+          } else {
+            console.log("Error: no guestlist record in attendance collection. Student ID: " + id);
+            res.sendStatus(500);
+          }
+        });
+      }
     }
   }
 });
@@ -816,7 +1005,7 @@ var second = timeToRun.seconds();
 // ******
 
 // for testing:
-// cronTime: second+" "+minute+" "+hour+" * * 0-4",
+// cronTime: second+" "+minute+" "+hour+" * * 1-5",
 var tableAllocationJob = new CronJob({
   cronTime: "00 15 11 * * 1-5",
   onTick: function() {
@@ -824,6 +1013,7 @@ var tableAllocationJob = new CronJob({
      * Runs Monday through Friday
      * at 11:15:00 AM.
      */
+     console.log("\nTable-reallocation algorithm started...\n");
      algorithm.run(db, moment, _);
   },
   start: false,
