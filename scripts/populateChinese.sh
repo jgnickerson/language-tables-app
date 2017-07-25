@@ -13,8 +13,8 @@ function validate {
     is_valid_date=$?
 
   #in Mac OS line 18 (i.e. the next if statement) should look like this:
-  if ! perl -mTime::Piece -e "Time::Piece->strptime(\"$1\", \"%Y-%m-%d\")" 2> /dev/null
-  #if [[ $is_valid_date -ne 0 ]]
+  #if ! perl -mTime::Piece -e "Time::Piece->strptime(\"$1\", \"%Y-%m-%d\")" 2> /dev/null
+  if [[ $is_valid_date -ne 0 ]]
     then isvalid=0
   fi
 
