@@ -1236,16 +1236,14 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
                       //console.log(courseAttendants);
                       if (courseAttendants) {
                         for (var i = 0; i < courseAttendants.length; i++) {
-                          if (courseAttendants[i].id === "11111111") {
-                            console.log(courseAttendants[i]);
-                          }
+
                           var temp = JSON.parse(JSON.stringify(courseAttendants))
                           var totalVisits = _.remove(temp[i].attendance, {course: courseVal, checked: true});
                           var thisSemesterVisits = _(totalVisits).keyBy('date').at(thisSemester).filter().value();
 
                           // only put the numbers from this semester
                           if (courseAttendants[i].id && thisSemesterVisits.length > 0) {
-                            console.log(courseAttendants[i]);
+                            //console.log(courseAttendants[i]);
                             var firstName = courseAttendants[i].attendance[0].firstName;
                             var lastName = courseAttendants[i].attendance[0].lastName;
 
