@@ -1013,7 +1013,6 @@ var tableAllocationJob = new CronJob({
      * Runs Monday through Friday
      * at 11:15:00 AM.
      */
-     console.log("\nTable-reallocation algorithm started...\n");
      algorithm.run(db, moment, _);
   },
   start: false,
