@@ -62,6 +62,8 @@ var run = function(db, moment, _) {
         throw err;
       }
       if (result[0]) {
+        console.log("\nTable-reallocation algorithm started...\n");
+        
         languages = result[0].vacancy;
 
         // For each language in the object
