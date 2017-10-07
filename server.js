@@ -385,13 +385,13 @@ app.get('/cancel', (req, res) => {
     // console.log(JSON.stringify(doc1, null, 4));
 
     // find the record in both guestlist and waitlist (if exists)
-    var indexGuest = doc1.attendance.findIndex((object) => {
+    var indexGuest = doc1.attendance ? doc1.attendance.findIndex((object) => {
       return object.date === date && object.language === language && object.firstName === firstName && object.lastName === lastName;
-    });
+    }) : -1;
 
-    var indexWait = doc1.waitlists.findIndex((object) => {
+    var indexWait = doc1.waitlists ? doc1.waitlists.findIndex((object) => {
       return object.date === date && object.language === language && object.firstName === firstName && object.lastName === lastName;
-    });
+    }) : -1;
 
     if (indexGuest === -1 && indexWait === -1){
       // no record exists in attendance collection
