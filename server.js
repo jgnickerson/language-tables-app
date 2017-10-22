@@ -1243,8 +1243,8 @@ var sendWeeklyEmailToFacultyJob = new CronJob({
                           // only put the numbers from this semester
                           if (courseAttendants[i].id && thisSemesterVisits.length > 0) {
                             //console.log(courseAttendants[i]);
-                            var firstName = courseAttendants[i].attendance[0].firstName;
-                            var lastName = courseAttendants[i].attendance[0].lastName;
+                            var firstName = courseAttendants[i].attendance.slice(-1)[0].firstName;
+                            var lastName = courseAttendants[i].attendance.slice(-1)[0].lastName;
 
                             sheet.set(1, i+2, lastName);
                             sheet.set(2, i+2, firstName);
