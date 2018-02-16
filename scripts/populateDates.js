@@ -107,7 +107,7 @@ if (authResult) {
     }
 
     // increment to the next day
-    startDate = new Date(startDate.getTime() + 1*24*60*60000);
+    startDate.setDate(startDate.getDate() + 1);
   }
 
   // insert all new docs into the dates collection
