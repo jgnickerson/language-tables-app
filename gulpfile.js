@@ -25,7 +25,7 @@ gulp.task('start-server', ['init-db', 'start-server']);
 
 //fires up mongo
 gulp.task('start-mongo', function() {
-  child.exec('mongod --auth --port 3001 --dbpath ./db', function(err, stdin, stderr) {
+  child.exec('mongod --auth --port 3001 --dbpath ./db --bind_ip_all', function(err, stdin, stderr) {
     console.log('mongo: ', stdin);
     console.log('mongo: ', stderr);
   });
