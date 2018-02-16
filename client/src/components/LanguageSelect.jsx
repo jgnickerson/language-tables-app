@@ -42,7 +42,7 @@ var LanguageSelect = React.createClass({
           name="language-select"
           placeholder="Select a language..."
           value={this.props.language}
-          options={this.state.languages}
+          options={_.sortBy(this.state.languages, ['label'])}
           onChange={(language) => {this.props.onChange(language)}}
           clearable={true}
         />
