@@ -74,7 +74,7 @@ var Signup = React.createClass({
     // restricting the user to only type in characters
 
     let newText = '';
-    let invalidChars = " 0123456789~!#$%^&*()_-=+|\"':;[]/";
+    let invalidChars = " ~!#$%^&*()_-=+|\"':;[]/";
 
      for (var i=0; i < email.length; i++) {
        if (invalidChars.indexOf(email[i]) > -1 ) {
