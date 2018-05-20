@@ -52,33 +52,42 @@ if (weekday === "Error") {
           dateString = dateString.replace(timeZone, "T05:00:00Z")
         }
 
-        // WARNING
-        // assumes that Chinese is second language in the array!
-        var returnValue = db.dates.findOneAndUpdate(
-          { date: dateString },
-          { $push: { 'vacancy.2.guestlist': id },
-            $inc: { 'vacancy.2.seatsReserved': 1 }
-          },
-          { returnNewDocument : true }
-        );
-
-        if (returnValue) {
-          db.attendants.findOneAndUpdate(
-            { id: id },
-            { $push:
-              { attendance:
-                { date: dateString,
-                  language: 2,
-                  course: course,
-                  firstName: firstName,
-                  lastName: lastName,
-                  email: email
-                }
-              }
+        print("seatcount: " + seatCount + "\n");
+        for (let i = 0; i < seatCount; i++) {
+          print("Doing number " + i + " of " + seatCount + ". \n");
+          if (i < 10) {
+            id = "000" + i + "CHNS";
+          } else {
+            id = "00" + i + "CHNS";
+	  }
+          // WARNING
+          // assumes that Chinese is second language in the array!
+          var returnValue = db.dates.findOneAndUpdate(
+            { date: dateString },
+            { $push: { 'vacancy.2.guestlist': id },
+              $inc: { 'vacancy.2.seatsReserved': 1 }
             },
-            { upsert:true }
+            { returnNewDocument : true }
           );
-        }
+
+          if (returnValue) {
+            db.attendants.findOneAndUpdate(
+              { id: id },
+              { $push:
+                { attendance:
+                  { date: dateString,
+                    language: 2,
+                    course: course,
+                    firstName: firstName,
+                    lastName: (lastName),
+                    email: email
+                  }
+                }
+              },
+              { upsert:true }
+            );
+          }
+	}
 
       }
 
